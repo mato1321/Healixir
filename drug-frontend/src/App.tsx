@@ -14,8 +14,6 @@ import ContactUs from "./pages/ContactUs";  // 新增聯絡我們頁面
 import Member from "./pages/Member";  // 新增會員中心頁面
 import AssessmentDetail from "./pages/AssessmentDetail";  // 新增評估詳情頁面
 import OrderDetail from "./pages/OrderDetail";  // 新增訂單詳情頁面
-
-// 添加問卷相關的頁面導入
 import PersonalInfo from "./pages/nutrition/PersonalInfo";
 import HealthGoalsPage from "./pages/nutrition/HealthGoalsPage";  // 新增健康目標頁面
 import QuestionnaireStart from "./pages/nutrition/QuestionnaireStart";
@@ -73,7 +71,6 @@ import ProductRecommendation from "./pages/nutrition/ProductRecommendation";
 import RecommendationReport from "./pages/nutrition/RecommendationReport";
 
 const queryClient = new QueryClient();
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -91,17 +88,11 @@ const App = () => (
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/member" element={<Member />} />
-          
-          {/* 新增詳情頁面路由 */}
           <Route path="/nutrition/assessment/:id" element={<AssessmentDetail />} />
           <Route path="/nutrition/order/:id" element={<OrderDetail />} />
-          
-          {/* 問卷流程路由 - 從這裡開始是新增的部分 */}
           <Route path="/nutrition/personal-info" element={<PersonalInfo />} />
           <Route path="/nutrition/health-goals" element={<HealthGoalsPage />} />
           <Route path="/nutrition/start" element={<QuestionnaireStart />} />
-          
-          {/* 所有問卷題目路由 */}
           <Route path="/nutrition/question/1" element={<Question1 />} />
           <Route path="/nutrition/question/2" element={<Question2 />} />
           <Route path="/nutrition/question/3" element={<Question3 />} />
@@ -150,18 +141,14 @@ const App = () => (
           <Route path="/nutrition/question/46" element={<Question46 />} />
           <Route path="/nutrition/question/47" element={<Question47 />} />
           <Route path="/nutrition/question/48" element={<Question48 />} />
-          
-          {/* 問卷結果和報告頁面 */}
           <Route path="/nutrition/analysis" element={<AnalysisResult />} />
           <Route path="/nutrition/result" element={<NutritionResult />} />
           <Route path="/nutrition/products" element={<ProductRecommendation />} />
           <Route path="/nutrition/recommendations" element={<RecommendationReport />} />
-          
           <Route path="*" element={<div>404 頁面不存在</div>} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
-
 export default App;
