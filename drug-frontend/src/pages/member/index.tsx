@@ -148,104 +148,274 @@ const Member = () => {
     }
   };
 
-  // PDF直接下載功能 - 使用HTML轉PDF避免中文字體問題
+  // PDF直接下載功能 - 與健康評估報告組件完全一致
   const downloadAsPDF = async (assessmentId: number) => {
     try {
       // 動態導入所需庫
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
       
-      // 創建臨時的HTML內容
+      // 創建臨時的HTML內容 - 設定為 A4 尺寸
       const tempDiv = document.createElement('div');
       tempDiv.style.position = 'absolute';
       tempDiv.style.left = '-9999px';
-      tempDiv.style.width = '794px'; // A4寬度
-      tempDiv.style.backgroundColor = 'white';
-      tempDiv.style.padding = '40px';
-      tempDiv.style.fontFamily = '"Microsoft JhengHei", "PingFang TC", "Helvetica Neue", Arial, sans-serif';
+      tempDiv.style.top = '0';
+      tempDiv.style.width = '210mm'; // A4 寬度
+      tempDiv.style.minHeight = '297mm'; // A4 高度
+      tempDiv.style.backgroundColor = '#ffffff';
+      tempDiv.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+      tempDiv.style.fontSize = '12px';
+      tempDiv.style.lineHeight = '1.5';
+      tempDiv.style.color = '#000000';
+      
+      // 健康指標數據
+      const healthMetrics = [
+        { name: '飲食', score: 70, color: '#10b981', icon: '🍎' },
+        { name: '作息', score: 85, color: '#10b981', icon: '⏰' },
+        { name: '心理', score: 25, color: '#ef4444', icon: '🧠' },
+        { name: '體質', score: 58, color: '#eab308', icon: '❤️' },
+        { name: '運動', score: 9, color: '#ef4444', icon: '🏃' }
+      ];
+
+      // 建議數據
+      const recommendations = [
+        {
+          number: 1,
+          title: '飲食方面 建議：',
+          content: '您目前有不錯的飲食習慣，建議繼持續三餐均衡飲食，多重視充天然蔬果攝取營養，並避免過多的快餐與高油加工食品。'
+        },
+        {
+          number: 2,
+          title: '心理方面 建議：',
+          content: '心理壓力較敏感，建議定期進行放鬆練習，如冥想、深呼吸、寫日記，或尋找讓您放心交流的朋友、若壓力持續過重，也可考慮尋求專心理諮詢。'
+        },
+        {
+          number: 3,
+          title: '作息方面 建議：',
+          content: '作息健康程度良好，請繼持現有的作息時間，每晚盡量充足的7-9小時睡眠，並盡量在晚上11點前入睡，幫助身體修復和新陳代謝。'
+        },
+        {
+          number: 4,
+          title: '體質方面 建議：',
+          content: '整體體質維持良好，請繼續持續均衡的營養攝取與適度運動，如每週進行至少3次的有氧運動，有助於提升免疫力與身體機能。'
+        },
+        {
+          number: 5,
+          title: '運動方面 建議：',
+          content: '運動量明顯不足，建議每天至少10-15分鐘的基礎運動開始，逐步增加強度，可以選擇快走、瑜伽、健身等您喜愛的運動，循序漸進提升身體健康和活力。'
+        }
+      ];
+
+      // 生成健康指標的HTML
+      const healthMetricsHTML = healthMetrics.map(metric => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #e5e7eb;">
+          <div style="display: flex; align-items: center;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(to right, #3b82f6, #9333ea); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+              <span style="font-size: 20px;">${metric.icon}</span>
+            </div>
+            <span style="color: #374151; font-weight: 500;">${metric.name}</span>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <div style="width: 128px; background: #e5e7eb; border-radius: 9999px; height: 12px; margin-right: 12px; overflow: hidden;">
+              <div style="height: 100%; background: ${metric.color}; width: ${metric.score}%; border-radius: 9999px;"></div>
+            </div>
+            <span style="font-weight: bold; color: #1f2937; width: 32px; text-align: right;">${metric.score}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // 生成建議的HTML
+      const recommendationsHTML = recommendations.map((rec, index) => `
+        <div style="background: rgba(255, 255, 255, 0.8); border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+          <div style="display: flex; align-items: flex-start;">
+            <div style="background: linear-gradient(to right, #3b82f6, #9333ea); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 16px; flex-shrink: 0;">
+              ${rec.number}
+            </div>
+            <div>
+              <h4 style="font-weight: bold; color: #1f2937; margin-bottom: 12px;">${rec.title}</h4>
+              <p style="color: #4b5563; line-height: 1.6;">${rec.content}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
       
       tempDiv.innerHTML = `
-        <div style="text-align: center; margin-bottom: 40px;">
-          <h1 style="color: #2563eb; font-size: 28px; margin: 0;">健康評估摘要報告</h1>
-          <p style="color: #666; margin: 10px 0;">Healixir 健康管理平台</p>
-          <hr style="border: 2px solid #2563eb; margin: 20px 0;">
-        </div>
-        
-        <div style="margin-bottom: 30px;">
-          <h3 style="color: #2563eb; border-left: 4px solid #2563eb; padding-left: 10px; margin-bottom: 15px;">📋 基本資訊</h3>
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
-            <p style="margin: 5px 0;"><strong>評估編號：</strong>${assessmentId}</p>
-            <p style="margin: 5px 0;"><strong>評估日期：</strong>2024-06-20</p>
-            <p style="margin: 5px 0;"><strong>用戶姓名：</strong>${user?.name || '未知用戶'}</p>
-            <p style="margin: 5px 0;"><strong>評估類型：</strong>營養目標評估</p>
+        <div style="padding: 32px; background: linear-gradient(to bottom right, #dbeafe, #e9d5ff, #d1fae5); min-height: 100vh;">
+          <!-- 報告框架 -->
+          <div style="background: white; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); overflow: hidden;">
+            <!-- 報告頭部 -->
+            <div style="background: linear-gradient(to right, #2563eb, #9333ea); color: white; padding: 32px; text-align: center;">
+              <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                <div style="width: 64px; height: 64px; background: white; border-radius: 8px; padding: 8px; margin-right: 16px; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 32px;">❤️</span>
+                </div>
+                <div style="text-align: left;">
+                  <h1 style="font-size: 30px; font-weight: bold; margin: 0;">Healixir</h1>
+                  <p style="color: #ddd6fe; margin: 0;">智能保健顧問</p>
+                </div>
+              </div>
+              <h2 style="font-size: 32px; font-weight: bold; margin-top: 24px;">健康評估報告</h2>
+              <p style="color: #ddd6fe; margin-top: 8px;">報告生成日期：${new Date().toLocaleDateString('zh-TW')}</p>
+            </div>
+
+            <!-- 報告內容 -->
+            <div style="padding: 32px;">
+              <!-- 基本資料卡片 -->
+              <div style="background: linear-gradient(to right, #dbeafe, #e9d5ff); border-radius: 16px; padding: 24px; margin-bottom: 32px; border: 1px solid #c7d2fe;">
+                <h3 style="font-size: 18px; font-weight: bold; color: #1f2937; margin-bottom: 16px;">基本資料</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center;">
+                  <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">年齡</p>
+                    <p style="font-size: 24px; font-weight: bold; color: #2563eb;">28</p>
+                    <p style="color: #6b7280; font-size: 14px;">歲</p>
+                  </div>
+                  <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">身高</p>
+                    <p style="font-size: 24px; font-weight: bold; color: #9333ea;">170</p>
+                    <p style="color: #6b7280; font-size: 14px;">公分</p>
+                  </div>
+                  <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">體重</p>
+                    <p style="font-size: 24px; font-weight: bold; color: #10b981;">61</p>
+                    <p style="color: #6b7280; font-size: 14px;">公斤</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 主要內容網格 -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <!-- 左側 - 健康分析 -->
+                <div>
+                  <!-- 綜合分析結果 -->
+                  <div style="background: #f9fafb; border-radius: 16px; padding: 24px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 24px;">
+                      <div>
+                        <h3 style="font-size: 20px; font-weight: bold; color: #1f2937; display: flex; align-items: center; margin-bottom: 16px;">
+                          <div style="width: 40px; height: 40px; background: linear-gradient(to right, #3b82f6, #9333ea); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                            <span style="color: white; font-size: 20px;">📊</span>
+                          </div>
+                          綜合分析結果
+                        </h3>
+                        <div style="font-size: 48px; font-weight: bold; background: linear-gradient(to right, #3b82f6, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">49分</div>
+                      </div>
+                      <div style="text-align: right;">
+                        <div style="display: flex; align-items: center; color: #9333ea; margin-bottom: 8px;">
+                          <span style="margin-right: 4px;">❤️</span>
+                          <span style="font-weight: 600;">健康分析說明</span>
+                        </div>
+                        <p style="color: #6b7280; font-size: 14px; margin-bottom: 12px;">您的綜合健康分數超過</p>
+                        <p style="font-size: 24px; font-weight: bold; color: #2563eb;">59% 的同齡人</p>
+                      </div>
+                    </div>
+                    ${healthMetricsHTML}
+                  </div>
+
+                  <!-- BMI 卡片 -->
+                  <div style="background: linear-gradient(to right, #10b981, #3b82f6); border-radius: 16px; padding: 24px; color: white; margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <p style="opacity: 0.9; margin-bottom: 4px;">您的身體質量指數為</p>
+                        <p style="font-size: 24px; font-weight: bold;">21.1 kg/m²</p>
+                        <p style="opacity: 0.9;">屬於正常範圍</p>
+                      </div>
+                      <div style="background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 16px;">
+                        <p style="color: #10b981; font-weight: bold; font-size: 18px;">BMI: 21.1</p>
+                        <span style="color: #10b981; font-size: 14px; background: #d1fae5; padding: 4px 12px; border-radius: 9999px;">正常範圍</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 需要改善的領域 -->
+                  <div style="background: linear-gradient(to right, #f97316, #ef4444); border-radius: 16px; padding: 24px; color: white;">
+                    <h4 style="font-weight: bold; font-size: 18px; margin-bottom: 8px; display: flex; align-items: center;">
+                      <div style="width: 32px; height: 32px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                        <span>⚠️</span>
+                      </div>
+                      需要改善的領域
+                    </h4>
+                    <p style="opacity: 0.9; margin-left: 44px;">心理和運動 方面需要特別關注</p>
+                  </div>
+                </div>
+
+                <!-- 右側 - 建議 -->
+                <div>
+                  <h3 style="font-size: 24px; font-weight: bold; color: #1f2937; text-align: center; margin-bottom: 24px;">個人化健康建議</h3>
+                  ${recommendationsHTML}
+                </div>
+              </div>
+
+              <!-- 報告底部資訊 -->
+              <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px;">
+                <p>本報告由 Healixir 智能健康評估系統生成</p>
+                <p style="margin-top: 8px;">如有任何疑問，請諮詢專業醫療人員</p>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <div style="margin-bottom: 30px;">
-          <h3 style="color: #2563eb; border-left: 4px solid #2563eb; padding-left: 10px; margin-bottom: 15px;">📊 整體健康評分</h3>
-          <div style="text-align: center; background: #f8fafc; padding: 20px; border-radius: 8px;">
-            <div style="font-size: 72px; color: #2563eb; font-weight: bold; margin: 0;">78</div>
-            <div style="font-size: 18px; color: #666;">/ 100分</div>
-          </div>
-        </div>
-        
-        <div style="margin-bottom: 30px;">
-          <h3 style="color: #2563eb; border-left: 4px solid #2563eb; padding-left: 10px; margin-bottom: 15px;">💡 個人化營養建議</h3>
-          <div style="background: #dbeafe; padding: 10px; margin: 8px 0; border-radius: 6px;">✓ 建議增加維他命D3的攝取</div>
-          <div style="background: #dbeafe; padding: 10px; margin: 8px 0; border-radius: 6px;">✓ Omega-3脂肪酸需要補充</div>
-          <div style="background: #dbeafe; padding: 10px; margin: 8px 0; border-radius: 6px;">✓ 維持目前的鈣質攝取量</div>
-          <div style="background: #dbeafe; padding: 10px; margin: 8px 0; border-radius: 6px;">✓ 建議增加益生菌補充</div>
-        </div>
-        
-        <div style="margin-bottom: 30px;">
-          <h3 style="color: #f59e0b; border-left: 4px solid #f59e0b; padding-left: 10px; margin-bottom: 15px;">⚠️ 需要注意的健康風險</h3>
-          <div style="background: #fef3c7; padding: 10px; margin: 8px 0; border-radius: 6px;">• 維他命D不足可能影響骨骼健康</div>
-          <div style="background: #fef3c7; padding: 10px; margin: 8px 0; border-radius: 6px;">• 缺乏Omega-3可能影響心血管健康</div>
-        </div>
-        
-        <div style="margin-bottom: 30px;">
-          <h3 style="color: #2563eb; border-left: 4px solid #2563eb; padding-left: 10px; margin-bottom: 15px;">📝 注意事項</h3>
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
-            <p style="margin: 5px 0;">• 如需詳細報告，請登入系統查看完整評估頁面</p>
-            <p style="margin: 5px 0;">• 建議定期進行健康評估以追蹤改善情況</p>
-            <p style="margin: 5px 0;">• 如有疑問可聯絡客服或藥師諮詢</p>
-          </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 40px; color: #666; font-size: 12px;">
-          <p>報告生成時間：${new Date().toLocaleString('zh-TW')}</p>
-          <p>© Healixir 版權所有</p>
         </div>
       `;
       
       // 添加到頁面
       document.body.appendChild(tempDiv);
       
+      // 等待一下讓樣式渲染
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       // 轉換為canvas
       const canvas = await html2canvas(tempDiv, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#ffffff',
-        width: 794,
-        height: tempDiv.scrollHeight
+        backgroundColor: '#f3f4f6',
+        width: 1200,
+        height: tempDiv.scrollHeight,
+        logging: false
       });
       
       // 移除臨時元素
       document.body.removeChild(tempDiv);
       
-      // 創建PDF
-      const imgData = canvas.toDataURL('image/png');
+      // 創建PDF - A4大小
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+      // 計算圖片在PDF中的尺寸
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / (imgWidth * 0.264583), pdfHeight / (imgHeight * 0.264583));
-      const imgX = (pdfWidth - imgWidth * 0.264583 * ratio) / 2;
-      const imgY = 0;
+      const ratio = Math.min(pdfWidth / imgWidth * 25.4 / 96, pdfHeight / imgHeight * 25.4 / 96);
       
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * 0.264583 * ratio, imgHeight * 0.264583 * ratio);
+      // 將canvas轉為圖片並添加到PDF
+      const imgData = canvas.toDataURL('image/png');
+      const finalWidth = imgWidth * ratio;
+      const finalHeight = imgHeight * ratio;
+      const x = (pdfWidth - finalWidth) / 2;
+      const y = 0;
+      
+      // 如果內容超過一頁，需要分頁
+      if (finalHeight > pdfHeight) {
+        let position = 0;
+        let pageHeight = imgHeight * pdfHeight / finalHeight;
+        
+        while (position < imgHeight) {
+          const pageCanvas = document.createElement('canvas');
+          pageCanvas.width = imgWidth;
+          pageCanvas.height = Math.min(pageHeight, imgHeight - position);
+          
+          const pageCtx = pageCanvas.getContext('2d');
+          pageCtx.drawImage(canvas, 0, -position);
+          
+          const pageData = pageCanvas.toDataURL('image/png');
+          
+          if (position > 0) {
+            pdf.addPage();
+          }
+          
+          pdf.addImage(pageData, 'PNG', x, y, finalWidth, pageCanvas.height * ratio);
+          position += pageHeight;
+        }
+      } else {
+        pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
+      }
       
       // 下載PDF
       pdf.save(`Healixir_健康評估報告_${user?.name || 'User'}_${assessmentId}_${new Date().toISOString().split('T')[0]}.pdf`);
@@ -491,20 +661,6 @@ const Member = () => {
                             <h3 className="font-medium text-gray-800 mb-1">{assessment.type}</h3>
                             <p className="text-sm text-gray-600">{assessment.result}</p>
                           </div>
-                        </div>
-                        <div className="flex space-x-2 ml-4" onClick={(e) => e.stopPropagation()}>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              downloadAsPDF(assessment.id);
-                            }}
-                            title="下載PDF報告"
-                          >
-                            <Download className="w-4 h-4 mr-1" />
-                            下載
-                          </Button>
                         </div>
                       </div>
                     </Link>
