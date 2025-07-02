@@ -1,12 +1,12 @@
-# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - ´¼¼z°·±d«O°·«~±ÀÂË¨t²Î(ÃÄª«¤ÀªR)
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - æ™ºæ…§å¥åº·ä¿å¥å“æ¨è–¦ç³»çµ±(è—¥ç‰©åˆ†æ)
 
 <div align="center">
   
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=´¼¼z°·±d«O°·«~±ÀÂË;¼Æ¾Ú¤ÀªR¥­¥x;±zªº±MÄİ°·±dÅU°İ" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=æ™ºæ…§å¥åº·ä¿å¥å“æ¨è–¦;æ•¸æ“šåˆ†æå¹³å°;æ‚¨çš„å°ˆå±¬å¥åº·é¡§å•" alt="Typing SVG" />
   
   <br/>
   
-  [![Version](https://img.shields.io/badge/ª©¥»-1.0.0-blue.svg)](https://github.com/mato1321/healixir)
+  [![Version](https://img.shields.io/badge/ç‰ˆæœ¬-1.0.0-blue.svg)](https://github.com/mato1321/healixir)
   [![Node.js](https://img.shields.io/badge/Node.js-?14.0.0-339933.svg?logo=node.js)](https://nodejs.org/)
   [![Python](https://img.shields.io/badge/Python-?3.8-3776AB.svg?logo=python)](https://www.python.org/)
   [![FastAPI](https://img.shields.io/badge/FastAPI-?0.68.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -16,68 +16,68 @@
 
 ---
 
-## ? ¤¶²Ğ
+## ? ä»‹ç´¹
 
 <img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
 
-**Healixir** ¬O¤@®M¾ã¦X°·±d¼Æ¾Ú¤ÀªR¥­¥x»P¦U«~µPªº°·±d«O°·«~±ÀÂË¨t²Î¡C³z¹L¤ÀªR±z­Ó¤Hªº°·±dª¬ªp¡B¥Í¬¡²ßºD»P­Ó¤H»İ¨D¡A¬°±z´£¨Ñ¶q¨­«È»s¤Æªº«O°·«~«ØÄ³¡C
+**Healixir** æ˜¯ä¸€å¥—æ•´åˆå¥åº·æ•¸æ“šåˆ†æå¹³å°èˆ‡å„å“ç‰Œçš„å¥åº·ä¿å¥å“æ¨è–¦ç³»çµ±ã€‚é€éåˆ†ææ‚¨å€‹äººçš„å¥åº·ç‹€æ³ã€ç”Ÿæ´»ç¿’æ…£èˆ‡å€‹äººéœ€æ±‚ï¼Œç‚ºæ‚¨æä¾›é‡èº«å®¢è£½åŒ–çš„ä¿å¥å“å»ºè­°ã€‚
 
-### ? ¾A¥Î±Ú¸s
+### ? é©ç”¨æ—ç¾¤
 
 <table>
   <tr>
-    <td align="center">?<br/><b>¼W±j§K¬Ì¤O</b></td>
-    <td align="center">?<br/><b>§ïµ½°O¾Ğ»P±Mª`</b></td>
-    <td align="center">?<br/><b>§ïµ½¤é±`ºÎ¯v</b></td>
-    <td align="center">?<br/><b>´£¤É¹B°Êªí²{</b></td>
+    <td align="center">?<br/><b>å¢å¼·å…ç–«åŠ›</b></td>
+    <td align="center">?<br/><b>æ”¹å–„è¨˜æ†¶èˆ‡å°ˆæ³¨</b></td>
+    <td align="center">?<br/><b>æ”¹å–„æ—¥å¸¸ç¡çœ </b></td>
+    <td align="center">?<br/><b>æå‡é‹å‹•è¡¨ç¾</b></td>
   </tr>
 </table>
 
 ---
 
-## ? ¥D­n¥\¯à
+## ? ä¸»è¦åŠŸèƒ½
 
 <details open>
-<summary><b>? ®Ö¤ß¥\¯à¤@Äı</b></summary>
+<summary><b>? æ ¸å¿ƒåŠŸèƒ½ä¸€è¦½</b></summary>
 
-| ¥\¯à | »¡©ú |
+| åŠŸèƒ½ | èªªæ˜ |
 |------|------|
-| ? **°·±d¼Æ¾ÚºŞ²z** | §¹¾ã°O¿ı¨Ã°lÂÜ±zªº°·±d¼Æ¾Ú |
-| ? **¿W®aºtºâªk±ÀÂË** | °ò©ó¿W®aªººtºâªk¨Ó­Ó¤H¤Æ«O°·«~±ÀÂË |
-| ? **­Ó¤H¤Æ«ØÄ³** | ®Ú¾Ú±zªºª¬ªp´£¨Ñ±M·~°·±d«ØÄ³ |
-| ? **µøÄ±¤Æ¤ÀªR** | ª½Æ[ªº¹Ïªí®i¥Ü°·±dÁÍ¶Õ |
-| ? **Áô¨p«OÅ@** | ±Ä¥Î¥[±K§Ş³N«OÅ@¼Æ¾Ú |
+| ? **å¥åº·æ•¸æ“šç®¡ç†** | å®Œæ•´è¨˜éŒ„ä¸¦è¿½è¹¤æ‚¨çš„å¥åº·æ•¸æ“š |
+| ? **ç¨å®¶æ¼”ç®—æ³•æ¨è–¦** | åŸºæ–¼ç¨å®¶çš„æ¼”ç®—æ³•ä¾†å€‹äººåŒ–ä¿å¥å“æ¨è–¦ |
+| ? **å€‹äººåŒ–å»ºè­°** | æ ¹æ“šæ‚¨çš„ç‹€æ³æä¾›å°ˆæ¥­å¥åº·å»ºè­° |
+| ? **è¦–è¦ºåŒ–åˆ†æ** | ç›´è§€çš„åœ–è¡¨å±•ç¤ºå¥åº·è¶¨å‹¢ |
+| ? **éš±ç§ä¿è­·** | æ¡ç”¨åŠ å¯†æŠ€è¡“ä¿è­·æ•¸æ“š |
 
 </details>
 
 ---
 
-## ?? §Ş³N¬[ºc
+## ?? æŠ€è¡“æ¶æ§‹
 
 <div align="center">
   
 ```mermaid
 graph TD
-    A[React «eºİÀ³¥Î] --> B[FastAPI «áºİªA°È]
-    B --> C[±ÀÂËºtºâªk¤ŞÀº]
-    B --> D[PostgreSQL ¼Æ¾Ú®w]
-    B --> E[Redis ½w¦s¼h]
+    A[React å‰ç«¯æ‡‰ç”¨] --> B[FastAPI å¾Œç«¯æœå‹™]
+    B --> C[æ¨è–¦æ¼”ç®—æ³•å¼•æ“]
+    B --> D[PostgreSQL æ•¸æ“šåº«]
+    B --> E[Redis ç·©å­˜å±¤]
     
-    C --> F[ÃÄª«°t¹ïºâªk]
-    C --> G[°·±dª¬ªp¤ÀªR]
-    C --> H[­Ó¤H¤Æ±ÀÂËÅŞ¿è]
+    C --> F[è—¥ç‰©é…å°ç®—æ³•]
+    C --> G[å¥åº·ç‹€æ³åˆ†æ]
+    C --> H[å€‹äººåŒ–æ¨è–¦é‚è¼¯]
     
-    D --> I[¥Î¤á°·±d¸ê®Æ]
-    D --> J[ÃÄª«¸ê®Æ®w]
-    D --> K[±ÀÂË¾ú¥v°O¿ı]
+    D --> I[ç”¨æˆ¶å¥åº·è³‡æ–™]
+    D --> J[è—¥ç‰©è³‡æ–™åº«]
+    D --> K[æ¨è–¦æ­·å²è¨˜éŒ„]
     
-    subgraph "±ÀÂË¨t²Î®Ö¤ß"
+    subgraph "æ¨è–¦ç³»çµ±æ ¸å¿ƒ"
         F
         G  
         H
     end
     
-    subgraph "¼Æ¾Ú¦sÀx¼h"
+    subgraph "æ•¸æ“šå­˜å„²å±¤"
         I
         J
         K
@@ -86,111 +86,111 @@ graph TD
 
 </div>
 
-### ?? §Ş³N´Ì
+### ?? æŠ€è¡“æ£§
 
-**«eºİ§Ş³N¡G**
+**å‰ç«¯æŠ€è¡“ï¼š**
 - React 18.3.1 + TypeScript
-- Vite ºc«Ø¤u¨ã
+- Vite æ§‹å»ºå·¥å…·
 - Tailwind CSS + shadcn/ui
-- Zustand ª¬ºAºŞ²z
-- React Query ¼Æ¾ÚºŞ²z
+- Zustand ç‹€æ…‹ç®¡ç†
+- React Query æ•¸æ“šç®¡ç†
 
-**«áºİ§Ş³N¡G**
+**å¾Œç«¯æŠ€è¡“ï¼š**
 - FastAPI (Python)
-- PostgreSQL ¼Æ¾Ú®w
-- Redis ½w¦s
-- JWT ¨­¥÷ÅçÃÒ
+- PostgreSQL æ•¸æ“šåº«
+- Redis ç·©å­˜
+- JWT èº«ä»½é©—è­‰
 
 ---
 
-## ? §Ö³t¶}©l
+## ? å¿«é€Ÿé–‹å§‹
 
-### ? ¨t²Î»İ¨D
+### ? ç³»çµ±éœ€æ±‚
 
 - **Node.js** ? 14.0.0
 - **Python** ? 3.8
-- **npm** ? 6.0.0 ©Î **yarn** ? 1.22.0
-- **Git** ³Ì·sª©¥»
+- **npm** ? 6.0.0 æˆ– **yarn** ? 1.22.0
+- **Git** æœ€æ–°ç‰ˆæœ¬
 
-### ? ¦w¸Ë¨BÆJ
+### ? å®‰è£æ­¥é©Ÿ
 
 <details>
-<summary><b>? Step 1: Clone ±M®×</b></summary>
+<summary><b>? Step 1: Clone å°ˆæ¡ˆ</b></summary>
 
 ```bash
-# ½Æ»s±M®×¨ì¥»¦a
+# è¤‡è£½å°ˆæ¡ˆåˆ°æœ¬åœ°
 git clone https://github.com/mato1321/healixir.git
 
-# ¶i¤J±M®×¥Ø¿ı
+# é€²å…¥å°ˆæ¡ˆç›®éŒ„
 cd healixir
 ```
 
 </details>
 
 <details>
-<summary><b>? Step 2: «eºİ³]©w</b></summary>
+<summary><b>? Step 2: å‰ç«¯è¨­å®š</b></summary>
 
 ```bash
-# ¶i¤J«eºİ¥Ø¿ı
+# é€²å…¥å‰ç«¯ç›®éŒ„
 cd frontend
 
-# ¦w¸Ë¨Ì¿à®M¥ó
+# å®‰è£ä¾è³´å¥—ä»¶
 npm install
-# ©Î¨Ï¥Î yarn
+# æˆ–ä½¿ç”¨ yarn
 yarn install
 
-# ½Æ»sÀô¹ÒÅÜ¼ÆÀÉ®×
+# è¤‡è£½ç’°å¢ƒè®Šæ•¸æª”æ¡ˆ
 cp .env.example .env
 
-# ±Ò°Ê¶}µo¦øªA¾¹
+# å•Ÿå‹•é–‹ç™¼ä¼ºæœå™¨
 npm run dev
-# ©Î¨Ï¥Î yarn
+# æˆ–ä½¿ç”¨ yarn
 yarn dev
 ```
 
-> ? «eºİªA°È¹w³]¹B¦æ©ó `http://localhost:5173` (Vite Àq»{ºİ¤f)
+> ? å‰ç«¯æœå‹™é è¨­é‹è¡Œæ–¼ `http://localhost:5173` (Vite é»˜èªç«¯å£)
 
 </details>
 
 <details>
-<summary><b>?? Step 3: «áºİ³]©w</b></summary>
+<summary><b>?? Step 3: å¾Œç«¯è¨­å®š</b></summary>
 
-#### ? Python FastAPI «áºİ
+#### ? Python FastAPI å¾Œç«¯
 
 ```bash
-# ¶i¤J«áºİ¥Ø¿ı
+# é€²å…¥å¾Œç«¯ç›®éŒ„
 cd ../backend
 
-# «Ø¥ßµêÀÀÀô¹Ò
+# å»ºç«‹è™›æ“¬ç’°å¢ƒ
 python -m venv venv
 
-# ±Ò°ÊµêÀÀÀô¹Ò
+# å•Ÿå‹•è™›æ“¬ç’°å¢ƒ
 # Windows
 venv\Scripts\activate
 # macOS/Linux
 source venv/bin/activate
 
-# ¦w¸Ë¨Ì¿à®M¥ó
+# å®‰è£ä¾è³´å¥—ä»¶
 pip install -r requirements.txt
 
-# ½Æ»sÀô¹ÒÅÜ¼ÆÀÉ®×
+# è¤‡è£½ç’°å¢ƒè®Šæ•¸æª”æ¡ˆ
 cp .env.example .env
 
-# °õ¦æ¼Æ¾Ú®w¾E²¾ (¦pªG¦³ªº¸Ü)
+# åŸ·è¡Œæ•¸æ“šåº«é·ç§» (å¦‚æœæœ‰çš„è©±)
 # python -m alembic upgrade head
 
-# ±Ò°ÊªA°È¾¹
+# å•Ÿå‹•æœå‹™å™¨
 uvicorn app.main:app --reload --port 8000
 ```
 
-> ? «áºİªA°È¹w³]¹B¦æ©ó `http://localhost:8000`
+> ? å¾Œç«¯æœå‹™é è¨­é‹è¡Œæ–¼ `http://localhost:8000`
 
-**§Ö³t±Ò°Ê«ü¥O¡]«áÄò¨Ï¥Î¡^¡G**
+**å¿«é€Ÿå•Ÿå‹•æŒ‡ä»¤ï¼ˆå¾ŒçºŒä½¿ç”¨ï¼‰ï¼š**
 ```bash
-# ±Ò°ÊµêÀÀÀô¹Ò
+# å•Ÿå‹•è™›æ“¬ç’°å¢ƒ
 venv\Scripts\activate
 
-# ±Ò°Ê«áºİªA°È
+# å•Ÿå‹•å¾Œç«¯æœå‹™
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -198,93 +198,93 @@ uvicorn app.main:app --reload --port 8000
 
 ---
 
-## ? ¨Ï¥Î«ü«n
+## ? ä½¿ç”¨æŒ‡å—
 
-### ? §Ö³t¤W¤â
+### ? å¿«é€Ÿä¸Šæ‰‹
 
 <table>
   <tr>
-    <td><b>1?? ±Ò°ÊªA°È</b></td>
-    <td>½T«O«eºİ©M«áºİªA°È³£¤w¦¨¥\±Ò°Ê</td>
+    <td><b>1?? å•Ÿå‹•æœå‹™</b></td>
+    <td>ç¢ºä¿å‰ç«¯å’Œå¾Œç«¯æœå‹™éƒ½å·²æˆåŠŸå•Ÿå‹•</td>
   </tr>
   <tr>
-    <td><b>2?? ³y³XÀ³¥Î</b></td>
-    <td>¶}±ÒÂsÄı¾¹«e©¹ <code>http://localhost:5173</code></td>
+    <td><b>2?? é€ è¨ªæ‡‰ç”¨</b></td>
+    <td>é–‹å•Ÿç€è¦½å™¨å‰å¾€ <code>http://localhost:5173</code></td>
   </tr>
   <tr>
-    <td><b>3?? µù¥Uµn¤J</b></td>
-    <td>«Ø¥ß·s±b¸¹©Î¨Ï¥Î¬J¦³±b¸¹µn¤J</td>
+    <td><b>3?? è¨»å†Šç™»å…¥</b></td>
+    <td>å»ºç«‹æ–°å¸³è™Ÿæˆ–ä½¿ç”¨æ—¢æœ‰å¸³è™Ÿç™»å…¥</td>
   </tr>
   <tr>
-    <td><b>4?? ¶ñ¼g°İ¨÷</b></td>
-    <td>§¹¦¨­Ó¤H°·±d¼Æ¾Ú°İ¨÷½Õ¬d</td>
+    <td><b>4?? å¡«å¯«å•å·</b></td>
+    <td>å®Œæˆå€‹äººå¥åº·æ•¸æ“šå•å·èª¿æŸ¥</td>
   </tr>
   <tr>
-    <td><b>5?? Àò±o±ÀÂË</b></td>
-    <td>¬d¬İ AI ±ÀÂËªº«O°·«~»P¤ÀªR³ø§i</td>
+    <td><b>5?? ç²å¾—æ¨è–¦</b></td>
+    <td>æŸ¥çœ‹ AI æ¨è–¦çš„ä¿å¥å“èˆ‡åˆ†æå ±å‘Š</td>
   </tr>
 </table>
 
-### ? ±`¥Î¶}µo«ü¥O
+### ? å¸¸ç”¨é–‹ç™¼æŒ‡ä»¤
 
-**«eºİ¶}µo¡G**
+**å‰ç«¯é–‹ç™¼ï¼š**
 ```bash
 cd frontend
-npm run dev          # ±Ò°Ê¶}µoªA°È¾¹
-npm run build        # ºc«Ø¥Í²£ª©¥»
-npm run lint         # ¥N½XÀË¬d
-npm run preview      # ¹wÄı¥Í²£ª©¥»
+npm run dev          # å•Ÿå‹•é–‹ç™¼æœå‹™å™¨
+npm run build        # æ§‹å»ºç”Ÿç”¢ç‰ˆæœ¬
+npm run lint         # ä»£ç¢¼æª¢æŸ¥
+npm run preview      # é è¦½ç”Ÿç”¢ç‰ˆæœ¬
 ```
 
-**«áºİ¶}µo¡G**
+**å¾Œç«¯é–‹ç™¼ï¼š**
 ```bash
 cd backend
-venv\Scripts\activate                    # ±Ò°ÊµêÀÀÀô¹Ò (Windows)
-source venv/bin/activate                 # ±Ò°ÊµêÀÀÀô¹Ò (macOS/Linux)
-uvicorn app.main:app --reload --port 8000  # ±Ò°Ê¶}µoªA°È¾¹
+venv\Scripts\activate                    # å•Ÿå‹•è™›æ“¬ç’°å¢ƒ (Windows)
+source venv/bin/activate                 # å•Ÿå‹•è™›æ“¬ç’°å¢ƒ (macOS/Linux)
+uvicorn app.main:app --reload --port 8000  # å•Ÿå‹•é–‹ç™¼æœå‹™å™¨
 ```
 
 ---
 
-## ? Àô¹Ò³]©w
+## ? ç’°å¢ƒè¨­å®š
 
-### ? Àô¹ÒÅÜ¼Æ°t¸m
+### ? ç’°å¢ƒè®Šæ•¸é…ç½®
 
-½Ğ¦b `.env` ÀÉ®×¤¤¥[¤J¥H¤U³]©w¡G
+è«‹åœ¨ `.env` æª”æ¡ˆä¸­åŠ å…¥ä»¥ä¸‹è¨­å®šï¼š
 
-**«eºİ (.env)¡G**
+**å‰ç«¯ (.env)ï¼š**
 ```env
-# API °òÂ¦ URL
+# API åŸºç¤ URL
 VITE_API_BASE_URL=http://localhost:8000
 
-# À³¥Îµ{¦¡¸ê°T
-VITE_APP_NAME=ÃÄª«±ÀÂË¨t²Î
+# æ‡‰ç”¨ç¨‹å¼è³‡è¨Š
+VITE_APP_NAME=è—¥ç‰©æ¨è–¦ç³»çµ±
 VITE_APP_VERSION=1.0.0
 
-# ¶}µo¼Ò¦¡³]©w
+# é–‹ç™¼æ¨¡å¼è¨­å®š
 VITE_DEV_MODE=true
 ```
 
-**«áºİ (.env)¡G**
+**å¾Œç«¯ (.env)ï¼š**
 ```env
-# === ªA°È¾¹³]©w ===
+# === æœå‹™å™¨è¨­å®š ===
 NODE_ENV=development
 PORT=8000
 
-# === ¼Æ¾Ú®w³]©w ===
+# === æ•¸æ“šåº«è¨­å®š ===
 DATABASE_URL=postgresql://user:password@localhost:5432/healixir
 REDIS_URL=redis://localhost:6379
 
-# === ¦w¥ş³]©w ===
+# === å®‰å…¨è¨­å®š ===
 JWT_SECRET=your-super-secret-jwt-key
 ENCRYPTION_KEY=your-encryption-key
 
-# === AI API ³]©w ===
+# === AI API è¨­å®š ===
 AI_API_KEY=your-ai-api-key
 AI_API_URL=https://api.example.com/v1
 AI_MODEL=gpt-4
 
-# === ²Ä¤T¤èªA°È ===
+# === ç¬¬ä¸‰æ–¹æœå‹™ ===
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
@@ -293,85 +293,85 @@ SMTP_PASS=your-app-password
 
 ---
 
-## ? ±M®×µ²ºc
+## ? å°ˆæ¡ˆçµæ§‹
 
 ```
 Healixir/
-¢u¢w¢w ? drug-frontend/
-¢x   ¢u¢w¢w ? node_modules/
-¢x   ¢u¢w¢w ? public/
-¢x   ¢u¢w¢w ? src/
-¢x   ¢x   ¢u¢w¢w ? assets/
-¢x   ¢x   ¢u¢w¢w ? components/
-¢x   ¢x   ¢u¢w¢w ? hooks/
-¢x   ¢x   ¢u¢w¢w ? lib/
-¢x   ¢x   ¢u¢w¢w ? pages/
-¢x   ¢x   ¢u¢w¢w ? services/
-¢x   ¢x   ¢u¢w¢w ? stores/
-¢x   ¢x   ¢u¢w¢w ? styles/
-¢x   ¢x   ¢u¢w¢w ? types/
-¢x   ¢x   ¢u¢w¢w ? utils/
-¢x   ¢x   ¢u¢w¢w ? App.css
-¢x   ¢x   ¢u¢w¢w ? App.tsx
-¢x   ¢x   ¢u¢w¢w ? index.css
-¢x   ¢x   ¢u¢w¢w ? main.tsx
-¢x   ¢x   ¢|¢w¢w ? vite-env.d.ts
-¢x   ¢u¢w¢w ? .env
-¢x   ¢u¢w¢w ? .gitignore
-¢x   ¢u¢w¢w ? eslint.config.js
-¢x   ¢u¢w¢w ? index.html
-¢x   ¢u¢w¢w ? package.json
-¢x   ¢u¢w¢w ? package-lock.json
-¢x   ¢u¢w¢w ? postcss.config.js
-¢x   ¢u¢w¢w ? README.md
-¢x   ¢u¢w¢w ? tailwind.config.ts
-¢x   ¢u¢w¢w ? tsconfig.app.json
-¢x   ¢u¢w¢w ? tsconfig.json
-¢x   ¢u¢w¢w ? tsconfig.node.json
-¢x   ¢|¢w¢w ? vite.config.ts
-¢u¢w¢w ?? drug-backend/
-¢x   ¢u¢w¢w ? alembic/
-¢x   ¢u¢w¢w ? app/
-¢x   ¢u¢w¢w ? scripts/
-¢x   ¢u¢w¢w ? venv/
-¢x   ¢u¢w¢w ? .env
-¢x   ¢u¢w¢w ? .env.example
-¢x   ¢u¢w¢w ? .gitignore
-¢x   ¢u¢w¢w ? docker-compose.yml
-¢x   ¢u¢w¢w ? Dockerfile
-¢x   ¢u¢w¢w ? README.md
-¢x   ¢u¢w¢w ? requirements.txt
-¢x   ¢u¢w¢w ? requirements-dev.txt
-¢x   ¢|¢w¢w ? test.db
-¢u¢w¢w ? docker-compose.yml
-¢|¢w¢w ? README.md
+â”œâ”€â”€ ? drug-frontend/
+â”‚   â”œâ”€â”€ ? node_modules/
+â”‚   â”œâ”€â”€ ? public/
+â”‚   â”œâ”€â”€ ? src/
+â”‚   â”‚   â”œâ”€â”€ ? assets/
+â”‚   â”‚   â”œâ”€â”€ ? components/
+â”‚   â”‚   â”œâ”€â”€ ? hooks/
+â”‚   â”‚   â”œâ”€â”€ ? lib/
+â”‚   â”‚   â”œâ”€â”€ ? pages/
+â”‚   â”‚   â”œâ”€â”€ ? services/
+â”‚   â”‚   â”œâ”€â”€ ? stores/
+â”‚   â”‚   â”œâ”€â”€ ? styles/
+â”‚   â”‚   â”œâ”€â”€ ? types/
+â”‚   â”‚   â”œâ”€â”€ ? utils/
+â”‚   â”‚   â”œâ”€â”€ ? App.css
+â”‚   â”‚   â”œâ”€â”€ ? App.tsx
+â”‚   â”‚   â”œâ”€â”€ ? index.css
+â”‚   â”‚   â”œâ”€â”€ ? main.tsx
+â”‚   â”‚   â””â”€â”€ ? vite-env.d.ts
+â”‚   â”œâ”€â”€ ? .env
+â”‚   â”œâ”€â”€ ? .gitignore
+â”‚   â”œâ”€â”€ ? eslint.config.js
+â”‚   â”œâ”€â”€ ? index.html
+â”‚   â”œâ”€â”€ ? package.json
+â”‚   â”œâ”€â”€ ? package-lock.json
+â”‚   â”œâ”€â”€ ? postcss.config.js
+â”‚   â”œâ”€â”€ ? README.md
+â”‚   â”œâ”€â”€ ? tailwind.config.ts
+â”‚   â”œâ”€â”€ ? tsconfig.app.json
+â”‚   â”œâ”€â”€ ? tsconfig.json
+â”‚   â”œâ”€â”€ ? tsconfig.node.json
+â”‚   â””â”€â”€ ? vite.config.ts
+â”œâ”€â”€ ?? drug-backend/
+â”‚   â”œâ”€â”€ ? alembic/
+â”‚   â”œâ”€â”€ ? app/
+â”‚   â”œâ”€â”€ ? scripts/
+â”‚   â”œâ”€â”€ ? venv/
+â”‚   â”œâ”€â”€ ? .env
+â”‚   â”œâ”€â”€ ? .env.example
+â”‚   â”œâ”€â”€ ? .gitignore
+â”‚   â”œâ”€â”€ ? docker-compose.yml
+â”‚   â”œâ”€â”€ ? Dockerfile
+â”‚   â”œâ”€â”€ ? README.md
+â”‚   â”œâ”€â”€ ? requirements.txt
+â”‚   â”œâ”€â”€ ? requirements-dev.txt
+â”‚   â””â”€â”€ ? test.db
+â”œâ”€â”€ ? docker-compose.yml
+â””â”€â”€ ? README.md
 ```
 
 ---
 
-## ? °^Äm«ü«n
+## ? è²¢ç»æŒ‡å—
 
-§Ú­ÌÅwªï¦UºØ§Î¦¡ªº°^Äm¡IµL½×¬O·s¥\¯à¡B¿ù»~­×´_ÁÙ¬O¤å¥ó§ï¶i¡C
+æˆ‘å€‘æ­¡è¿å„ç¨®å½¢å¼çš„è²¢ç»ï¼ç„¡è«–æ˜¯æ–°åŠŸèƒ½ã€éŒ¯èª¤ä¿®å¾©é‚„æ˜¯æ–‡ä»¶æ”¹é€²ã€‚
 
 <details>
-<summary><b>? ¦p¦ó°^Äm</b></summary>
+<summary><b>? å¦‚ä½•è²¢ç»</b></summary>
 
-1. **Fork** ±M®×¨ì±zªº GitHub
-2. **Clone** ¨ì¥»¦a¡G`git clone https://github.com/your-username/Healixir.git`
-3. **«Ø¥ß**¥\¯à¤À¤ä¡G`git checkout -b feature/your-feature`
-4. **´£¥æ**ÅÜ§ó¡G`git commit -m 'Add: ·s¥\¯à´y­z'`
-5. **±À°e**¡G`git push origin feature/your-feature`
-6. **¶}±Ò** Pull Request
+1. **Fork** å°ˆæ¡ˆåˆ°æ‚¨çš„ GitHub
+2. **Clone** åˆ°æœ¬åœ°ï¼š`git clone https://github.com/your-username/Healixir.git`
+3. **å»ºç«‹**åŠŸèƒ½åˆ†æ”¯ï¼š`git checkout -b feature/your-feature`
+4. **æäº¤**è®Šæ›´ï¼š`git commit -m 'Add: æ–°åŠŸèƒ½æè¿°'`
+5. **æ¨é€**ï¼š`git push origin feature/your-feature`
+6. **é–‹å•Ÿ** Pull Request
 
 </details>
 
 ---
 
-## ? Ápµ¸¸ê°T
+## ? è¯çµ¡è³‡è¨Š
 
 <div align="center">
 
-| Ápµ¸¤è¦¡ | ¸ê°T |
+| è¯çµ¡æ–¹å¼ | è³‡è¨Š |
 |---------|------|
 | ? Email | charleskao811@gmail.com |
 
@@ -379,11 +379,11 @@ Healixir/
 
 ---
 
-## ? ­PÁÂ
+## ? è‡´è¬
 
 <div align="center">
   
-  ¯S§O·PÁÂ©Ò¦³¬° **Healixir** °µ¥X°^Ämªº¶}µoªÌ©M¨Ï¥ÎªÌ¡I
+  ç‰¹åˆ¥æ„Ÿè¬æ‰€æœ‰ç‚º **Healixir** åšå‡ºè²¢ç»çš„é–‹ç™¼è€…å’Œä½¿ç”¨è€…ï¼
   
   
   ---
@@ -392,6 +392,6 @@ Healixir/
   
   <br/>
   
-  ¦pªG³o­Ó±M®×¹ï±z¦³À°§U¡A½Ğµ¹§Ú­Ì¤@­Ó ?¡I
+  å¦‚æœé€™å€‹å°ˆæ¡ˆå°æ‚¨æœ‰å¹«åŠ©ï¼Œè«‹çµ¦æˆ‘å€‘ä¸€å€‹ ?ï¼
   
 </div>
