@@ -6,7 +6,7 @@
 
 <div align="center">
   
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=Smart+Health+Supplement+Recommendations;Data+Analytics+Platform" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=Your+Personal+Health+Advisor;Data+Analytics+Platform" alt="Typing SVG" />
   
   <br/>
   
