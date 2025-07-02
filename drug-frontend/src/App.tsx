@@ -8,12 +8,11 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
-import NutritionSurvey from "./pages/NutritionSurvey";
-import Cart from "./pages/Cart";  // 新增購物車頁面
+import Cart from "./pages/shop/Cart";  // 新增購物車頁面
 import ContactUs from "./pages/legal/ContactUs";  // 新增聯絡我們頁面
-import Member from "./pages/Member";  // 新增會員中心頁面
-import AssessmentDetail from "./pages/AssessmentDetail";  // 新增評估詳情頁面
-import OrderDetail from "./pages/OrderDetail";  // 新增訂單詳情頁面
+import Member from "./pages/member/Member";  // 新增會員中心頁面
+import AssessmentDetail from "./pages/member/AssessmentDetail";  // 新增評估詳情頁面
+import OrderDetail from "./pages/shop/OrderDetail";  // 新增訂單詳情頁面
 import PersonalInfo from "./pages/nutrition/PersonalInfo";
 import HealthGoalsPage from "./pages/nutrition/HealthGoalsPage";  // 新增健康目標頁面
 import QuestionnaireStart from "./pages/nutrition/QuestionnaireStart";
@@ -84,7 +83,7 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/nutrition" element={<NutritionSurvey />} />
+          
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/member" element={<Member />} />
