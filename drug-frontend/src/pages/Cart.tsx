@@ -1,0 +1,376 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { 
+  ShoppingCart,
+  Plus,
+  Minus,
+  Trash2,
+  ArrowLeft,
+  MessageCircle,
+  User,
+  LogOut,
+  AlertTriangle,
+  LogIn,
+  Sparkles,
+  Heart,
+  Star,
+  Gift,
+  Truck,
+  Shield,
+  CreditCard
+} from "lucide-react";
+
+const Cart = () => {
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: "維生素C 1000mg",
+      image: "https://via.placeholder.com/150x150/3B82F6/FFFFFF?text=維生素C",
+      specs: "90顆/瓶",
+      price: 590,
+      quantity: 2,
+      isRecommended: true,
+      reason: "提升免疫力",
+      needsPharmacist: false
+    },
+    {
+      id: 2,
+      name: "魚油 Omega-3",
+      image: "https://via.placeholder.com/150x150/10B981/FFFFFF?text=魚油",
+      specs: "120顆/瓶",
+      price: 890,
+      quantity: 1,
+      isRecommended: true,
+      reason: "心血管保健",
+      needsPharmacist: true
+    },
+    {
+      id: 3,
+      name: "綜合維他命",
+      image: "https://via.placeholder.com/150x150/F59E0B/FFFFFF?text=維他命",
+      specs: "60顆/瓶",
+      price: 450,
+      quantity: 1,
+      isRecommended: false,
+      reason: "",
+      needsPharmacist: false
+    }
+  ]);
+
+  const [promoCode, setPromoCode] = useState("");
+  const [user, setUser] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 檢查用戶登入狀態
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    
+    if (token && userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        setIsLoggedIn(true);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        setIsLoggedIn(false);
+      }
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const recommendedProducts = [
+    { id: 4, name: "鈣片 600mg", price: 380, image: "https://via.placeholder.com/150x150/EF4444/FFFFFF?text=鈣片", reason: "骨骼健康" },
+    { id: 5, name: "益生菌", price: 720, image: "https://via.placeholder.com/150x150/8B5CF6/FFFFFF?text=益生菌", reason: "腸道健康" },
+    { id: 6, name: "葉黃素", price: 680, image: "https://via.placeholder.com/150x150/06B6D4/FFFFFF?text=葉黃素", reason: "眼部保健" }
+  ];
+
+  const updateQuantity = (id: number, change: number) => {
+    setCartItems(items =>
+      items.map(item =>
+        item.id === id
+          ? { ...item, quantity: Math.max(0, item.quantity + change) }
+          : item
+      ).filter(item => item.quantity > 0)
+    );
+  };
+
+  const removeItem = (id: number) => {
+    setCartItems(items => items.filter(item => item.id !== id));
+  };
+
+  const addRecommendedProduct = (product: any) => {
+    const existingItem = cartItems.find(item => item.id === product.id);
+    if (existingItem) {
+      updateQuantity(product.id, 1);
+    } else {
+      setCartItems([...cartItems, {
+        ...product,
+        specs: "60顆/瓶",
+        quantity: 1,
+        isRecommended: true,
+        needsPharmacist: false
+      }]);
+    }
+  };
+
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const shipping = subtotal >= 1000 ? 0 : 80;
+  const discount = promoCode === "HEALTH10" ? Math.floor(subtotal * 0.1) : 0;
+  const total = subtotal + shipping - discount;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+      {/* 頂部導航 */}
+      <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <Link to="/" className="flex items-center">
+                <img 
+                  src="/favicon.ico" 
+                  alt="Logo" 
+                  className="w-10 h-10 mr-3"
+                />
+                <div>
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Healixir
+                  </h1>
+                  <p className="text-xs text-gray-500">智能保健顧問</p>
+                </div>
+              </Link>
+            </div>
+            
+            {/* Navigation */}
+            <nav className="flex items-center space-x-6">
+              <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors">首頁</Link>
+              <Link to="/member">
+                <Button variant="ghost" size="sm" className="hover:bg-blue-50">
+                  <User className="w-4 h-4 mr-2" />
+                  會員
+                </Button>
+              </Link>
+              
+              {isLoggedIn && user ? (
+                // 已登入狀態
+                <div className="flex items-center space-x-4">
+                  <span className="text-gray-700">
+                    歡迎，<span className="font-medium text-blue-600">{user.name || user.email}</span>
+                  </span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="hover:bg-red-50 hover:text-red-600"
+                    onClick={() => {
+                      localStorage.removeItem('token');
+                      localStorage.removeItem('user');
+                      setUser(null);
+                      setIsLoggedIn(false);
+                    }}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    登出
+                  </Button>
+                </div>
+              ) : (
+                // 未登入狀態
+                <Link to="/login">
+                  <Button variant="ghost" size="sm" className="hover:bg-blue-50">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    登入
+                  </Button>
+                </Link>
+              )}
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* 購物車標題 */}
+        <div className="flex items-center mb-8">
+          <ShoppingCart className="w-6 h-6 text-blue-600 mr-3" />
+          <h1 className="text-2xl font-bold text-gray-800">購物車</h1>
+          <span className="ml-2 text-gray-500">({cartItems.length} 件商品)</span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* 購物車主要內容 */}
+          <div className="lg:col-span-2">
+            {/* 未登入提醒 */}
+            {!isLoggedIn && (
+              <Card className="mb-6 border-yellow-200 bg-yellow-50/80 backdrop-blur-sm">
+                <CardContent className="p-4">
+                  <div className="flex items-center text-yellow-800">
+                    <AlertTriangle className="w-5 h-5 mr-2" />
+                    <span>建議您先登入以儲存購物車資料</span>
+                    <Link to="/login" className="ml-2 text-blue-600 hover:text-blue-800 underline">
+                      立即登入
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* 商品清單 */}
+            <div className="space-y-6">
+              {cartItems.map((item) => (
+                <Card key={item.id} className="shadow-sm hover:shadow-md transition-shadow bg-white/80 backdrop-blur-sm">
+                  <CardContent className="p-6">
+                    <div className="flex items-start space-x-4">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-20 h-20 object-cover rounded-lg bg-gray-100"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h3 className="font-semibold text-gray-800 mb-1">{item.name}</h3>
+                            <p className="text-sm text-gray-600 mb-2">{item.specs}</p>
+                            {item.isRecommended && (
+                              <div className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800 mb-2">
+                                💡 {item.reason}
+                              </div>
+                            )}
+                            {item.needsPharmacist && (
+                              <div className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-orange-100 text-orange-800">
+                                ⚠️ 需藥師確認
+                              </div>
+                            )}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeItem(item.id)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <div className="flex items-center justify-between mt-4">
+                          <div className="flex items-center space-x-3">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => updateQuantity(item.id, -1)}
+                              className="w-8 h-8 p-0"
+                            >
+                              <Minus className="w-4 h-4" />
+                            </Button>
+                            <span className="w-8 text-center font-medium">{item.quantity}</span>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => updateQuantity(item.id, 1)}
+                              className="w-8 h-8 p-0"
+                            >
+                              <Plus className="w-4 h-4" />
+                            </Button>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm text-gray-600">NT$ {item.price}</p>
+                            <p className="font-semibold text-gray-800">NT$ {item.price * item.quantity}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* 推薦商品 */}
+            <Card className="mt-8 bg-white/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg">📦 你可能也需要</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {recommendedProducts.map((product) => (
+                    <div key={product.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-white/60 backdrop-blur-sm">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-20 object-cover rounded-lg bg-gray-100 mb-3"
+                      />
+                      <h4 className="font-medium text-sm mb-1">{product.name}</h4>
+                      <p className="text-xs text-blue-600 mb-2">💡 {product.reason}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-sm">NT$ {product.price}</span>
+                        <Button
+                          size="sm"
+                          onClick={() => addRecommendedProduct(product)}
+                          className="text-xs"
+                        >
+                          加購
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* 側邊欄 */}
+          <div className="space-y-6">
+            {/* 總金額 */}
+            <Card className="bg-white/80 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg">訂單摘要</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between">
+                  <span>商品小計</span>
+                  <span>NT$ {subtotal}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>運費</span>
+                  <span>{shipping === 0 ? "免費" : `NT$ ${shipping}`}</span>
+                </div>
+                {subtotal < 1000 && (
+                  <p className="text-xs text-gray-600">滿 NT$ 1,000 免運費</p>
+                )}
+                
+                <Separator />
+                
+                <div className="space-y-2">
+                  <Input
+                    placeholder="輸入優惠碼"
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                  />
+                  {discount > 0 && (
+                    <div className="flex justify-between text-green-600">
+                      <span>優惠折扣</span>
+                      <span>-NT$ {discount}</span>
+                    </div>
+                  )}
+                </div>
+                
+                <Separator />
+                
+                <div className="flex justify-between font-semibold text-lg">
+                  <span>總計</span>
+                  <span>NT$ {total}</span>
+                </div>
+                
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                  前往結帳
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Cart;
