@@ -1,48 +1,77 @@
-<img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - Smart Health Supplement Recommendation System (Drug Analysis)
-<div align="center"> <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=Smart+Supplement+Recommendations;Data+Analysis+Platform;Your+Personal+Health+Advisor" alt="Typing SVG" /> <br/>
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - Smart Health Supplement Recommendation System (Work in Progress)
 
-
-
-
-
-
+<div align="center">
+  
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=Smart+Health+Supplement+Recommendations;Data+Analytics+Platform;Your+Personal+Health+Advisor" alt="Typing SVG" />
+  
+  <br/>
+  
+  [![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/mato1321/Healixir)
+  [![Node.js](https://img.shields.io/badge/Node.js-≥14.0.0-339933.svg?logo=node.js)](https://nodejs.org/)
+  [![Python](https://img.shields.io/badge/Python-≥3.8-3776AB.svg?logo=python)](https://www.python.org/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.68.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+  [![React](https://img.shields.io/badge/React-18.3.1-61DAFB.svg?logo=react)](https://reactjs.org/)
+  
 </div>
-📖 Introduction
-<img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
-Healixir is an intelligent supplement recommendation system that integrates health data analytics and a proprietary recommendation algorithm. It analyzes your personal health status, lifestyle habits, and specific needs to provide personalized supplement suggestions using our custom-built multi-dimensional scoring algorithm.
 
-🎯 Target Users
-<table> <tr> <td align="center">💪<br/><b>Boost Immunity</b></td> <td align="center">🧠<br/><b>Improve Focus & Memory</b></td> <td align="center">😴<br/><b>Enhance Sleep Quality</b></td> <td align="center">🏃<br/><b>Enhance Athletic Performance</b></td> </tr> </table>
-🚀 Key Features
-<details open> <summary><b>📋 Feature Overview</b></summary>
-Feature	Description
-📊 Health Data Management	Track and manage your health data
-🧮 Proprietary Recommendation Algorithm	Personalized supplement suggestions
-📝 Tailored Advice	Professional advice based on personal data
-📈 Visual Analysis	Health trend visualizations
-🔒 Privacy Protection	Encrypted data handling
+---
+
+## 📖 Introduction
+
+<img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
+
+**Healixir** is an integrated health data analytics platform with a proprietary recommendation algorithm for intelligent health supplement recommendations. By analyzing your personal health status, lifestyle habits, and individual needs, our self-developed multi-dimensional scoring algorithm provides customized supplement suggestions tailored specifically for you.
+
+### 🎯 Target Audience
+
+<table>
+  <tr>
+    <td align="center">💪<br/><b>Boost Immunity</b></td>
+    <td align="center">🧠<br/><b>Improve Memory & Focus</b></td>
+    <td align="center">😴<br/><b>Better Sleep Quality</b></td>
+    <td align="center">🏃<br/><b>Enhance Athletic Performance</b></td>
+  </tr>
+</table>
+
+---
+
+## 🚀 Key Features
+
+<details open>
+<summary><b>📋 Core Features Overview</b></summary>
+
+| Feature | Description |
+|---------|-------------|
+| 📊 **Health Data Management** | Complete recording and tracking of your health data |
+| 🧮 **Proprietary Algorithm Recommendations** | Personalized supplement recommendations based on our custom algorithm |
+| 📝 **Personalized Suggestions** | Professional health advice tailored to your condition |
+| 📈 **Visual Analytics** | Intuitive charts displaying health trends |
+| 🔒 **Privacy Protection** | Encrypted technology to protect your data |
 
 </details>
-🏗️ System Architecture
+
+---
+
+## 🏗️ System Architecture
+
 <div align="center">
-mermaid
-複製
-編輯
+  
+```mermaid
 graph TD
-    A[React Frontend App] --> B[FastAPI Backend Service]
-    B --> C[Recommendation Engine]
+    A[React Frontend Application] --> B[FastAPI Backend Service]
+    B --> C[Recommendation Algorithm Engine]
     B --> D[PostgreSQL Database]
-    B --> E[Redis Cache]
+    B --> E[Redis Cache Layer]
     
     C --> F[Drug Matching Algorithm]
-    C --> G[Health Condition Analysis]
-    C --> H[Personalized Logic]
+    C --> G[Health Status Analysis]
+    C --> H[Personalized Recommendation Logic]
     
     D --> I[User Health Data]
     D --> J[Drug Database]
     D --> K[Recommendation History]
     
-    subgraph "Recommendation Core"
+    subgraph "Recommendation System Core"
         F
         G  
         H
@@ -53,95 +82,97 @@ graph TD
         J
         K
     end
+```
+
 </div>
-🛠️ Tech Stack
-Frontend:
 
-React 18.3.1 + TypeScript
+### 🛠️ Technology Stack
 
-Vite
+**Frontend Technologies:**
+- React 18.3.1 + TypeScript
+- Vite Build Tool
+- Tailwind CSS + shadcn/ui
+- Zustand State Management
+- React Query Data Management
+- Axios HTTP Client
 
-Tailwind CSS + shadcn/ui
+**Backend Technologies:**
+- FastAPI (Python) - High-performance API framework
+- PostgreSQL - Primary database
+- Redis - Caching and session management
+- JWT - Authentication
+- Pydantic - Data validation
 
-Zustand state management
+**Recommendation Algorithm:**
+- Proprietary drug matching algorithm
+- Health status assessment system
+- Personalized weight calculation
+- Multi-dimensional recommendation scoring mechanism
 
-React Query for data handling
+---
 
-Axios HTTP client
+## 🚀 Quick Start
 
-Backend:
+### 📋 System Requirements
 
-FastAPI (Python) - High-performance API
+- **Node.js** ≥ 14.0.0
+- **Python** ≥ 3.8
+- **npm** ≥ 6.0.0 or **yarn** ≥ 1.22.0
+- **Git** Latest version
 
-PostgreSQL - Primary database
+### 📦 Installation Steps
 
-Redis - Caching and session management
+<details>
+<summary><b>📥 Step 1: Clone the Project</b></summary>
 
-JWT - Authentication
-
-Pydantic - Data validation
-
-Recommendation Algorithms:
-
-Custom drug matching algorithm
-
-Health condition evaluation system
-
-Personalized weighting logic
-
-Multi-dimensional scoring mechanism
-
-🚀 Quick Start
-📋 Requirements
-Node.js ≥ 14.0.0
-
-Python ≥ 3.8
-
-npm ≥ 6.0.0 or yarn ≥ 1.22.0
-
-Git latest version
-
-📦 Installation Steps
-<details> <summary><b>📥 Step 1: Clone Project</b></summary>
-bash
-複製
-編輯
-# Clone the project
+```bash
+# Clone the project locally
 git clone https://github.com/mato1321/Healixir.git
 
-# Navigate to the directory
+# Enter the project directory
 cd Healixir
-</details> <details> <summary><b>🎨 Step 2: Frontend Setup</b></summary>
-bash
-複製
-編輯
+```
+
+</details>
+
+<details>
+<summary><b>🎨 Step 2: Frontend Setup</b></summary>
+
+```bash
+# Enter the frontend directory
 cd drug-frontend
 
 # Install dependencies
 npm install
-# or
+# or use yarn
 yarn install
 
-# Copy environment variables (if applicable)
+# Copy environment variables file (if .env.example exists)
 cp .env.example .env
 
-# Start development server
+# Start the development server
 npm run dev
-# or
+# or use yarn
 yarn dev
-🌐 Frontend runs on http://localhost:5173 (default Vite port)
+```
 
-</details> <details> <summary><b>⚙️ Step 3: Backend Setup</b></summary>
-🐍 Python FastAPI Backend
-bash
-複製
-編輯
+> 🌐 Frontend service runs on `http://localhost:5173` by default (Vite default port)
+
+</details>
+
+<details>
+<summary><b>⚙️ Step 3: Backend Setup</b></summary>
+
+#### 🐍 Python FastAPI Backend
+
+```bash
+# Enter the backend directory
 cd ../drug-backend
 
 # Create virtual environment
 python -m venv venv
 
-# Activate environment
+# Activate virtual environment
 # Windows
 venv\Scripts\activate
 # macOS/Linux
@@ -150,86 +181,132 @@ source venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Copy environment file
+# Copy environment variables file (if available)
 cp .env.example .env
 
-# Run DB migration if needed
+# Run database migrations (if applicable)
 # python -m alembic upgrade head
 
-# Start backend server
+# Start the server
 uvicorn app.main:app --reload --port 8000
-🔧 Backend runs on http://localhost:8000
+```
 
-Quick startup (for later use):
+> 🔧 Backend service runs on `http://localhost:8000` by default
 
-bash
-複製
-編輯
+**Quick Start Commands (for subsequent use):**
+```bash
+# Activate virtual environment
 venv\Scripts\activate
+
+# Start backend service
 uvicorn app.main:app --reload --port 8000
+```
+
 </details>
-📖 User Guide
-🎯 Getting Started
-<table> <tr> <td><b>1️⃣ Start Services</b></td> <td>Make sure both frontend and backend are running</td> </tr> <tr> <td><b>2️⃣ Visit App</b></td> <td>Open browser at <code>http://localhost:5173</code></td> </tr> <tr> <td><b>3️⃣ Register/Login</b></td> <td>Create or log in to your account</td> </tr> <tr> <td><b>4️⃣ Fill Questionnaire</b></td> <td>Provide personal health information</td> </tr> <tr> <td><b>5️⃣ Get Recommendations</b></td> <td>View supplements and analysis reports</td> </tr> </table>
-🔄 Development Commands
-Frontend:
 
-bash
-複製
-編輯
+---
+
+## 📖 User Guide
+
+### 🎯 Getting Started
+
+<table>
+  <tr>
+    <td><b>1️⃣ Start Services</b></td>
+    <td>Ensure both frontend and backend services are successfully running</td>
+  </tr>
+  <tr>
+    <td><b>2️⃣ Visit Application</b></td>
+    <td>Open your browser and go to <code>http://localhost:5173</code></td>
+  </tr>
+  <tr>
+    <td><b>3️⃣ Register/Login</b></td>
+    <td>Create a new account or login with existing credentials</td>
+  </tr>
+  <tr>
+    <td><b>4️⃣ Complete Survey</b></td>
+    <td>Fill out the personal health data questionnaire</td>
+  </tr>
+  <tr>
+    <td><b>5️⃣ Get Recommendations</b></td>
+    <td>View algorithm-recommended supplements and analysis reports</td>
+  </tr>
+</table>
+
+### 🔄 Common Development Commands
+
+**Frontend Development:**
+```bash
 cd drug-frontend
-npm run dev          # Start dev server
+npm run dev          # Start development server
 npm run build        # Build production version
-npm run lint         # Lint code
-npm run preview      # Preview production
-Backend:
+npm run lint         # Code linting
+npm run preview      # Preview production build
+```
 
-bash
-複製
-編輯
+**Backend Development:**
+```bash
 cd drug-backend
-venv\Scripts\activate                    # Windows
-source venv/bin/activate                 # macOS/Linux
-uvicorn app.main:app --reload --port 8000
-🔧 Environment Configuration
-📝 .env Setup
-Frontend (.env):
+venv\Scripts\activate                    # Activate virtual environment (Windows)
+source venv/bin/activate                 # Activate virtual environment (macOS/Linux)
+uvicorn app.main:app --reload --port 8000  # Start development server
+```
 
-env
-複製
-編輯
+---
+
+## 🔧 Environment Configuration
+
+### 📝 Environment Variables Configuration
+
+Please add the following settings to your `.env` file:
+
+**Frontend (.env):**
+```env
+# API Base URL
 VITE_API_BASE_URL=http://localhost:8000
-VITE_APP_NAME=Supplement Recommendation System
-VITE_APP_VERSION=1.0.0
-VITE_DEV_MODE=true
-Backend (.env):
 
-env
-複製
-編輯
+# Application Information
+VITE_APP_NAME=Drug Recommendation System
+VITE_APP_VERSION=1.0.0
+
+# Development Mode Settings
+VITE_DEV_MODE=true
+```
+
+**Backend (.env):**
+```env
+# === Server Configuration ===
 PORT=8000
 
+# === Database Configuration ===
 DATABASE_URL=postgresql://user:password@localhost:5432/healixir
 REDIS_URL=redis://localhost:6379
 
+# === Security Settings ===
 JWT_SECRET=your-super-secret-jwt-key
 ENCRYPTION_KEY=your-encryption-key
 
+# === Recommendation Algorithm Settings ===
 ALGORITHM_VERSION=1.0
 RECOMMENDATION_CACHE_TTL=3600
 HEALTH_WEIGHT_MATRIX=default
 
+# === Data Analysis Settings ===
 ANALYSIS_ENGINE=custom
 SCORING_MODEL=weighted_average
 
+# === Third-party Services ===
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-app-password
-📁 Project Structure
-pgsql
-複製
-編輯
+```
+
+---
+
+## 📁 Project Structure
+
+```
 Healixir/
 ├── 🎨 drug-frontend/
 │   ├── 📁 node_modules/
@@ -279,42 +356,53 @@ Healixir/
 │   └── 📄 test.db
 ├── 🐳 docker-compose.yml
 └── 📄 README.md
-🤝 Contributing
-We welcome contributions and feedback!
+```
 
-📝 How to Contribute
-Fork the project on GitHub
+---
 
-Clone to your local machine:
-git clone https://github.com/your-username/Healixir.git
+## 🤝 Contributing Guidelines
 
-Create a new feature branch:
-git checkout -b feature/your-feature
+We welcome suggestions and feedback!
 
-Commit your changes:
-git commit -m 'Add: description of your feature'
+### 📝 How to Contribute
 
-Push to GitHub:
-git push origin feature/your-feature
+1. **Fork** the project to your GitHub
+2. **Clone** locally: `git clone https://github.com/your-username/Healixir.git`
+3. **Create** a feature branch: `git checkout -b feature/your-feature`
+4. **Commit** changes: `git commit -m 'Add: new feature description'`
+5. **Push**: `git push origin feature/your-feature`
+6. **Open** a Pull Request
 
-Open a Pull Request
+### 📧 Or Contact Us Directly
+For suggestions, please email: charleskao811@gmail.com
 
-📧 Contact Us
-Email: charleskao811@gmail.com
+---
 
-📞 Contact Info
+## 📞 Contact Information
+
 <div align="center">
-Contact	Details
-📧 Email	charleskao811@gmail.com
+
+| Contact Method | Information |
+|---------------|-------------|
+| 📧 Email | charleskao811@gmail.com |
 
 </div>
-💝 Acknowledgements
+
+---
+
+## 💝 Acknowledgments
+
 <div align="center">
-Special thanks to all developers and users who contributed to Healixir!
-
-<b>Made with ❤️ by the Healixir Team</b>
-
-<br/>
-If you found this project helpful, please give us a ⭐!
-
+  
+  Special thanks to all developers and users who have contributed to **Healixir**!
+  
+  
+  ---
+  
+  <b>Made with ❤️ by Healixir Team</b>
+  
+  <br/>
+  
+  If this project helps you, please give us a ⭐!
+  
 </div>
