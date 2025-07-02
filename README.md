@@ -1,4 +1,8 @@
-# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - Smart Health Recommendation System
+<div align="center">
+
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - Smart Health Supplement Recommendation System (Work in Progress)
+
+</div>
 
 <div align="center">
   
@@ -11,6 +15,10 @@
   [![Python](https://img.shields.io/badge/Python-≥3.8-3776AB.svg?logo=python)](https://www.python.org/)
   [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.68.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
   [![React](https://img.shields.io/badge/React-18.3.1-61DAFB.svg?logo=react)](https://reactjs.org/)
+  
+  <br/>
+  
+  [![中文文档](https://img.shields.io/badge/中文文档-README__CN.md-red.svg?style=for-the-badge)](https://github.com/mato1321/Healixir/blob/main/README_CN.md)
   
 </div>
 
