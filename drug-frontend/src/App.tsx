@@ -3,18 +3,21 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";  // 新的主畫面
+import { CartProvider } from "@/contexts/CartContext";
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
-import Cart from "./pages/shop/Cart";  // 新增購物車頁面
-import ContactUs from "./pages/legal/ContactUs";  // 新增聯絡我們頁面
-import Member from "./pages/member/index";  // 新增會員中心頁面
-import AssessmentDetail from "./pages/member/AssessmentDetail";  // 新增評估詳情頁面
-import OrderDetail from "./pages/shop/OrderDetail";  // 新增訂單詳情頁面
+import Cart from "./pages/shop/Cart";
+import ShopDetail from "./pages/shop/shopDetail";
+import ProductDetailPage1 from "./pages/shopping/ProductDetailPage1";  // 新增商品詳情頁面
+import ContactUs from "./pages/legal/ContactUs";
+import Member from "./pages/member/index";
+import AssessmentDetail from "./pages/member/AssessmentDetail";
+import OrderDetail from "./pages/shop/OrderDetail";
 import PersonalInfo from "./pages/nutrition/PersonalInfo";
-import HealthGoalsPage from "./pages/nutrition/HealthGoalsPage";  // 新增健康目標頁面
+import HealthGoalsPage from "./pages/nutrition/HealthGoalsPage";
 import QuestionnaireStart from "./pages/nutrition/QuestionnaireStart";
 import Question1 from "./pages/nutrition/Question1";
 import Question2 from "./pages/nutrition/Question2";
@@ -70,84 +73,89 @@ import ProductRecommendation from "./pages/nutrition/ProductRecommendation";
 import RecommendationReport from "./pages/nutrition/RecommendationReport";
 
 const queryClient = new QueryClient();
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/home" element={<Navigate to="/" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/member" element={<Member />} />
-          <Route path="/nutrition/assessment/:id" element={<AssessmentDetail />} />
-          <Route path="/nutrition/order/:id" element={<OrderDetail />} />
-          <Route path="/nutrition/personal-info" element={<PersonalInfo />} />
-          <Route path="/nutrition/health-goals" element={<HealthGoalsPage />} />
-          <Route path="/nutrition/start" element={<QuestionnaireStart />} />
-          <Route path="/nutrition/question/1" element={<Question1 />} />
-          <Route path="/nutrition/question/2" element={<Question2 />} />
-          <Route path="/nutrition/question/3" element={<Question3 />} />
-          <Route path="/nutrition/question/4" element={<Question4 />} />
-          <Route path="/nutrition/question/5" element={<Question5 />} />
-          <Route path="/nutrition/question/6" element={<Question6 />} />
-          <Route path="/nutrition/question/7" element={<Question7 />} />
-          <Route path="/nutrition/question/8" element={<Question8 />} />
-          <Route path="/nutrition/question/9" element={<Question9 />} />
-          <Route path="/nutrition/question/10" element={<Question10 />} />
-          <Route path="/nutrition/question/11" element={<Question11 />} />
-          <Route path="/nutrition/question/12" element={<Question12 />} />
-          <Route path="/nutrition/question/13" element={<Question13 />} />
-          <Route path="/nutrition/question/14" element={<Question14 />} />
-          <Route path="/nutrition/question/15" element={<Question15 />} />
-          <Route path="/nutrition/question/16" element={<Question16 />} />
-          <Route path="/nutrition/question/17" element={<Question17 />} />
-          <Route path="/nutrition/question/18" element={<Question18 />} />
-          <Route path="/nutrition/question/19" element={<Question19 />} />
-          <Route path="/nutrition/question/20" element={<Question20 />} />
-          <Route path="/nutrition/question/21" element={<Question21 />} />
-          <Route path="/nutrition/question/22" element={<Question22 />} />
-          <Route path="/nutrition/question/23" element={<Question23 />} />
-          <Route path="/nutrition/question/24" element={<Question24 />} />
-          <Route path="/nutrition/question/25" element={<Question25 />} />
-          <Route path="/nutrition/question/26" element={<Question26 />} />
-          <Route path="/nutrition/question/27" element={<Question27 />} />
-          <Route path="/nutrition/question/28" element={<Question28 />} />
-          <Route path="/nutrition/question/29" element={<Question29 />} />
-          <Route path="/nutrition/question/30" element={<Question30 />} />
-          <Route path="/nutrition/question/31" element={<Question31 />} />
-          <Route path="/nutrition/question/32" element={<Question32 />} />
-          <Route path="/nutrition/question/33" element={<Question33 />} />
-          <Route path="/nutrition/question/34" element={<Question34 />} />
-          <Route path="/nutrition/question/35" element={<Question35 />} />
-          <Route path="/nutrition/question/36" element={<Question36 />} />
-          <Route path="/nutrition/question/37" element={<Question37 />} />
-          <Route path="/nutrition/question/38" element={<Question38 />} />
-          <Route path="/nutrition/question/39" element={<Question39 />} />
-          <Route path="/nutrition/question/40" element={<Question40 />} />
-          <Route path="/nutrition/question/41" element={<Question41 />} />
-          <Route path="/nutrition/question/42" element={<Question42 />} />
-          <Route path="/nutrition/question/43" element={<Question43 />} />
-          <Route path="/nutrition/question/44" element={<Question44 />} />
-          <Route path="/nutrition/question/45" element={<Question45 />} />
-          <Route path="/nutrition/question/46" element={<Question46 />} />
-          <Route path="/nutrition/question/47" element={<Question47 />} />
-          <Route path="/nutrition/question/48" element={<Question48 />} />
-          <Route path="/nutrition/analysis" element={<AnalysisResult />} />
-          <Route path="/nutrition/result" element={<NutritionResult />} />
-          <Route path="/nutrition/products" element={<ProductRecommendation />} />
-          <Route path="/nutrition/recommendations" element={<RecommendationReport />} />
-          <Route path="*" element={<div>404 頁面不存在</div>} />
-        </Routes>
-      </BrowserRouter>
+      <CartProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/shopDetail" element={<ShopDetail />} />
+            <Route path="/product/:id" element={<ProductDetailPage1 />} />  {/* 新增商品詳情路由 */}
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/member" element={<Member />} />
+            <Route path="/nutrition/assessment/:id" element={<AssessmentDetail />} />
+            <Route path="/nutrition/order/:id" element={<OrderDetail />} />
+            <Route path="/nutrition/personal-info" element={<PersonalInfo />} />
+            <Route path="/nutrition/health-goals" element={<HealthGoalsPage />} />
+            <Route path="/nutrition/start" element={<QuestionnaireStart />} />
+            <Route path="/nutrition/question/1" element={<Question1 />} />
+            <Route path="/nutrition/question/2" element={<Question2 />} />
+            <Route path="/nutrition/question/3" element={<Question3 />} />
+            <Route path="/nutrition/question/4" element={<Question4 />} />
+            <Route path="/nutrition/question/5" element={<Question5 />} />
+            <Route path="/nutrition/question/6" element={<Question6 />} />
+            <Route path="/nutrition/question/7" element={<Question7 />} />
+            <Route path="/nutrition/question/8" element={<Question8 />} />
+            <Route path="/nutrition/question/9" element={<Question9 />} />
+            <Route path="/nutrition/question/10" element={<Question10 />} />
+            <Route path="/nutrition/question/11" element={<Question11 />} />
+            <Route path="/nutrition/question/12" element={<Question12 />} />
+            <Route path="/nutrition/question/13" element={<Question13 />} />
+            <Route path="/nutrition/question/14" element={<Question14 />} />
+            <Route path="/nutrition/question/15" element={<Question15 />} />
+            <Route path="/nutrition/question/16" element={<Question16 />} />
+            <Route path="/nutrition/question/17" element={<Question17 />} />
+            <Route path="/nutrition/question/18" element={<Question18 />} />
+            <Route path="/nutrition/question/19" element={<Question19 />} />
+            <Route path="/nutrition/question/20" element={<Question20 />} />
+            <Route path="/nutrition/question/21" element={<Question21 />} />
+            <Route path="/nutrition/question/22" element={<Question22 />} />
+            <Route path="/nutrition/question/23" element={<Question23 />} />
+            <Route path="/nutrition/question/24" element={<Question24 />} />
+            <Route path="/nutrition/question/25" element={<Question25 />} />
+            <Route path="/nutrition/question/26" element={<Question26 />} />
+            <Route path="/nutrition/question/27" element={<Question27 />} />
+            <Route path="/nutrition/question/28" element={<Question28 />} />
+            <Route path="/nutrition/question/29" element={<Question29 />} />
+            <Route path="/nutrition/question/30" element={<Question30 />} />
+            <Route path="/nutrition/question/31" element={<Question31 />} />
+            <Route path="/nutrition/question/32" element={<Question32 />} />
+            <Route path="/nutrition/question/33" element={<Question33 />} />
+            <Route path="/nutrition/question/34" element={<Question34 />} />
+            <Route path="/nutrition/question/35" element={<Question35 />} />
+            <Route path="/nutrition/question/36" element={<Question36 />} />
+            <Route path="/nutrition/question/37" element={<Question37 />} />
+            <Route path="/nutrition/question/38" element={<Question38 />} />
+            <Route path="/nutrition/question/39" element={<Question39 />} />
+            <Route path="/nutrition/question/40" element={<Question40 />} />
+            <Route path="/nutrition/question/41" element={<Question41 />} />
+            <Route path="/nutrition/question/42" element={<Question42 />} />
+            <Route path="/nutrition/question/43" element={<Question43 />} />
+            <Route path="/nutrition/question/44" element={<Question44 />} />
+            <Route path="/nutrition/question/45" element={<Question45 />} />
+            <Route path="/nutrition/question/46" element={<Question46 />} />
+            <Route path="/nutrition/question/47" element={<Question47 />} />
+            <Route path="/nutrition/question/48" element={<Question48 />} />
+            <Route path="/nutrition/analysis" element={<AnalysisResult />} />
+            <Route path="/nutrition/result" element={<NutritionResult />} />
+            <Route path="/nutrition/products" element={<ProductRecommendation />} />
+            <Route path="/nutrition/recommendations" element={<RecommendationReport />} />
+            <Route path="*" element={<div>404 頁面不存在</div>} />
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
+
 export default App;

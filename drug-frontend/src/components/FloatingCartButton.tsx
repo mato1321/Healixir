@@ -1,23 +1,26 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+// 更新 src/components/FloatingCartButton.tsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
-const FloatingCartButton = () => {
+const FloatingCartButton: React.FC = () => {
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+
   return (
-    <div className="fixed bottom-24 right-6 z-50">
-      <Link to="/cart">
-        <Button
-          className="w-16 h-16 rounded-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 group relative"
-        >
-          <ShoppingCart className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
-          
-          {/* 可選：商品數量徽章 */}
-          <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-            <span className="text-white text-xs font-bold">3</span>
-          </div>
-        </Button>
-      </Link>
-    </div>
+    <Link to="/cart">
+      <div className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-50">
+        <div className="relative">
+          <ShoppingCart className="w-6 h-6" />
+          {totalItems > 0 && (
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              {totalItems > 99 ? '99+' : totalItems}
+            </div>
+          )}
+        </div>
+      </div>
+    </Link>
   );
 };
 
