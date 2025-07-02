@@ -10,7 +10,7 @@ import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import NutritionSurvey from "./pages/NutritionSurvey";
 import Cart from "./pages/Cart";  // 新增購物車頁面
-import ContactUs from "./pages/ContactUs";  // 新增聯絡我們頁面
+import ContactUs from "./pages/legal/ContactUs";  // 新增聯絡我們頁面
 import Member from "./pages/Member";  // 新增會員中心頁面
 import AssessmentDetail from "./pages/AssessmentDetail";  // 新增評估詳情頁面
 import OrderDetail from "./pages/OrderDetail";  // 新增訂單詳情頁面
