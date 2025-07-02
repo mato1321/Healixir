@@ -18,7 +18,7 @@
   
   <br/>
   
-  [![中文檔案](https://img.shields.io/badge/中文文档-README__CN.md-red.svg?style=for-the-badge)](https://github.com/mato1321/Healixir/blob/main/README_CN.md)
+  [![中文檔案](https://img.shields.io/badge/中文檔案-README__CN.md-red.svg?style=for-the-badge)](https://github.com/mato1321/Healixir/blob/main/README_CN.md)
   
 </div>
 
