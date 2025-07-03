@@ -1,6 +1,9 @@
-import React, { useState } from 'react';import { ArrowLeft, User, Mail, Phone, Calendar, Save } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft, User, Mail, Phone, Calendar, Save } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const EditProfilePage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     name: 'test',
     email: 'test@gmail.com',
@@ -8,13 +11,31 @@ const EditProfilePage = () => {
     birthday: '2025-01-01'
   });
 
-  const [showPassword, setShowPassword] = useState({
-    current: false,
-    new: false,
-    confirm: false
-  });
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [message, setMessage] = React.useState('');
 
-  const [activeTab, setActiveTab] = useState('basic');
+  React.useEffect(() => {
+    // 載入用戶資料
+    loadUserData();
+  }, []);
+
+  const loadUserData = () => {
+    // 從 localStorage 載入用戶資料
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setFormData({
+          name: parsedUser.name || '',
+          email: parsedUser.email || '',
+          phone: parsedUser.phone || '',
+          birthday: parsedUser.birth_date || ''
+        });
+      } catch (error) {
+        console.error('載入用戶資料失敗:', error);
+      }
+    }
+  };
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -23,32 +44,69 @@ const EditProfilePage = () => {
     }));
   };
 
-  const togglePasswordVisibility = (field) => {
-    setShowPassword(prev => ({
-      ...prev,
-      [field]: !prev[field]
-    }));
-  };
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    setMessage('');
 
-  const handleSubmit = () => {
-    console.log('更新資料:', formData);
-    // 這裡可以添加實際的更新邏輯
+    try {
+      // 取得 token
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('請先登入');
+      }
+
+      // 發送更新請求到後端
+      const response = await fetch('http://localhost:5000/api/user/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          birth_date: formData.birthday
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || '更新失敗');
+      }
+
+      const result = await response.json();
+      
+      // 更新 localStorage 中的用戶資料
+      localStorage.setItem('user', JSON.stringify(result.user));
+      
+      setMessage('✅ 個人資料更新成功！');
+      
+      // 3秒後清除訊息
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
+
+    } catch (error) {
+      console.error('更新資料失敗:', error);
+      setMessage('❌ 更新失敗：' + error.message);
+      
+      // 5秒後清除錯誤訊息
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <button 
-              onClick={() => window.history.back()}
-              className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              返回會員中心
-            </button>
-            <div className="flex items-center">
+            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
               <img 
                 src="/favicon.ico" 
                 alt="Logo" 
@@ -60,9 +118,9 @@ const EditProfilePage = () => {
                 </h1>
                 <p className="text-xs text-gray-500">智能保健顧問</p>
               </div>
-            </div>
+            </Link>
             <div className="text-sm text-gray-600">
-              歡迎，<span className="font-medium text-blue-600">test</span>
+              歡迎，<span className="font-medium text-blue-600">{formData.name || 'test'}</span>
             </div>
           </div>
         </div>
@@ -83,6 +141,17 @@ const EditProfilePage = () => {
 
           {/* 表單內容 */}
           <div className="p-8">
+            {/* 訊息顯示區域 */}
+            {message && (
+              <div className={`mb-6 p-4 rounded-lg ${
+                message.includes('✅') 
+                  ? 'bg-green-50 text-green-800 border border-green-200' 
+                  : 'bg-red-50 text-red-800 border border-red-200'
+              }`}>
+                {message}
+              </div>
+            )}
+
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* 姓名 */}
@@ -150,18 +219,31 @@ const EditProfilePage = () => {
             <div className="flex items-center justify-end space-x-4 pt-8 border-t border-gray-200">
               <button
                 type="button"
-                onClick={() => window.history.back()}
+                onClick={() => navigate('/')}
                 className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
+                disabled={isLoading}
               >
                 取消
               </button>
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center"
+                disabled={isLoading}
+                className={`px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center ${
+                  isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
-                <Save className="w-5 h-5 mr-2" />
-                儲存變更
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    儲存中...
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5 mr-2" />
+                    儲存變更
+                  </>
+                )}
               </button>
             </div>
           </div>
