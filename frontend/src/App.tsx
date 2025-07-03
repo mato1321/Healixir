@@ -14,6 +14,7 @@ import ShopDetail from "./pages/shop/shopDetail";
 import ProductDetailPage1 from "./pages/shopping/ProductDetailPage1";  // 新增商品詳情頁面
 import ContactUs from "./pages/legal/ContactUs";
 import Member from "./pages/member/index";
+import EditProfile from "./pages/member/EditProfile";  // 新增編輯個人資料頁面
 import AssessmentDetail from "./pages/member/AssessmentDetail";
 import OrderDetail from "./pages/shop/OrderDetail";
 import PersonalInfo from "./pages/nutrition/PersonalInfo";
@@ -93,6 +94,7 @@ const App = () => (
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/member" element={<Member />} />
+            <Route path="/member/edit" element={<EditProfile />} />  {/* 新增編輯個人資料路由 */}
             <Route path="/nutrition/assessment/:id" element={<AssessmentDetail />} />
             <Route path="/nutrition/order/:id" element={<OrderDetail />} />
             <Route path="/nutrition/personal-info" element={<PersonalInfo />} />

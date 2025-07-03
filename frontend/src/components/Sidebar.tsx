@@ -1,4 +1,3 @@
-
 import { cn } from '@/lib/utils';
 import { ChevronRight, Filter } from 'lucide-react';
 import { useState } from 'react';
@@ -49,6 +48,12 @@ export const Sidebar = ({
     );
   };
 
+  const handleCategorySelect = (category: string) => {
+    // 如果是父分類（維生素或草本保健），則選擇該父分類
+    // shopDetail.tsx 會處理顯示子分類的商品
+    onCategorySelect(category);
+  };
+
   const handleRatingChange = (rating: number) => {
     onRatingsChange(
       selectedRatings.includes(rating)
@@ -97,7 +102,7 @@ export const Sidebar = ({
               <div key={category}>
                 <div className="flex items-center">
                   <button
-                    onClick={() => onCategorySelect(category)}
+                    onClick={() => handleCategorySelect(category)}
                     className={cn(
                       "flex-1 text-left px-3 py-2 rounded text-sm transition-colors",
                       selectedCategory === category

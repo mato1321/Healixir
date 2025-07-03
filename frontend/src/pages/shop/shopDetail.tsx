@@ -19,6 +19,24 @@ const Index = () => {
   const [sortBy, setSortBy] = useState('綜合排序');
   const [searchTerm, setSearchTerm] = useState('');
 
+  // 定義分類層級結構
+  const categoryHierarchy = {
+    '維生素': ['維生素B', '維生素C', '維生素D'],
+    '草本保健': ['人參', '薑黃', '綠茶萃取'],
+    '礦物質': [],
+    '益生菌': [],
+    '眼部保健': [],
+    '魚油/Omega-3': [],
+    '膠原蛋白/美容保健': [],
+    '女性保健': [],
+    '關節/骨骼保健': [],
+    '心血管保健': [],
+    '消化/腸道保健': [],
+    '免疫/抗氧化': [],
+    '體力/精力保健': [],
+    '其他特殊保健': []
+  };
+
   useEffect(() => {
     // 檢查用戶登入狀態
     const token = localStorage.getItem('token');
@@ -88,9 +106,23 @@ const Index = () => {
   console.log('商品數量映射:', productCounts);
 
   // Filter products based on category, price range, ratings, and search term
-  let filteredProducts = selectedCategory === '所有商品' 
-    ? supplementData 
-    : supplementData.filter(product => product.category === selectedCategory);
+  let filteredProducts;
+  
+  if (selectedCategory === '所有商品') {
+    filteredProducts = supplementData;
+  } else {
+    // 檢查是否為父分類
+    const subcategories = categoryHierarchy[selectedCategory as keyof typeof categoryHierarchy];
+    if (subcategories && subcategories.length > 0) {
+      // 如果是父分類，顯示所有子分類的商品
+      filteredProducts = supplementData.filter(product => 
+        subcategories.includes(product.category)
+      );
+    } else {
+      // 如果是子分類或一般分類，正常篩選
+      filteredProducts = supplementData.filter(product => product.category === selectedCategory);
+    }
+  }
 
   // Apply price filter
   filteredProducts = filteredProducts.filter(product => 
@@ -151,7 +183,7 @@ const Index = () => {
             <nav className="flex items-center space-x-6">
               <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors">首頁</Link>
               <Link to="/shopDetail">
-                <Button variant="ghost" size="sm" className="hover:bg-blue-50">
+                <Button variant="ghost" size="sm" className="hover:bg-blue-50 bg-blue-50 text-blue-600">
                   <ShoppingCart className="w-4 h-4 mr-2" />
                   商品
                 </Button>
