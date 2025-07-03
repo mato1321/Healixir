@@ -1,39 +1,35 @@
-from sqlalchemy import Column, String, Date, Enum as SQLEnum
-from sqlalchemy.orm import relationship
-import enum
-
-# 注意：這裡不再繼承 BaseModel，因為我們使用 email 作為主鍵
+from sqlalchemy import Column, Integer, String, Date, Boolean, DateTime, Enum as SQLEnum
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
+import enum
 
 Base = declarative_base()
 
 class GenderEnum(str, enum.Enum):
     MALE = "male"
     FEMALE = "female"
-    OTHER = "other"  # 可選：添加其他性別選項
+    OTHER = "other"
 
 class User(Base):
     __tablename__ = "users"
     
-    # email 作為主鍵
-    email = Column(String, primary_key=True, index=True, nullable=False)
-    password = Column(String, nullable=False)  # 改為 password
+    # Primary key using id, not email
+    id = Column(Integer, primary_key=True, index=True)
+    
+    # Basic data
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)  # Store encrypted password
     name = Column(String, nullable=True)
     gender = Column(SQLEnum(GenderEnum), nullable=True)
     birth_date = Column(Date, nullable=True)
-    phone = Column(String, nullable=True)  # 新增 phone 欄位
+    phone = Column(String, nullable=True)
     
-    # 移除這些欄位：
-    # hashed_password (改為 password)
-    # is_active (已刪除)
-    # is_verified (已刪除)
-    # id (email 現在是主鍵)
-    # created_at (已刪除)
-    # updated_at (已刪除)
+    # Status fields
+    is_active = Column(Boolean, default=True)
     
-    # 關聯關係（如果需要的話）
-    # orders = relationship("Order", back_populates="user")
-    # reviews = relationship("Review", back_populates="user")
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     def __repr__(self):
-        return f"<User(email='{self.email}', name='{self.name}')>"
+        return f"<User(id={self.id}, email='{self.email}', name='{self.name}')>"

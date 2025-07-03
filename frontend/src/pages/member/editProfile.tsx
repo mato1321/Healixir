@@ -5,10 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 const EditProfilePage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
-    name: 'test',
-    email: 'test@gmail.com',
+    name: '',
+    email: '',
     phone: '',
-    birthday: '2025-01-01'
+    birth_date: ''  // 改為 birth_date 與後端一致
   });
 
   const [isLoading, setIsLoading] = React.useState(false);
@@ -19,20 +19,58 @@ const EditProfilePage = () => {
     loadUserData();
   }, []);
 
-  const loadUserData = () => {
-    // 從 localStorage 載入用戶資料
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
+  const loadUserData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      // 從後端 API 取得最新的用戶資料
+      const response = await fetch('http://localhost:8000/api/user/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
         setFormData({
-          name: parsedUser.name || '',
-          email: parsedUser.email || '',
-          phone: parsedUser.phone || '',
-          birthday: parsedUser.birth_date || ''
+          name: userData.name || '',
+          email: userData.email || '',
+          phone: userData.phone || '',
+          birth_date: userData.birth_date || ''
         });
-      } catch (error) {
-        console.error('載入用戶資料失敗:', error);
+      } else {
+        // 如果 API 失敗，嘗試從 localStorage 載入
+        const localUser = localStorage.getItem('user');
+        if (localUser) {
+          const parsedUser = JSON.parse(localUser);
+          setFormData({
+            name: parsedUser.name || '',
+            email: parsedUser.email || '',
+            phone: parsedUser.phone || '',
+            birth_date: parsedUser.birth_date || ''
+          });
+        }
+      }
+    } catch (error) {
+      console.error('載入用戶資料失敗:', error);
+      // 嘗試從 localStorage 載入作為備案
+      const localUser = localStorage.getItem('user');
+      if (localUser) {
+        try {
+          const parsedUser = JSON.parse(localUser);
+          setFormData({
+            name: parsedUser.name || '',
+            email: parsedUser.email || '',
+            phone: parsedUser.phone || '',
+            birth_date: parsedUser.birth_date || ''
+          });
+        } catch (parseError) {
+          console.error('解析本地用戶資料失敗:', parseError);
+        }
       }
     }
   };
@@ -55,24 +93,26 @@ const EditProfilePage = () => {
         throw new Error('請先登入');
       }
 
-      // 發送更新請求到後端
-      const response = await fetch('http://localhost:5000/api/user/update', {
+      // 準備要傳送的資料，只傳送有變更的欄位
+      const updateData = {};
+      if (formData.name.trim()) updateData.name = formData.name.trim();
+      if (formData.email.trim()) updateData.email = formData.email.trim();
+      if (formData.phone.trim()) updateData.phone = formData.phone.trim();
+      if (formData.birth_date) updateData.birth_date = formData.birth_date;
+
+      // 發送更新請求到後端 (修正為正確的端點)
+      const response = await fetch('http://localhost:8000/api/user/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          birth_date: formData.birthday
-        })
+        body: JSON.stringify(updateData)
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || '更新失敗');
+        throw new Error(errorData.detail || '更新失敗');
       }
 
       const result = await response.json();
@@ -120,7 +160,7 @@ const EditProfilePage = () => {
               </div>
             </Link>
             <div className="text-sm text-gray-600">
-              歡迎，<span className="font-medium text-blue-600">{formData.name || 'test'}</span>
+              歡迎，<span className="font-medium text-blue-600">{formData.name || '用戶'}</span>
             </div>
           </div>
         </div>
@@ -207,8 +247,8 @@ const EditProfilePage = () => {
                   </label>
                   <input
                     type="date"
-                    value={formData.birthday}
-                    onChange={(e) => handleInputChange('birthday', e.target.value)}
+                    value={formData.birth_date}
+                    onChange={(e) => handleInputChange('birth_date', e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white/50 backdrop-blur-sm"
                   />
                 </div>

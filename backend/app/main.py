@@ -4,17 +4,17 @@ from app.core.config import settings
 from app.core.database import engine, Base
 from app.api import auth
 
-# 創建資料庫表
+# Create database tables
 Base.metadata.create_all(bind=engine)
 
-# 創建 FastAPI 應用
+# Create FastAPI application
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     debug=settings.DEBUG
 )
 
-# CORS 中介軟體
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.BACKEND_CORS_ORIGINS,
@@ -23,8 +23,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 包含路由 - 移除 /api 前綴
-app.include_router(auth.router)
+# Include routers
+app.include_router(auth.router, prefix="/auth", tags=["authentication"])
+
+# Only import users router if it exists
+try:
+    from app.api.v1.users import router as users_router
+    app.include_router(users_router, prefix="/api/user", tags=["users"])
+except ImportError:
+    print("Warning: users router not found, skipping...")
 
 @app.get("/")
 def root():

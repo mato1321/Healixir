@@ -15,7 +15,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
-    birthDate: "",
+    birth_date: "",  // 改為 birth_date 與後端一致
     email: "",
     password: "",
     confirmPassword: ""
@@ -47,6 +47,7 @@ const Register = () => {
     setIsLoading(true);
 
     try {
+      // 修正 API 端點
       const response = await fetch('http://localhost:8000/auth/register', {
         method: 'POST',
         headers: {
@@ -57,7 +58,7 @@ const Register = () => {
           password: formData.password,
           name: formData.name,
           gender: formData.gender,
-          birth_date: formData.birthDate,
+          birth_date: formData.birth_date,  // 使用 birth_date
         }),
       });
 
@@ -169,16 +170,16 @@ const Register = () => {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="birthDate" className="text-sm font-medium text-gray-700">
+              <label htmlFor="birth_date" className="text-sm font-medium text-gray-700">
                 出生日期
               </label>
               <div className="relative">
                 <Input
-                  id="birthDate"
+                  id="birth_date"
                   type="date"
-                  placeholder="YYYY/MM/DD"
-                  value={formData.birthDate}
-                  onChange={(e) => handleInputChange("birthDate", e.target.value)}
+                  placeholder="YYYY-MM-DD"
+                  value={formData.birth_date}
+                  onChange={(e) => handleInputChange("birth_date", e.target.value)}
                   className="bg-white/60 backdrop-blur-sm border-2 border-blue-200 focus:border-blue-400"
                   required
                   disabled={isLoading}

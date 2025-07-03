@@ -12,7 +12,7 @@ def get_current_user(
     db: Session = Depends(get_db)
 ) -> User:
     token = credentials.credentials
-    email = verify_token(token)
+    email = verify_token(token)  # This now returns email directly
     
     if email is None:
         raise HTTPException(

@@ -1,24 +1,26 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
+from datetime import timedelta
 from app.core.database import get_db
 from app.core.security import verify_password, get_password_hash, create_access_token, verify_token
+from app.core.config import settings
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse, Token
 
-router = APIRouter(prefix="/auth", tags=["authentication"])
+# Remove prefix from here since it's set in main.py
+router = APIRouter(tags=["authentication"])
 security = HTTPBearer()
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
     token = credentials.credentials
-    payload = verify_token(token)
-    if payload is None:
+    email = verify_token(token)  # This now returns email directly
+    if email is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token"
         )
     
-    email = payload.get("sub")
     user = db.query(User).filter(User.email == email).first()
     if user is None:
         raise HTTPException(
@@ -27,57 +29,62 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         )
     return user
 
-@router.post("/register", response_model=dict)
+@router.post("/register", response_model=UserResponse)
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
-    # 檢查用戶是否已存在
+    # Check if user already exists
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User already exists"
+            detail="Email already registered"
         )
     
-    # 創建新用戶
+    # Create new user
     hashed_password = get_password_hash(user_data.password)
     db_user = User(
         email=user_data.email,
-        password=hashed_password,  # 改為 password
+        hashed_password=hashed_password,  # Use hashed_password, not password
         name=user_data.name,
         gender=user_data.gender,
         birth_date=user_data.birth_date,
-        phone=getattr(user_data, 'phone', None)  # 添加 phone 欄位
+        phone=getattr(user_data, 'phone', None)
     )
     
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     
-    return {"message": "Registration successful"}
+    return db_user
 
 @router.post("/login", response_model=Token)
 def login(user_data: UserLogin, db: Session = Depends(get_db)):
-    # 驗證用戶
+    # Authenticate user
     user = db.query(User).filter(User.email == user_data.email).first()
     
-    if not user or not verify_password(user_data.password, user.password):  # 改為 password
+    if not user or not verify_password(user_data.password, user.hashed_password):  # Use hashed_password
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
     
-    # 移除 is_active 檢查，因為欄位已刪除
-    # if not user.is_active:
-    #     raise HTTPException(
-    #         status_code=status.HTTP_400_BAD_REQUEST,
-    #         detail="Account is disabled"
-    #     )
+    # Check if user is active
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Account is disabled"
+        )
     
-    # 創建 token
-    access_token = create_access_token(data={"sub": user.email})
+    # Create access token
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.email}, 
+        expires_delta=access_token_expires
+    )
     
     return {
         "access_token": access_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "user": user
     }
 
 @router.get("/me", response_model=UserResponse)
