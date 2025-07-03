@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/drug-frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統(未完成)
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統(未完成)
 
 <div align="center">
   
