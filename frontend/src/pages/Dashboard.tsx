@@ -87,7 +87,7 @@ const Dashboard = () => {
             <nav className="flex items-center space-x-6">
               <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors">首頁</Link>
               <Link to="/shopDetail">
-                <Button variant="ghost" size="sm" className="hover:bg-green-50">
+                <Button variant="ghost" size="sm" className="hover:bg-blue-50">
                   <ShoppingCart className="w-4 h-4 mr-2" />
                   商品
                 </Button>

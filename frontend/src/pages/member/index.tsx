@@ -667,13 +667,13 @@ const Member = () => {
                   ))}
                 </div>
                 <div className="mt-6 text-center">
-                  <Link to="/nutrition">
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
-                      <FileText className="w-4 h-4 mr-2" />
-                      進行新的評估
-                    </Button>
-                  </Link>
-                </div>
+  				<Link to="/nutrition/personal-info">
+    					<Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
+      					<FileText className="w-4 h-4 mr-2" />
+     						進行新的評估
+    					</Button>
+  				</Link>
+			</div>
               </CardContent>
             </Card>
           </TabsContent>
