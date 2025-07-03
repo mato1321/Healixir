@@ -14,14 +14,14 @@ const ChatButton = () => {
 
   return (
     <>
-      {/* 聊天按鈕 */}
+      {/* 聊天按鈕 - 調整為與購物車按鈕相同大小 */}
       <div className="fixed bottom-6 right-6 z-50">
-        <Button
+        <div
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 group"
+          className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 cursor-pointer flex items-center justify-center group"
         >
           <MessageCircle className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
-        </Button>
+        </div>
       </div>
 
       {/* 對話框 */}

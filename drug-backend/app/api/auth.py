@@ -41,10 +41,11 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
     hashed_password = get_password_hash(user_data.password)
     db_user = User(
         email=user_data.email,
-        hashed_password=hashed_password,
+        password=hashed_password,  # 改為 password
         name=user_data.name,
         gender=user_data.gender,
-        birth_date=user_data.birth_date
+        birth_date=user_data.birth_date,
+        phone=getattr(user_data, 'phone', None)  # 添加 phone 欄位
     )
     
     db.add(db_user)
@@ -58,17 +59,18 @@ def login(user_data: UserLogin, db: Session = Depends(get_db)):
     # 驗證用戶
     user = db.query(User).filter(User.email == user_data.email).first()
     
-    if not user or not verify_password(user_data.password, user.hashed_password):
+    if not user or not verify_password(user_data.password, user.password):  # 改為 password
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
     
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Account is disabled"
-        )
+    # 移除 is_active 檢查，因為欄位已刪除
+    # if not user.is_active:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_400_BAD_REQUEST,
+    #         detail="Account is disabled"
+    #     )
     
     # 創建 token
     access_token = create_access_token(data={"sub": user.email})
