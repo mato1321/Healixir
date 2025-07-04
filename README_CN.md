@@ -1,15 +1,15 @@
-# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統(未完成)
 
 <div align="center">
   
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=智慧健康保健品推薦;您的專屬健康顧問;個人化補充品建議" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=智慧健康保健品推薦;數據分析平台;您的專屬健康顧問" alt="Typing SVG" />
   
   <br/>
   
   [![Version](https://img.shields.io/badge/版本-1.0.0-blue.svg)](https://github.com/mato1321/Healixir)
   [![Node.js](https://img.shields.io/badge/Node.js-≥14.0.0-339933.svg?logo=node.js)](https://nodejs.org/)
   [![Python](https://img.shields.io/badge/Python-≥3.8-3776AB.svg?logo=python)](https://www.python.org/)
-  [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.104.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.68.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
   [![React](https://img.shields.io/badge/React-18.3.1-61DAFB.svg?logo=react)](https://reactjs.org/)
   
 </div>
@@ -20,7 +20,7 @@
 
 <img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
 
-**Healixir** 是一套整合健康數據分析與個人化推薦演算法的智慧型健康保健品推薦系統。透過分析您個人的健康狀況、生活習慣與個人需求，為您提供量身客製化的保健品建議。
+**Healixir** 是一套整合健康數據分析平台與自主研發推薦演算法的智慧型健康保健品推薦系統。透過分析您個人的健康狀況、生活習慣與個人需求，運用我們自行設計的多維度評分演算法，為您提供量身客製化的保健品建議。
 
 ### 🎯 適用族群
 
@@ -47,7 +47,7 @@
 | 🔐 **安全身份驗證** | 基於 JWT 的身份驗證與密碼加密 | ✅ 已完成 |
 | 📊 **健康數據儲存** | PostgreSQL 資料庫完整記錄用戶健康資料 | ✅ 已完成 |
 | 🔒 **隱私保護** | 採用加密技術保護數據安全 | ✅ 已完成 |
-| 🧮 **推薦演算法** | 個人化保健品推薦系統 | 🚧 開發中 |
+| 🧮 **獨家演算法推薦** | 基於自研演算法的個人化保健品推薦 | 🚧 開發中 |
 | 📈 **視覺化分析** | 直觀的圖表展示健康趨勢 | 🚧 開發中 |
 
 </details>
@@ -63,32 +63,40 @@ graph TD
     A[React 前端應用] --> B[FastAPI 後端服務]
     B --> C[JWT 身份驗證]
     B --> D[PostgreSQL 數據庫]
+    B --> E[推薦演算法引擎]
+    B --> F[Redis 緩存層]
     
-    C --> E[用戶註冊/登入]
-    C --> F[個人資料管理]
+    C --> G[用戶註冊/登入]
+    C --> H[個人資料管理]
     
-    D --> G[用戶健康資料]
-    D --> H[身份驗證記錄]
+    D --> I[用戶健康資料]
+    D --> J[藥物資料庫]
+    D --> K[推薦歷史記錄]
     
-    subgraph "前端組件"
-        A --> A1[註冊頁面]
-        A --> A2[登入頁面]
-        A --> A3[個人資料編輯頁面]
-        A --> A4[儀表板]
+    E --> L[藥物配對算法]
+    E --> M[健康狀況分析]
+    E --> N[個人化推薦邏輯]
+    
+    subgraph "✅ 已實現功能"
+        G
+        H
+        I
     end
     
-    subgraph "後端 API 端點"
-        B --> B1[/auth/register]
-        B --> B2[/auth/login]
-        B --> B3[/api/user/me]
-        B --> B4[/api/user/update]
+    subgraph "🚧 開發中"
+        L
+        M
+        N
+        J
+        K
+        F
     end
     
-    subgraph "資料庫結構"
-        G --> G1[Users 表]
-        G1 --> G2[id, email, hashed_password]
-        G1 --> G3[name, gender, birth_date, phone]
-        G1 --> G4[is_active, created_at, updated_at]
+    subgraph "當前 API 端點"
+        B --> B1[POST /auth/register]
+        B --> B2[POST /auth/login]
+        B --> B3[GET /api/user/me]
+        B --> B4[PUT /api/user/update]
     end
 ```
 
@@ -99,26 +107,49 @@ graph TD
 **前端技術：**
 - React 18.3.1 + TypeScript
 - Vite 構建工具
-- Tailwind CSS + shadcn/ui 組件庫
-- React Router 路由管理
+- Tailwind CSS + shadcn/ui
+- Zustand 狀態管理 *(未來)*
+- React Query 數據管理 *(未來)*
 - Axios HTTP 客戶端
-- Lucide React 圖標庫
 
 **後端技術：**
 - FastAPI (Python) - 高性能 API 框架
-- PostgreSQL - 主要數據庫，完整 ACID 支援
-- SQLAlchemy - ORM 數據庫操作
-- Alembic - 數據庫遷移管理
-- JWT (JSON Web Tokens) - 安全身份驗證
-- bcrypt - 密碼雜湊加密
-- Pydantic - 數據驗證與序列化
+- PostgreSQL - 主要數據庫 ✅
+- Redis - 緩存與會話管理 *(未來)*
+- JWT - 身份驗證 ✅
+- Pydantic - 數據驗證 ✅
+- SQLAlchemy - ORM 數據庫操作 ✅
+- Alembic - 數據庫遷移管理 ✅
+- bcrypt - 密碼雜湊加密 ✅
 
-**安全特性：**
-- 使用 bcrypt 進行密碼加密
+**✅ 當前實現狀態：**
+- 用戶註冊與身份驗證系統
+- 使用 bcrypt 進行安全密碼雜湊
 - 基於 JWT token 的身份驗證
-- CORS 中間件確保跨域請求安全
-- SQLAlchemy ORM 防止 SQL 注入攻擊
-- Pydantic 模式進行輸入驗證
+- 用戶個人資料管理與編輯
+- PostgreSQL 資料庫完整用戶模式：
+  ```sql
+  CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR UNIQUE NOT NULL,
+      hashed_password VARCHAR NOT NULL,
+      name VARCHAR,
+      gender genderenum,  -- 枚舉: 'MALE', 'FEMALE', 'OTHER'
+      birth_date DATE,
+      phone VARCHAR,
+      is_active BOOLEAN DEFAULT TRUE,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+  ```
+- 用戶操作的 RESTful API 端點
+- 現代 UI 組件的響應式前端設計
+
+**🚧 推薦演算法（開發中）：**
+- 自研藥物配對演算法
+- 健康狀況評估系統
+- 個人化權重計算
+- 多維度推薦評分機制
 
 ---
 
@@ -165,6 +196,8 @@ psql -c "GRANT ALL PRIVILEGES ON DATABASE drug_recommend_db TO drug_user;"
 <details>
 <summary><b>⚙️ Step 3: 後端設定</b></summary>
 
+#### 🐍 Python FastAPI 後端
+
 ```bash
 # 進入後端目錄
 cd backend
@@ -189,7 +222,7 @@ echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> .env
 echo "ALGORITHM=HS256" >> .env
 echo "DEBUG=True" >> .env
 
-# 初始化資料庫（如果使用 Alembic）
+# 初始化資料庫
 alembic revision --autogenerate -m "Initial migration"
 alembic upgrade head
 
@@ -252,7 +285,26 @@ yarn dev
   </tr>
 </table>
 
-### 🔄 API 端點
+### 🔄 常用開發指令
+
+**前端開發：**
+```bash
+cd frontend
+npm run dev          # 啟動開發服務器
+npm run build        # 構建生產版本
+npm run lint         # 代碼檢查
+npm run preview      # 預覽生產版本
+```
+
+**後端開發：**
+```bash
+cd backend
+venv\Scripts\activate                    # 啟動虛擬環境 (Windows)
+source venv/bin/activate                 # 啟動虛擬環境 (macOS/Linux)
+python -m app.main                       # 啟動開發服務器
+```
+
+### 📋 API 端點
 
 **身份驗證：**
 - `POST /auth/register` - 用戶註冊
@@ -264,29 +316,13 @@ yarn dev
 - `PUT /api/user/me` - 更新用戶個人資料（RESTful）
 - `PUT /api/user/update` - 更新用戶個人資料（前端兼容）
 
-### 🗄️ 資料庫結構
-
-```sql
--- Users 表結構
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR UNIQUE NOT NULL,
-    hashed_password VARCHAR NOT NULL,
-    name VARCHAR,
-    gender genderenum,  -- 枚舉: 'MALE', 'FEMALE', 'OTHER'
-    birth_date DATE,
-    phone VARCHAR,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
 ---
 
 ## 🔧 環境設定
 
 ### 📝 環境變數配置
+
+請在 `.env` 檔案中加入以下設定：
 
 **後端 (.env)：**
 ```env
@@ -368,33 +404,6 @@ Healixir/
 
 ---
 
-## 🚧 開發路線圖
-
-### ✅ 已完成功能
-- [x] 用戶註冊與身份驗證系統
-- [x] 使用 bcrypt 進行安全密碼雜湊
-- [x] 基於 JWT token 的身份驗證
-- [x] 用戶個人資料管理與編輯
-- [x] PostgreSQL 資料庫整合
-- [x] RESTful API 端點
-- [x] 響應式前端設計
-
-### 🚧 開發中
-- [ ] 健康問卷調查系統
-- [ ] 保健品推薦演算法
-- [ ] 健康數據分析儀表板
-- [ ] 視覺化圖表與報告
-- [ ] 保健品管理後台
-
-### 🎯 未來計劃
-- [ ] 手機應用程式
-- [ ] AI 驅動的健康洞察
-- [ ] 健康設備整合
-- [ ] 多語言支援
-- [ ] 進階報告功能
-
----
-
 ## 📞 聯絡資訊
 
 <div align="center">
@@ -402,7 +411,6 @@ Healixir/
 | 聯絡方式 | 資訊 |
 |---------|------|
 | 📧 Email | charleskao811@gmail.com |
-| 🐙 GitHub | [mato1321](https://github.com/mato1321) |
 
 </div>
 
