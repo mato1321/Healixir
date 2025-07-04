@@ -1,6 +1,6 @@
 <div align="center">
 
-# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統(開發中)
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統
 
 </div>
 
@@ -81,13 +81,6 @@ graph TD
     E --> M[健康狀況分析]
     E --> N[個人化推薦邏輯]
     
-    subgraph "API 端點"
-        B --> B1[POST /auth/register]
-        B --> B2[POST /auth/login]
-        B --> B3[GET /api/user/me]
-        B --> B4[PUT /api/user/update]
-    end
-    
     subgraph "推薦系統核心"
         L
         M
@@ -98,6 +91,13 @@ graph TD
         I
         J
         K
+    end
+    
+    subgraph "API 端點"
+        B --> B1[POST /auth/register]
+        B --> B2[POST /auth/login]
+        B --> B3[GET /api/user/me]
+        B --> B4[PUT /api/user/update]
     end
 ```
 
