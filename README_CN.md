@@ -1,15 +1,15 @@
-# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統(未完成)
+# <img src="https://raw.githubusercontent.com/mato1321/Healixir/main/frontend/public/favicon.ico" alt="Healixir Logo" width="35" height="35" /> Healixir - 智慧健康保健品推薦系統
 
 <div align="center">
   
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=智慧健康保健品推薦;數據分析平台;您的專屬健康顧問" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1000&color=2E7D32&center=true&vCenter=true&width=600&lines=智慧健康保健品推薦;您的專屬健康顧問;個人化補充品建議" alt="Typing SVG" />
   
   <br/>
   
   [![Version](https://img.shields.io/badge/版本-1.0.0-blue.svg)](https://github.com/mato1321/Healixir)
   [![Node.js](https://img.shields.io/badge/Node.js-≥14.0.0-339933.svg?logo=node.js)](https://nodejs.org/)
   [![Python](https://img.shields.io/badge/Python-≥3.8-3776AB.svg?logo=python)](https://www.python.org/)
-  [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.68.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.104.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
   [![React](https://img.shields.io/badge/React-18.3.1-61DAFB.svg?logo=react)](https://reactjs.org/)
   
 </div>
@@ -20,7 +20,7 @@
 
 <img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
 
-**Healixir** 是一套整合健康數據分析平台與自主研發推薦演算法的智慧型健康保健品推薦系統。透過分析您個人的健康狀況、生活習慣與個人需求，運用我們自行設計的多維度評分演算法，為您提供量身客製化的保健品建議。
+**Healixir** 是一套整合健康數據分析與個人化推薦演算法的智慧型健康保健品推薦系統。透過分析您個人的健康狀況、生活習慣與個人需求，為您提供量身客製化的保健品建議。
 
 ### 🎯 適用族群
 
@@ -40,13 +40,15 @@
 <details open>
 <summary><b>📋 核心功能一覽</b></summary>
 
-| 功能 | 說明 |
-|------|------|
-| 📊 **健康數據管理** | 完整記錄並追蹤您的健康數據 |
-| 🧮 **獨家演算法推薦** | 基於自研演算法的個人化保健品推薦 |
-| 📝 **個人化建議** | 根據您的狀況提供專業健康建議 |
-| 📈 **視覺化分析** | 直觀的圖表展示健康趨勢 |
-| 🔒 **隱私保護** | 採用加密技術保護數據 |
+| 功能 | 說明 | 狀態 |
+|------|------|------|
+| 👤 **用戶管理** | 完整的用戶註冊、登入與個人資料管理 | ✅ 已完成 |
+| 📝 **個人資料編輯** | 編輯個人資訊與健康數據 | ✅ 已完成 |
+| 🔐 **安全身份驗證** | 基於 JWT 的身份驗證與密碼加密 | ✅ 已完成 |
+| 📊 **健康數據儲存** | PostgreSQL 資料庫完整記錄用戶健康資料 | ✅ 已完成 |
+| 🔒 **隱私保護** | 採用加密技術保護數據安全 | ✅ 已完成 |
+| 🧮 **推薦演算法** | 個人化保健品推薦系統 | 🚧 開發中 |
+| 📈 **視覺化分析** | 直觀的圖表展示健康趨勢 | 🚧 開發中 |
 
 </details>
 
@@ -59,28 +61,34 @@
 ```mermaid
 graph TD
     A[React 前端應用] --> B[FastAPI 後端服務]
-    B --> C[推薦演算法引擎]
+    B --> C[JWT 身份驗證]
     B --> D[PostgreSQL 數據庫]
-    B --> E[Redis 緩存層]
     
-    C --> F[藥物配對算法]
-    C --> G[健康狀況分析]
-    C --> H[個人化推薦邏輯]
+    C --> E[用戶註冊/登入]
+    C --> F[個人資料管理]
     
-    D --> I[用戶健康資料]
-    D --> J[藥物資料庫]
-    D --> K[推薦歷史記錄]
+    D --> G[用戶健康資料]
+    D --> H[身份驗證記錄]
     
-    subgraph "推薦系統核心"
-        F
-        G  
-        H
+    subgraph "前端組件"
+        A --> A1[註冊頁面]
+        A --> A2[登入頁面]
+        A --> A3[個人資料編輯頁面]
+        A --> A4[儀表板]
     end
     
-    subgraph "數據存儲層"
-        I
-        J
-        K
+    subgraph "後端 API 端點"
+        B --> B1[/auth/register]
+        B --> B2[/auth/login]
+        B --> B3[/api/user/me]
+        B --> B4[/api/user/update]
+    end
+    
+    subgraph "資料庫結構"
+        G --> G1[Users 表]
+        G1 --> G2[id, email, hashed_password]
+        G1 --> G3[name, gender, birth_date, phone]
+        G1 --> G4[is_active, created_at, updated_at]
     end
 ```
 
@@ -91,23 +99,26 @@ graph TD
 **前端技術：**
 - React 18.3.1 + TypeScript
 - Vite 構建工具
-- Tailwind CSS + shadcn/ui
-- Zustand 狀態管理
-- React Query 數據管理
+- Tailwind CSS + shadcn/ui 組件庫
+- React Router 路由管理
 - Axios HTTP 客戶端
+- Lucide React 圖標庫
 
 **後端技術：**
 - FastAPI (Python) - 高性能 API 框架
-- PostgreSQL - 主要數據庫
-- Redis - 緩存與會話管理
-- JWT - 身份驗證
-- Pydantic - 數據驗證
+- PostgreSQL - 主要數據庫，完整 ACID 支援
+- SQLAlchemy - ORM 數據庫操作
+- Alembic - 數據庫遷移管理
+- JWT (JSON Web Tokens) - 安全身份驗證
+- bcrypt - 密碼雜湊加密
+- Pydantic - 數據驗證與序列化
 
-**推薦演算法：**
-- 自研藥物配對演算法
-- 健康狀況評估系統
-- 個人化權重計算
-- 多維度推薦評分機制
+**安全特性：**
+- 使用 bcrypt 進行密碼加密
+- 基於 JWT token 的身份驗證
+- CORS 中間件確保跨域請求安全
+- SQLAlchemy ORM 防止 SQL 注入攻擊
+- Pydantic 模式進行輸入驗證
 
 ---
 
@@ -117,6 +128,7 @@ graph TD
 
 - **Node.js** ≥ 14.0.0
 - **Python** ≥ 3.8
+- **PostgreSQL** ≥ 12.0
 - **npm** ≥ 6.0.0 或 **yarn** ≥ 1.22.0
 - **Git** 最新版本
 
@@ -136,38 +148,26 @@ cd Healixir
 </details>
 
 <details>
-<summary><b>🎨 Step 2: 前端設定</b></summary>
+<summary><b>🗄️ Step 2: 資料庫設定</b></summary>
 
 ```bash
-# 進入前端目錄
-cd drug-frontend
+# 安裝並啟動 PostgreSQL
+# 建立資料庫
+createdb drug_recommend_db
 
-# 安裝依賴套件
-npm install
-# 或使用 yarn
-yarn install
-
-# 複製環境變數檔案 (如果有 .env.example)
-cp .env.example .env
-
-# 啟動開發伺服器
-npm run dev
-# 或使用 yarn
-yarn dev
+# 建立用戶（可選）
+psql -c "CREATE USER drug_user WITH PASSWORD 'drug123456';"
+psql -c "GRANT ALL PRIVILEGES ON DATABASE drug_recommend_db TO drug_user;"
 ```
-
-> 🌐 前端服務預設運行於 `http://localhost:5173` (Vite 默認端口)
 
 </details>
 
 <details>
 <summary><b>⚙️ Step 3: 後端設定</b></summary>
 
-#### 🐍 Python FastAPI 後端
-
 ```bash
 # 進入後端目錄
-cd ../drug-backend
+cd backend
 
 # 建立虛擬環境
 python -m venv venv
@@ -179,28 +179,47 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # 安裝依賴套件
-pip install -r requirements.txt
+pip install fastapi uvicorn sqlalchemy psycopg2-binary alembic python-jose passlib bcrypt python-multipart pydantic pydantic-settings
 
-# 複製環境變數檔案 (如果有)
-cp .env.example .env
+# 設定環境變數
+# 建立 .env 檔案並配置資料庫連接
+echo "DATABASE_URL=postgresql://drug_user:drug123456@localhost:5432/drug_recommend_db" > .env
+echo "SECRET_KEY=your-super-secret-key-change-this-in-production" >> .env
+echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> .env
+echo "ALGORITHM=HS256" >> .env
+echo "DEBUG=True" >> .env
 
-# 執行數據庫遷移 (如果有的話)
-# python -m alembic upgrade head
+# 初始化資料庫（如果使用 Alembic）
+alembic revision --autogenerate -m "Initial migration"
+alembic upgrade head
 
 # 啟動服務器
-uvicorn app.main:app --reload --port 8000
+python -m app.main
 ```
 
 > 🔧 後端服務預設運行於 `http://localhost:8000`
 
-**快速啟動指令（後續使用）：**
-```bash
-# 啟動虛擬環境
-venv\Scripts\activate
+</details>
 
-# 啟動後端服務
-uvicorn app.main:app --reload --port 8000
+<details>
+<summary><b>🎨 Step 4: 前端設定</b></summary>
+
+```bash
+# 進入前端目錄
+cd ../frontend
+
+# 安裝依賴套件
+npm install
+# 或使用 yarn
+yarn install
+
+# 啟動開發伺服器
+npm run dev
+# 或使用 yarn
+yarn dev
 ```
+
+> 🌐 前端服務預設運行於 `http://localhost:5173` (Vite 默認端口)
 
 </details>
 
@@ -220,36 +239,47 @@ uvicorn app.main:app --reload --port 8000
     <td>開啟瀏覽器前往 <code>http://localhost:5173</code></td>
   </tr>
   <tr>
-    <td><b>3️⃣ 註冊登入</b></td>
-    <td>建立新帳號或使用既有帳號登入</td>
+    <td><b>3️⃣ 註冊帳號</b></td>
+    <td>使用電子郵件、密碼和個人資訊建立新帳號</td>
   </tr>
   <tr>
-    <td><b>4️⃣ 填寫問卷</b></td>
-    <td>完成個人健康數據問卷調查</td>
+    <td><b>4️⃣ 登入系統</b></td>
+    <td>使用註冊的帳號密碼登入進入儀表板</td>
   </tr>
   <tr>
-    <td><b>5️⃣ 獲得推薦</b></td>
-    <td>查看演算法推薦的保健品與分析報告</td>
+    <td><b>5️⃣ 編輯個人資料</b></td>
+    <td>更新個人資訊包括姓名、電話、生日等資料</td>
   </tr>
 </table>
 
-### 🔄 常用開發指令
+### 🔄 API 端點
 
-**前端開發：**
-```bash
-cd drug-frontend
-npm run dev          # 啟動開發服務器
-npm run build        # 構建生產版本
-npm run lint         # 代碼檢查
-npm run preview      # 預覽生產版本
-```
+**身份驗證：**
+- `POST /auth/register` - 用戶註冊
+- `POST /auth/login` - 用戶登入
+- `GET /auth/me` - 取得當前用戶資訊
 
-**後端開發：**
-```bash
-cd drug-backend
-venv\Scripts\activate                    # 啟動虛擬環境 (Windows)
-source venv/bin/activate                 # 啟動虛擬環境 (macOS/Linux)
-uvicorn app.main:app --reload --port 8000  # 啟動開發服務器
+**用戶管理：**
+- `GET /api/user/me` - 取得用戶個人資料
+- `PUT /api/user/me` - 更新用戶個人資料（RESTful）
+- `PUT /api/user/update` - 更新用戶個人資料（前端兼容）
+
+### 🗄️ 資料庫結構
+
+```sql
+-- Users 表結構
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR UNIQUE NOT NULL,
+    hashed_password VARCHAR NOT NULL,
+    name VARCHAR,
+    gender genderenum,  -- 枚舉: 'MALE', 'FEMALE', 'OTHER'
+    birth_date DATE,
+    phone VARCHAR,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
 ---
@@ -258,48 +288,23 @@ uvicorn app.main:app --reload --port 8000  # 啟動開發服務器
 
 ### 📝 環境變數配置
 
-請在 `.env` 檔案中加入以下設定：
-
-**前端 (.env)：**
-```env
-# API 基礎 URL
-VITE_API_BASE_URL=http://localhost:8000
-
-# 應用程式資訊
-VITE_APP_NAME=藥物推薦系統
-VITE_APP_VERSION=1.0.0
-
-# 開發模式設定
-VITE_DEV_MODE=true
-```
-
 **後端 (.env)：**
 ```env
-# === 服務器設定 ===
-PORT=8000
+# 資料庫設定
+DATABASE_URL=postgresql://drug_user:drug123456@localhost:5432/drug_recommend_db
 
-# === 數據庫設定 ===
-DATABASE_URL=postgresql://user:password@localhost:5432/healixir
-REDIS_URL=redis://localhost:6379
+# 安全設定
+SECRET_KEY=your-super-secret-key-change-this-in-production
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+ALGORITHM=HS256
 
-# === 安全設定 ===
-JWT_SECRET=your-super-secret-jwt-key
-ENCRYPTION_KEY=your-encryption-key
+# 應用程式設定
+DEBUG=True
+PROJECT_NAME=Drug Recommendation API
+VERSION=1.0.0
 
-# === 推薦演算法設定 ===
-ALGORITHM_VERSION=1.0
-RECOMMENDATION_CACHE_TTL=3600
-HEALTH_WEIGHT_MATRIX=default
-
-# === 數據分析設定 ===
-ANALYSIS_ENGINE=custom
-SCORING_MODEL=weighted_average
-
-# === 第三方服務 ===
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-app-password
+# CORS 設定
+BACKEND_CORS_ORIGINS=["http://localhost:3000", "http://localhost:5173"]
 ```
 
 ---
@@ -308,101 +313,25 @@ SMTP_PASS=your-app-password
 
 ```
 Healixir/
-├── 🎨 drug-frontend/
-│   ├── 📁 node_modules/
-│   ├── 📁 public/
+├── 🎨 frontend/
 │   ├── 📁 src/
-│   │   ├── 📁 assets/
-│   │   ├── 📁 components/
-│   │   ├── 📁 hooks/
-│   │   ├── 📁 lib/
-│   │   ├── 📁 pages/
-│   │   ├── 📁 services/
-│   │   ├── 📁 stores/
-│   │   ├── 📁 styles/
-│   │   ├── 📁 types/
-│   │   ├── 📁 utils/
-│   │   ├── 📄 App.css
-│   │   ├── 📄 App.tsx
-│   │   ├── 📄 index.css
-│   │   ├── 📄 main.tsx
-│   │   └── 📄 vite-env.d.ts
-│   ├── 📄 .env
-│   ├── 📄 .gitignore
-│   ├── 📄 eslint.config.js
-│   ├── 📄 index.html
+│   │   ├── 📁 components/        # 可重用 UI 組件
+│   │   ├── 📁 pages/            # 應用程式頁面
+│   │   │   ├── 📄 Register.tsx   # 用戶註冊頁面
+│   │   │   └── 📁 member/
+│   │   │       └── 📄 editProfile.tsx  # 個人資料編輯
+│   │   ├── 📁 lib/              # 工具庫
+│   │   └── 📄 App.tsx           # 主應用程式組件
 │   ├── 📄 package.json
-│   ├── 📄 package-lock.json
-│   ├── 📄 postcss.config.js
-│   ├── 📄 README.md
-│   ├── 📄 tailwind.config.ts
-│   ├── 📄 tsconfig.app.json
-│   ├── 📄 tsconfig.json
-│   ├── 📄 tsconfig.node.json
 │   └── 📄 vite.config.ts
-├── ⚙️ drug-backend/
-│   ├── 📁 alembic/
+├── ⚙️ backend/
 │   ├── 📁 app/
-│   ├── 📁 scripts/
-│   ├── 📁 venv/
-│   ├── 📄 .env
-│   ├── 📄 .env.example
-│   ├── 📄 .gitignore
-│   ├── 📄 docker-compose.yml
-│   ├── 📄 Dockerfile
-│   ├── 📄 README.md
-│   ├── 📄 requirements.txt
-│   ├── 📄 requirements-dev.txt
-│   └── 📄 test.db
-├── 🐳 docker-compose.yml
-└── 📄 README.md
-```
-
----
-
-## 🤝 貢獻指南
-
-歡迎提供建議和回饋！
-
-### 📝 如何貢獻
-
-1. **Fork** 專案到您的 GitHub
-2. **Clone** 到本地：`git clone https://github.com/your-username/Healixir.git`
-3. **建立**功能分支：`git checkout -b feature/your-feature`
-4. **提交**變更：`git commit -m 'Add: 新功能描述'`
-5. **推送**：`git push origin feature/your-feature`
-6. **開啟** Pull Request
-
-### 📧 或者直接聯絡我們
-如有建議請寄信至：charleskao811@gmail.com
-
----
-
-## 📞 聯絡資訊
-
-<div align="center">
-
-| 聯絡方式 | 資訊 |
-|---------|------|
-| 📧 Email | charleskao811@gmail.com |
-
-</div>
-
----
-
-## 💝 致謝
-
-<div align="center">
-  
-  特別感謝所有為 **Healixir** 做出貢獻的開發者和使用者！
-  
-  
-  ---
-  
-  <b>Made with ❤️ by Healixir Team</b>
-  
-  <br/>
-  
-  如果這個專案對您有幫助，請給我們一個 ⭐！
-  
-</div>
+│   │   ├── 📁 api/              # API 路由處理器
+│   │   │   ├── 📄 auth.py       # 身份驗證路由
+│   │   │   ├── 📄 deps.py       # 依賴注入
+│   │   │   └── 📁 v1/
+│   │   │       └── 📄 users.py  # 用戶管理路由
+│   │   ├── 📁 core/             # 核心應用邏輯
+│   │   │   ├── 📄 config.py     # 配置設定
+│   │   │   ├── 📄 database.py   # 資料庫連接
+│   │   │   └── 📄 security.py   #
