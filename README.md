@@ -48,13 +48,15 @@
 <details open>
 <summary><b>📋 Core Features Overview</b></summary>
 
-| Feature | Description |
-|---------|-------------|
-| 📊 **Health Data Management** | Complete recording and tracking of your health data |
-| 🧮 **Proprietary Algorithm Recommendations** | Personalized supplement recommendations based on our custom algorithm |
-| 📝 **Personalized Suggestions** | Professional health advice tailored to your condition |
-| 📈 **Visual Analytics** | Intuitive charts displaying health trends |
-| 🔒 **Privacy Protection** | Encrypted technology to protect your data |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| 👤 **User Management** | Complete user registration, login, and profile management | ✅ Complete |
+| 📝 **Profile Editing** | Edit personal information and health data | ✅ Complete |
+| 🔐 **Secure Authentication** | JWT-based authentication with encrypted passwords | ✅ Complete |
+| 📊 **Health Data Storage** | PostgreSQL database with complete user health records | ✅ Complete |
+| 🔒 **Privacy Protection** | Encrypted technology to protect your data | ✅ Complete |
+| 🧮 **Proprietary Algorithm Recommendations** | Personalized supplement recommendations based on our custom algorithm | 🚧 In Development |
+| 📈 **Visual Analytics** | Intuitive charts displaying health trends | 🚧 In Development |
 
 </details>
 
@@ -67,28 +69,42 @@
 ```mermaid
 graph TD
     A[React Frontend Application] --> B[FastAPI Backend Service]
-    B --> C[Recommendation Algorithm Engine]
+    B --> C[JWT Authentication]
     B --> D[PostgreSQL Database]
-    B --> E[Redis Cache Layer]
+    B --> E[Recommendation Algorithm Engine]
+    B --> F[Redis Cache Layer]
     
-    C --> F[Drug Matching Algorithm]
-    C --> G[Health Status Analysis]
-    C --> H[Personalized Recommendation Logic]
+    C --> G[User Registration/Login]
+    C --> H[Profile Management]
     
     D --> I[User Health Data]
     D --> J[Drug Database]
     D --> K[Recommendation History]
     
-    subgraph "Recommendation System Core"
-        F
-        G  
+    E --> L[Drug Matching Algorithm]
+    E --> M[Health Status Analysis]
+    E --> N[Personalized Recommendation Logic]
+    
+    subgraph "✅ Implemented Features"
+        G
         H
+        I
     end
     
-    subgraph "Data Storage Layer"
-        I
+    subgraph "🚧 In Development"
+        L
+        M
+        N
         J
         K
+        F
+    end
+    
+    subgraph "Current API Endpoints"
+        B --> B1[POST /auth/register]
+        B --> B2[POST /auth/login]
+        B --> B3[GET /api/user/me]
+        B --> B4[PUT /api/user/update]
     end
 ```
 
@@ -100,18 +116,44 @@ graph TD
 - React 18.3.1 + TypeScript
 - Vite Build Tool
 - Tailwind CSS + shadcn/ui
-- Zustand State Management
-- React Query Data Management
+- Zustand State Management *(Future)*
+- React Query Data Management *(Future)*
 - Axios HTTP Client
 
 **Backend Technologies:**
 - FastAPI (Python) - High-performance API framework
-- PostgreSQL - Primary database
-- Redis - Caching and session management
-- JWT - Authentication
-- Pydantic - Data validation
+- PostgreSQL - Primary database ✅
+- Redis - Caching and session management *(Future)*
+- JWT - Authentication ✅
+- Pydantic - Data validation ✅
+- SQLAlchemy - ORM for database operations ✅
+- Alembic - Database migration management ✅
+- bcrypt - Password hashing ✅
 
-**Recommendation Algorithm:**
+**✅ Current Implementation Status:**
+- User registration and authentication system
+- Secure password hashing with bcrypt
+- JWT token-based authentication
+- User profile management and editing
+- PostgreSQL database with complete user schema:
+  ```sql
+  CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR UNIQUE NOT NULL,
+      hashed_password VARCHAR NOT NULL,
+      name VARCHAR,
+      gender genderenum,  -- ENUM: 'MALE', 'FEMALE', 'OTHER'
+      birth_date DATE,
+      phone VARCHAR,
+      is_active BOOLEAN DEFAULT TRUE,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+  ```
+- RESTful API endpoints for user operations
+- Responsive frontend design with modern UI components
+
+**🚧 Recommendation Algorithm (In Development):**
 - Proprietary drug matching algorithm
 - Health status assessment system
 - Personalized weight calculation
@@ -125,6 +167,7 @@ graph TD
 
 - **Node.js** ≥ 14.0.0
 - **Python** ≥ 3.8
+- **PostgreSQL** ≥ 12.0
 - **npm** ≥ 6.0.0 or **yarn** ≥ 1.22.0
 - **Git** Latest version
 
@@ -144,27 +187,17 @@ cd Healixir
 </details>
 
 <details>
-<summary><b>🎨 Step 2: Frontend Setup</b></summary>
+<summary><b>🗄️ Step 2: Database Setup</b></summary>
 
 ```bash
-# Enter the frontend directory
-cd drug-frontend
+# Install and start PostgreSQL
+# Create database
+createdb drug_recommend_db
 
-# Install dependencies
-npm install
-# or use yarn
-yarn install
-
-# Copy environment variables file (if .env.example exists)
-cp .env.example .env
-
-# Start the development server
-npm run dev
-# or use yarn
-yarn dev
+# Create user (optional)
+psql -c "CREATE USER drug_user WITH PASSWORD 'drug123456';"
+psql -c "GRANT ALL PRIVILEGES ON DATABASE drug_recommend_db TO drug_user;"
 ```
-
-> 🌐 Frontend service runs on `http://localhost:5173` by default (Vite default port)
 
 </details>
 
@@ -175,7 +208,7 @@ yarn dev
 
 ```bash
 # Enter the backend directory
-cd ../drug-backend
+cd backend
 
 # Create virtual environment
 python -m venv venv
@@ -187,28 +220,47 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install fastapi uvicorn sqlalchemy psycopg2-binary alembic python-jose passlib bcrypt python-multipart pydantic pydantic-settings
 
-# Copy environment variables file (if available)
-cp .env.example .env
+# Set up environment variables
+# Create .env file with database configuration
+echo "DATABASE_URL=postgresql://drug_user:drug123456@localhost:5432/drug_recommend_db" > .env
+echo "SECRET_KEY=your-super-secret-key-change-this-in-production" >> .env
+echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> .env
+echo "ALGORITHM=HS256" >> .env
+echo "DEBUG=True" >> .env
 
-# Run database migrations (if applicable)
-# python -m alembic upgrade head
+# Initialize database
+alembic revision --autogenerate -m "Initial migration"
+alembic upgrade head
 
 # Start the server
-uvicorn app.main:app --reload --port 8000
+python -m app.main
 ```
 
 > 🔧 Backend service runs on `http://localhost:8000` by default
 
-**Quick Start Commands (for subsequent use):**
-```bash
-# Activate virtual environment
-venv\Scripts\activate
+</details>
 
-# Start backend service
-uvicorn app.main:app --reload --port 8000
+<details>
+<summary><b>🎨 Step 4: Frontend Setup</b></summary>
+
+```bash
+# Enter the frontend directory
+cd ../frontend
+
+# Install dependencies
+npm install
+# or use yarn
+yarn install
+
+# Start the development server
+npm run dev
+# or use yarn
+yarn dev
 ```
+
+> 🌐 Frontend service runs on `http://localhost:5173` by default (Vite default port)
 
 </details>
 
@@ -228,16 +280,16 @@ uvicorn app.main:app --reload --port 8000
     <td>Open your browser and go to <code>http://localhost:5173</code></td>
   </tr>
   <tr>
-    <td><b>3️⃣ Register/Login</b></td>
-    <td>Create a new account or login with existing credentials</td>
+    <td><b>3️⃣ Register Account</b></td>
+    <td>Create a new account with your email, password, and personal information</td>
   </tr>
   <tr>
-    <td><b>4️⃣ Complete Survey</b></td>
-    <td>Fill out the personal health data questionnaire</td>
+    <td><b>4️⃣ Login</b></td>
+    <td>Login with your credentials to access the dashboard</td>
   </tr>
   <tr>
-    <td><b>5️⃣ Get Recommendations</b></td>
-    <td>View algorithm-recommended supplements and analysis reports</td>
+    <td><b>5️⃣ Edit Profile</b></td>
+    <td>Update your personal information including name, phone, and birth date</td>
   </tr>
 </table>
 
@@ -245,7 +297,7 @@ uvicorn app.main:app --reload --port 8000
 
 **Frontend Development:**
 ```bash
-cd drug-frontend
+cd frontend
 npm run dev          # Start development server
 npm run build        # Build production version
 npm run lint         # Code linting
@@ -254,11 +306,23 @@ npm run preview      # Preview production build
 
 **Backend Development:**
 ```bash
-cd drug-backend
+cd backend
 venv\Scripts\activate                    # Activate virtual environment (Windows)
 source venv/bin/activate                 # Activate virtual environment (macOS/Linux)
-uvicorn app.main:app --reload --port 8000  # Start development server
+python -m app.main                       # Start development server
 ```
+
+### 📋 API Endpoints
+
+**Authentication:**
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User login
+- `GET /auth/me` - Get current user info
+
+**User Management:**
+- `GET /api/user/me` - Get user profile
+- `PUT /api/user/me` - Update user profile (RESTful)
+- `PUT /api/user/update` - Update user profile (frontend compatible)
 
 ---
 
@@ -268,46 +332,23 @@ uvicorn app.main:app --reload --port 8000  # Start development server
 
 Please add the following settings to your `.env` file:
 
-**Frontend (.env):**
-```env
-# API Base URL
-VITE_API_BASE_URL=http://localhost:8000
-
-# Application Information
-VITE_APP_NAME=Drug Recommendation System
-VITE_APP_VERSION=1.0.0
-
-# Development Mode Settings
-VITE_DEV_MODE=true
-```
-
 **Backend (.env):**
 ```env
-# === Server Configuration ===
-PORT=8000
+# Database Configuration
+DATABASE_URL=postgresql://drug_user:drug123456@localhost:5432/drug_recommend_db
 
-# === Database Configuration ===
-DATABASE_URL=postgresql://user:password@localhost:5432/healixir
-REDIS_URL=redis://localhost:6379
+# Security Settings
+SECRET_KEY=your-super-secret-key-change-this-in-production
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+ALGORITHM=HS256
 
-# === Security Settings ===
-JWT_SECRET=your-super-secret-jwt-key
-ENCRYPTION_KEY=your-encryption-key
+# Application Settings
+DEBUG=True
+PROJECT_NAME=Drug Recommendation API
+VERSION=1.0.0
 
-# === Recommendation Algorithm Settings ===
-ALGORITHM_VERSION=1.0
-RECOMMENDATION_CACHE_TTL=3600
-HEALTH_WEIGHT_MATRIX=default
-
-# === Data Analysis Settings ===
-ANALYSIS_ENGINE=custom
-SCORING_MODEL=weighted_average
-
-# === Third-party Services ===
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-app-password
+# CORS Settings
+BACKEND_CORS_ORIGINS=["http://localhost:3000", "http://localhost:5173"]
 ```
 
 ---
@@ -316,53 +357,38 @@ SMTP_PASS=your-app-password
 
 ```
 Healixir/
-├── 🎨 drug-frontend/
-│   ├── 📁 node_modules/
-│   ├── 📁 public/
+├── 🎨 frontend/
 │   ├── 📁 src/
-│   │   ├── 📁 assets/
-│   │   ├── 📁 components/
-│   │   ├── 📁 hooks/
-│   │   ├── 📁 lib/
-│   │   ├── 📁 pages/
-│   │   ├── 📁 services/
-│   │   ├── 📁 stores/
-│   │   ├── 📁 styles/
-│   │   ├── 📁 types/
-│   │   ├── 📁 utils/
-│   │   ├── 📄 App.css
-│   │   ├── 📄 App.tsx
-│   │   ├── 📄 index.css
-│   │   ├── 📄 main.tsx
-│   │   └── 📄 vite-env.d.ts
-│   ├── 📄 .env
-│   ├── 📄 .gitignore
-│   ├── 📄 eslint.config.js
-│   ├── 📄 index.html
+│   │   ├── 📁 components/        # Reusable UI components
+│   │   ├── 📁 pages/            # Application pages
+│   │   │   ├── 📄 Register.tsx   # User registration
+│   │   │   └── 📁 member/
+│   │   │       └── 📄 editProfile.tsx  # Profile editing
+│   │   ├── 📁 lib/              # Utility libraries
+│   │   └── 📄 App.tsx           # Main application component
 │   ├── 📄 package.json
-│   ├── 📄 package-lock.json
-│   ├── 📄 postcss.config.js
-│   ├── 📄 README.md
-│   ├── 📄 tailwind.config.ts
-│   ├── 📄 tsconfig.app.json
-│   ├── 📄 tsconfig.json
-│   ├── 📄 tsconfig.node.json
 │   └── 📄 vite.config.ts
-├── ⚙️ drug-backend/
-│   ├── 📁 alembic/
+├── ⚙️ backend/
 │   ├── 📁 app/
-│   ├── 📁 scripts/
-│   ├── 📁 venv/
-│   ├── 📄 .env
-│   ├── 📄 .env.example
-│   ├── 📄 .gitignore
-│   ├── 📄 docker-compose.yml
-│   ├── 📄 Dockerfile
-│   ├── 📄 README.md
-│   ├── 📄 requirements.txt
-│   ├── 📄 requirements-dev.txt
-│   └── 📄 test.db
-├── 🐳 docker-compose.yml
+│   │   ├── 📁 api/              # API route handlers
+│   │   │   ├── 📄 auth.py       # Authentication routes
+│   │   │   ├── 📄 deps.py       # Dependency injection
+│   │   │   └── 📁 v1/
+│   │   │       └── 📄 users.py  # User management routes
+│   │   ├── 📁 core/             # Core application logic
+│   │   │   ├── 📄 config.py     # Configuration settings
+│   │   │   ├── 📄 database.py   # Database connection
+│   │   │   └── 📄 security.py   # Security utilities
+│   │   ├── 📁 crud/             # Database operations
+│   │   │   └── 📄 user.py       # User CRUD operations
+│   │   ├── 📁 models/           # Database models
+│   │   │   └── 📄 user.py       # User model definition
+│   │   ├── 📁 schemas/          # Pydantic schemas
+│   │   │   └── 📄 user.py       # User data validation
+│   │   └── 📄 main.py           # FastAPI application
+│   ├── 📁 alembic/              # Database migrations
+│   ├── 📄 .env                  # Environment variables
+│   └── 📄 requirements.txt      # Python dependencies
 └── 📄 README.md
 ```
 
