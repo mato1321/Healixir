@@ -11,7 +11,8 @@ import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import Cart from "./pages/shop/Cart";
 import ShopDetail from "./pages/shop/shopDetail";
-import ProductDetailPage1 from "./pages/shopping/ProductDetailPage1";  // 新增商品詳情頁面
+import LuteinProductPage from "./pages/shopping/LuteinProductPage";  // 蓉易明葉黃素專屬頁面
+import MinshiEProductPage from "./pages/shopping/MinshiEProductPage";  // 明適E葉黃素II代專屬頁面
 import ContactUs from "./pages/legal/ContactUs";
 import Member from "./pages/member/index";
 import EditProfile from "./pages/member/EditProfile";  // 新增編輯個人資料頁面
@@ -90,11 +91,16 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/shopDetail" element={<ShopDetail />} />
-            <Route path="/product/:id" element={<ProductDetailPage1 />} />  {/* 新增商品詳情路由 */}
+            
+            {/* 專屬商品詳情路由 - 必須放在通用路由之前 */}
+            <Route path="/product/lutein-complex" element={<LuteinProductPage />} />
+            <Route path="/product/lutein-gen2" element={<MinshiEProductPage />} />
+            
+                        
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/member" element={<Member />} />
-            <Route path="/member/edit" element={<EditProfile />} />  {/* 新增編輯個人資料路由 */}
+            <Route path="/member/edit" element={<EditProfile />} />
             <Route path="/nutrition/assessment/:id" element={<AssessmentDetail />} />
             <Route path="/nutrition/order/:id" element={<OrderDetail />} />
             <Route path="/nutrition/personal-info" element={<PersonalInfo />} />

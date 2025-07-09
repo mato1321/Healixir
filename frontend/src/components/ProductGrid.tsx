@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 
 // 類型定義
@@ -90,7 +91,21 @@ const StarRating: React.FC<{
 
 // 商品卡片組件
 const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount }) => {
-  return (
+  // 只有蓉易明葉黃素複方膠囊和明適E葉黃素II代可以點擊
+  const isClickable = (product.name.includes('蓉易明') && product.name.includes('葉黃素')) || 
+                     (product.name.includes('明適E') && product.name.includes('葉黃素'));
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    // 如果點擊的是按鈕區域，不要觸發卡片點擊
+    const target = e.target as HTMLElement;
+    if (target.closest('.button-area')) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+  };
+
+  const cardContent = (
     <Card className="group hover:shadow-lg transition-all duration-300 border-gray-200">
       <CardContent className="p-4">
         <div className="space-y-3">
@@ -110,7 +125,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
           
           {/* 商品資訊 */}
           <div>
-            <h3 className="font-medium text-gray-900 mb-1 text-sm overflow-hidden text-ellipsis" 
+            {/* 商品名稱 */}
+            <h3 className={`font-medium text-gray-900 mb-1 text-sm overflow-hidden text-ellipsis transition-colors ${isClickable ? 'hover:text-blue-600' : ''}`} 
                 style={{ 
                   display: '-webkit-box',
                   WebkitLineClamp: 2,
@@ -141,11 +157,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
             </div>
           </div>
           
-          {/* 加入購物車按鈕或數量控制 */}
-          <div className="flex items-center justify-center">
+          {/* 加入購物車按鈕或數量控制 - 阻止事件冒泡 */}
+          <div className="flex items-center justify-center button-area" onClick={handleCardClick}>
             {count === 0 ? (
               <Button
-                onClick={() => onUpdateCount(1)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onUpdateCount(1);
+                }}
                 className="flex-1 rounded-full h-8 text-sm font-medium"
               >
                 <Plus className="h-4 w-4 mr-1" />
@@ -155,7 +175,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
               <div className="flex items-center space-x-3">
                 <Button
                   variant="outline"
-                  onClick={() => onUpdateCount(-1)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onUpdateCount(-1);
+                  }}
                   className="h-10 w-10 rounded-full text-lg font-medium"
                 >
                   -
@@ -165,7 +189,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
                 </span>
                 <Button
                   variant="outline"
-                  onClick={() => onUpdateCount(1)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onUpdateCount(1);
+                  }}
                   className="h-10 w-10 rounded-full text-lg font-medium"
                 >
                   +
@@ -177,6 +205,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
       </CardContent>
     </Card>
   );
+
+  // 只有指定的葉黃素商品才包裝在 Link 中
+  if (isClickable) {
+    return (
+      <Link to={`/product/${product.id}`} className="block cursor-pointer">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  // 其他商品不包裝 Link
+  return cardContent;
 };
 
 // 商品網格組件 - 現在放在 ProductCard 之後定義

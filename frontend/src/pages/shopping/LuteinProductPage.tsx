@@ -9,23 +9,43 @@ import {
   Minus, 
   Shield, 
   ChevronLeft, 
-  ChevronRight, 
-  Search,
+  ChevronRight,
   User,
   LogOut,
-  LogIn
+  LogIn,
+  Eye,
+  Zap,
+  Sun
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useCart } from '@/contexts/CartContext';
 
-const ProductDetailPage = () => {
+const LuteinProductPage = () => {
   const navigate = useNavigate();
+  const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
   const [user, setUser] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isLiked, setIsLiked] = useState(false);
   const [activeTab, setActiveTab] = useState('商品介紹');
   const reviewsRef = React.useRef<HTMLDivElement>(null);
+
+  // 商品資訊
+  const productInfo = {
+    id: 'lutein-complex',
+    name: '蓉易明 葉黃素複方膠囊',
+    price: 720,
+    originalPrice: 1299,
+    rating: 4.5,
+    reviewCount: 156,
+    description: '保護眼部健康的專業葉黃素複方膠囊',
+    category: '眼部保健'
+  };
+
+  // 獲取購物車中此商品的數量
+  const cartItem = cartItems.find(item => item.id === productInfo.id);
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
     // 檢查用戶登入狀態
@@ -44,6 +64,13 @@ const ProductDetailPage = () => {
     }
   }, []);
 
+  // 同步購物車數量到詳情頁數量
+  useEffect(() => {
+    if (cartQuantity > 0) {
+      setQuantity(cartQuantity);
+    }
+  }, [cartQuantity]);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -51,8 +78,43 @@ const ProductDetailPage = () => {
     navigate('/');
   };
 
+  const handleAddToCart = () => {
+    if (cartItem) {
+      // 如果購物車中已有此商品，更新數量
+      updateQuantity(productInfo.id, quantity);
+    } else {
+      // 如果購物車中沒有此商品，添加新商品
+      addToCart({
+        id: productInfo.id,
+        name: productInfo.name,
+        price: productInfo.price,
+        image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
+        quantity: quantity,
+        description: productInfo.description
+      });
+    }
+    
+    alert('商品已加入購物車！');
+  };
+
+  const handleQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+    
+    if (newQuantity === 0) {
+      // 如果數量為0，從購物車移除
+      if (cartItem) {
+        removeFromCart(productInfo.id);
+      }
+    } else {
+      // 更新購物車中的數量
+      if (cartItem) {
+        updateQuantity(productInfo.id, newQuantity);
+      }
+    }
+  };
+
   const productImages = [
-    '/api/placeholder/400/400',
+    '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
     '/api/placeholder/400/400', 
     '/api/placeholder/400/400',
     '/api/placeholder/400/400'
@@ -74,6 +136,8 @@ const ProductDetailPage = () => {
       reviewsRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
+
+  const discount = Math.round((1 - productInfo.price / productInfo.originalPrice) * 100);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -146,7 +210,7 @@ const ProductDetailPage = () => {
             <span className="text-gray-400">/</span>
             <Link to="/shopDetail" className="text-gray-500 hover:text-blue-600">商品</Link>
             <span className="text-gray-400">/</span>
-            <span className="text-gray-900">威德益生菌膠囊</span>
+            <span className="text-gray-900">{productInfo.name}</span>
           </div>
         </div>
       </div>
@@ -159,7 +223,7 @@ const ProductDetailPage = () => {
             <div className="relative bg-white rounded-2xl overflow-hidden aspect-square shadow-lg">
               <img 
                 src={productImages[currentImage]} 
-                alt="威德益生菌膠囊"
+                alt={productInfo.name}
                 className="w-full h-full object-cover"
               />
               <button 
@@ -196,32 +260,26 @@ const ProductDetailPage = () => {
           <div className="space-y-6">
             {/* Product Title */}
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">威德 益生菌膠囊</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">{productInfo.name}</h1>
               <div className="flex items-center space-x-4 mb-6">
                 <div className="flex items-center space-x-1">
                   <div className="flex cursor-pointer" onClick={scrollToReviews}>
-                    {[...Array(4)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className={`w-5 h-5 ${i < Math.floor(productInfo.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
                     ))}
-                    <div className="relative">
-                      <Star className="w-5 h-5 text-gray-300" />
-                      <div className="absolute inset-0 overflow-hidden" style={{width: '70%'}}>
-                        <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                      </div>
-                    </div>
                   </div>
-                  <span className="text-lg text-gray-600 font-medium ml-2">4.7</span>
+                  <span className="text-lg text-gray-600 font-medium ml-2">{productInfo.rating}</span>
                 </div>
-                <span className="text-gray-500 cursor-pointer hover:text-gray-700" onClick={scrollToReviews}>125 則評論</span>
+                <span className="text-gray-500 cursor-pointer hover:text-gray-700" onClick={scrollToReviews}>{productInfo.reviewCount} 則評論</span>
               </div>
             </div>
 
             {/* Price */}
             <div className="space-y-2">
               <div className="flex items-baseline space-x-4">
-                <span className="text-4xl font-bold text-blue-600">NT$ 999</span>
-                <span className="text-xl text-gray-500 line-through">NT$ 1,299</span>
-                <Badge className="bg-red-100 text-red-600 hover:bg-red-100">23% OFF</Badge>
+                <span className="text-4xl font-bold text-blue-600">NT$ {productInfo.price.toLocaleString()}</span>
+                <span className="text-xl text-gray-500 line-through">NT$ {productInfo.originalPrice.toLocaleString()}</span>
+                <Badge className="bg-red-100 text-red-600 hover:bg-red-100">{discount}% OFF</Badge>
               </div>
             </div>
 
@@ -236,11 +294,11 @@ const ProductDetailPage = () => {
                   <div className="text-blue-700 space-y-2">
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">營養配方 • 每日 2 粒 • 連續30天</span>
+                      <span className="text-sm">護眼配方 • 每日 1 粒 • 連續60天</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">餐後食用，配合溫開水服用</span>
+                      <span className="text-sm">飯後食用，配合溫開水服用</span>
                     </div>
                   </div>
                 </div>
@@ -253,27 +311,37 @@ const ProductDetailPage = () => {
                 <span className="font-medium text-lg">數量：</span>
                 <div className="flex items-center border border-gray-300 rounded-lg bg-white">
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    onClick={() => handleQuantityChange(Math.max(1, quantity - 1))}
                     className="px-4 py-3 hover:bg-gray-100 text-gray-600"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="px-6 py-3 border-x border-gray-300 min-w-[4rem] text-center font-medium">{quantity}</span>
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={() => handleQuantityChange(quantity + 1)}
                     className="px-4 py-3 hover:bg-gray-100 text-gray-600"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
               </div>
+              
+              {/* 顯示購物車中的數量 */}
+              {cartQuantity > 0 && (
+                <div className="text-sm text-gray-600">
+                  購物車中已有 {cartQuantity} 件此商品
+                </div>
+              )}
             </div>
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold rounded-xl">
+              <Button 
+                onClick={handleAddToCart}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold rounded-xl"
+              >
                 <ShoppingCart className="w-5 h-5 mr-2" />
-                加入購物車
+                {cartItem ? '更新購物車' : '加入購物車'}
               </Button>
               <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white py-4 text-lg font-semibold rounded-xl">
                 立即購買
@@ -326,7 +394,7 @@ const ProductDetailPage = () => {
                   <div>
                     <h3 className="text-2xl font-bold mb-6">產品簡介</h3>
                     <p className="text-gray-700 leading-relaxed text-lg">
-                      威德益生菌膠囊採用專利包埋技術，確保益生菌能夠安全通過胃酸環境，直達腸道發揮作用。每粒含有100億CFU活性益生菌，包含多種優質菌株，有助於維持腸道菌群平衡，促進消化健康。
+                      蓉易明葉黃素複方膠囊採用專利FloraGLO®葉黃素，結合玉米黃素、山桑子萃取物等多種護眼成分，專為現代人眼部健康設計。每粒含高濃度葉黃素20mg，有效過濾藍光，保護黃斑部健康，減緩眼部疲勞。
                     </p>
                   </div>
 
@@ -336,31 +404,31 @@ const ProductDetailPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
-                          <Shield className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">腸道健康</h4>
+                          <Eye className="w-8 h-8 text-blue-600" />
+                          <h4 className="font-semibold text-gray-900 text-lg">護眼抗藍光</h4>
                         </div>
-                        <p className="text-gray-700">維持腸道菌群平衡，改善消化功能</p>
+                        <p className="text-gray-700">有效過濾有害藍光，保護視網膜健康</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Shield className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">免疫支持</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">黃斑部保護</h4>
                         </div>
-                        <p className="text-gray-700">增強身體自然的免疫力</p>
+                        <p className="text-gray-700">維護黃斑部健康，預防老化性眼疾</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
-                          <Shield className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">營養吸收</h4>
+                          <Zap className="w-8 h-8 text-blue-600" />
+                          <h4 className="font-semibold text-gray-900 text-lg">緩解疲勞</h4>
                         </div>
-                        <p className="text-gray-700">促進營養素的吸收利用</p>
+                        <p className="text-gray-700">改善眼部疲勞，提升視覺舒適度</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
-                          <Shield className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">整體健康</h4>
+                          <Sun className="w-8 h-8 text-blue-600" />
+                          <h4 className="font-semibold text-gray-900 text-lg">抗氧化保護</h4>
                         </div>
-                        <p className="text-gray-700">支持整體健康狀態</p>
+                        <p className="text-gray-700">強化眼部抗氧化能力，延緩老化</p>
                       </div>
                     </div>
                   </div>
@@ -369,10 +437,11 @@ const ProductDetailPage = () => {
                   <div>
                     <h3 className="text-2xl font-bold mb-6">適合族群</h3>
                     <div className="flex flex-wrap gap-3">
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">經常外食者</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">消化不良者</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">免疫力較弱者</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">壓力大的上班族</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">長時間使用3C產品者</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">上班族</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">學生</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">中老年人</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">關注眼部健康者</Badge>
                     </div>
                   </div>
 
@@ -386,9 +455,9 @@ const ProductDetailPage = () => {
                         <h4 className="font-semibold text-red-800 mb-3 text-lg">注意事項</h4>
                         <ul className="space-y-2 text-red-700">
                           <li>• 請存放於陰涼乾燥處，避免陽光直射</li>
-                          <li>• 孕婦、哺乳期婦女及特殊疾病患者請諮詢醫師後使用</li>
-                          <li>• 本產品含有乳製品，對乳製品過敏者請謹慎使用</li>
-                          <li>• 開封後請盡快食用完畢</li>
+                          <li>• 孕婦、哺乳期婦女及12歲以下兒童請諮詢醫師後使用</li>
+                          <li>• 本產品含有大豆，對大豆過敏者請謹慎使用</li>
+                          <li>• 開封後請盡快食用完畢，並注意保存期限</li>
                         </ul>
                       </div>
                     </div>
@@ -403,56 +472,28 @@ const ProductDetailPage = () => {
                     <h3 className="text-2xl font-bold mb-6">主要成分</h3>
                     <div className="bg-gray-50 rounded-xl p-6 space-y-4">
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium text-lg">乳酸菌混合物</span>
-                        <span className="text-lg text-gray-600 font-semibold">100億CFU</span>
+                        <span className="font-medium text-lg">FloraGLO®葉黃素</span>
+                        <span className="text-lg text-gray-600 font-semibold">20mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">嗜酸乳桿菌</span>
-                        <span className="text-gray-600">30億CFU</span>
+                        <span className="font-medium">玉米黃素</span>
+                        <span className="text-gray-600">4mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">雙歧桿菌</span>
-                        <span className="text-gray-600">25億CFU</span>
+                        <span className="font-medium">山桑子萃取物</span>
+                        <span className="text-gray-600">50mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">植物乳桿菌</span>
-                        <span className="text-gray-600">20億CFU</span>
+                        <span className="font-medium">維生素A</span>
+                        <span className="text-gray-600">800μg</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+                        <span className="font-medium">維生素E</span>
+                        <span className="text-gray-600">12mg</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="font-medium">其他輔助菌株</span>
-                        <span className="text-gray-600">25億CFU</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Nutrition Facts */}
-                  <div>
-                    <h3 className="text-2xl font-bold mb-6">營養標示 (每粒)</h3>
-                    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                      <div className="bg-gray-800 text-white px-6 py-4">
-                        <h4 className="font-bold text-lg">營養成分表</h4>
-                      </div>
-                      <div className="p-6 space-y-3">
-                        <div className="flex justify-between border-b border-gray-100 pb-2">
-                          <span>熱量</span>
-                          <span className="font-medium">2大卡</span>
-                        </div>
-                        <div className="flex justify-between border-b border-gray-100 pb-2">
-                          <span>蛋白質</span>
-                          <span className="font-medium">0.1公克</span>
-                        </div>
-                        <div className="flex justify-between border-b border-gray-100 pb-2">
-                          <span>脂肪</span>
-                          <span className="font-medium">0.05公克</span>
-                        </div>
-                        <div className="flex justify-between border-b border-gray-100 pb-2">
-                          <span>碳水化合物</span>
-                          <span className="font-medium">0.3公克</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>鈉</span>
-                          <span className="font-medium">1毫克</span>
-                        </div>
+                        <span className="font-medium">鋅</span>
+                        <span className="text-gray-600">15mg</span>
                       </div>
                     </div>
                   </div>
@@ -464,7 +505,7 @@ const ProductDetailPage = () => {
                       <ul className="space-y-3 text-blue-800">
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>每日2粒，餐後食用</span>
+                          <span>每日1粒，飯後食用</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
@@ -472,11 +513,11 @@ const ProductDetailPage = () => {
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>建議連續食用30天以上</span>
+                          <span>建議連續食用60天以上</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>請勿與熱水一同服用</span>
+                          <span>避免與咖啡、茶同時服用</span>
                         </li>
                       </ul>
                     </div>
@@ -491,14 +532,14 @@ const ProductDetailPage = () => {
                     <h3 className="text-2xl font-bold mb-6">顧客評論</h3>
                     <div className="bg-gray-50 rounded-xl p-6 mb-8">
                       <div className="flex items-center space-x-6 mb-6">
-                        <div className="text-4xl font-bold text-gray-900">4.7</div>
+                        <div className="text-4xl font-bold text-gray-900">{productInfo.rating}</div>
                         <div>
                           <div className="flex mb-2">
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                             ))}
                           </div>
-                          <div className="text-gray-600">基於125則評論</div>
+                          <div className="text-gray-600">基於{productInfo.reviewCount}則評論</div>
                         </div>
                       </div>
                       <div className="space-y-3">
@@ -508,11 +549,11 @@ const ProductDetailPage = () => {
                             <div className="flex-1 bg-gray-200 rounded-full h-3">
                               <div 
                                 className="bg-yellow-400 h-3 rounded-full" 
-                                style={{width: stars === 5 ? '70%' : stars === 4 ? '20%' : stars === 3 ? '5%' : stars === 2 ? '3%' : '2%'}}
+                                style={{width: stars === 5 ? '75%' : stars === 4 ? '18%' : stars === 3 ? '4%' : stars === 2 ? '2%' : '1%'}}
                               ></div>
                             </div>
                             <span className="text-gray-600 w-10 text-right">
-                              {stars === 5 ? '87' : stars === 4 ? '25' : stars === 3 ? '6' : stars === 2 ? '4' : '3'}
+                              {stars === 5 ? '117' : stars === 4 ? '28' : stars === 3 ? '6' : stars === 2 ? '3' : '2'}
                             </span>
                           </div>
                         ))}
@@ -524,64 +565,85 @@ const ProductDetailPage = () => {
                   <div className="space-y-8">
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium">李</div>
+                        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium">陳</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">李小姐</span>
+                            <span className="font-medium">陳先生</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月15日</span>
+                            <span className="text-sm text-gray-500">2024年6月20日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            使用了一個月後，明顯感覺消化變好了，之前經常脹氣的問題也改善很多。包裝很方便攜帶，會繼續購買。
+                            工作需要長時間看電腦，使用蓉易明葉黃素一個月後，明顯感覺眼睛比較不會疲勞乾澀。晚上加班看螢幕也不會像以前那麼不舒服，很推薦給上班族！
                           </p>
-                          <div className="text-sm text-gray-500">已購買：威德益生菌膠囊 60粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-medium">王</div>
+                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-medium">林</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">王先生</span>
+                            <span className="font-medium">林小姐</span>
+                            <div className="flex">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                              ))}
+                            </div>
+                            <span className="text-sm text-gray-500">2024年6月18日</span>
+                          </div>
+                          <p className="text-gray-700 mb-3 leading-relaxed">
+                            我是學生，每天要讀書看手機，眼睛常常很疲勞。吃了這個葉黃素後，眼睛比較不會酸澀，看東西也比較清楚。膠囊不大，很好吞服。
+                          </p>
+                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 30粒裝</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-b border-gray-200 pb-8">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-medium">張</div>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-3">
+                            <span className="font-medium">張太太</span>
                             <div className="flex">
                               {[...Array(4)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                               <Star className="w-4 h-4 text-gray-300" />
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月10日</span>
+                            <span className="text-sm text-gray-500">2024年6月15日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            產品效果不錯，但是價格稍微偏高。服用後腸胃確實比較舒服，推薦給有腸胃問題的朋友。
+                            買給50歲的媽媽吃，她說吃了兩個月後，看東西比較不會模糊，眼睛也比較不會乾。品質不錯，價格也合理，會持續購買。
                           </p>
-                          <div className="text-sm text-gray-500">已購買：威德益生菌膠囊 30粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-medium">陳</div>
+                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-medium">黃</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">陳太太</span>
+                            <span className="font-medium">黃先生</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月5日</span>
+                            <span className="text-sm text-gray-500">2024年6月12日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            很棒的產品！我是上班族，經常外食，自從開始吃這個益生菌後，消化問題明顯改善。膠囊很好吞，沒有異味。
+                            程式設計師，每天盯螢幕超過10小時。使用蓉易明葉黃素後，眼睛疲勞感明顯減少，而且晚上看手機也不會像以前那麼刺眼。很棒的產品！
                           </p>
-                          <div className="text-sm text-gray-500">已購買：威德益生菌膠囊 60粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
@@ -596,13 +658,18 @@ const ProductDetailPage = () => {
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">相關商品推薦</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
+            {[
+              { name: "善存 護眼膠囊", price: 899, image: "/api/placeholder/300/300" },
+              { name: "白蘭氏 深海魚油", price: 1199, image: "/api/placeholder/300/300" },
+              { name: "維他命A+E護眼錠", price: 699, image: "/api/placeholder/300/300" },
+              { name: "藍莓葉黃素軟膠囊", price: 1099, image: "/api/placeholder/300/300" }
+            ].map((item, index) => (
+              <div key={index} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <div className="aspect-square bg-gray-100">
-                  <img src="/api/placeholder/300/300" alt="相關商品" className="w-full h-full object-cover" />
+                  <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-2">相關保健食品 {item}</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">{item.name}</h3>
                   <div className="flex items-center gap-1 mb-2">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
@@ -610,7 +677,7 @@ const ProductDetailPage = () => {
                     <span className="text-xs text-gray-600 ml-1">4.8</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-blue-600">NT$ {(Math.random() * 1000 + 500).toFixed(0)}</span>
+                    <span className="text-lg font-bold text-blue-600">NT$ {item.price}</span>
                     <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
                       <ShoppingCart className="w-3 h-3 mr-1" />
                       加入購物車
@@ -626,4 +693,4 @@ const ProductDetailPage = () => {
   );
 };
 
-export default ProductDetailPage;
+export default LuteinProductPage;
