@@ -25,17 +25,17 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useCart } from '@/contexts/CartContext';
 
-// ChatButton 组件
+// ChatButton 組件
 const ChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLineClick = () => {
-    console.log("开启 LINE");
+    console.log("開啟 LINE");
   };
 
   return (
     <>
-      {/* 聊天按钮 - 放在购物车按钮正下方 */}
+      {/* 聊天按鈕 - 放在購物車按鈕正下方 */}
       <div className="fixed bottom-6 right-6 z-50">
         <div
           onClick={() => setIsOpen(true)}
@@ -45,20 +45,20 @@ const ChatButton = () => {
         </div>
       </div>
 
-      {/* 对话框 */}
+      {/* 對話框 */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-md bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 border-0 shadow-2xl">
           <DialogHeader>
             <div className="flex items-center justify-between">
               <DialogTitle className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-lg font-bold">
-                Healixir - 为你的健康量身推荐的保健食品
+                Healixir - 為你的健康量身推薦的保健食品
               </DialogTitle>
             </div>
           </DialogHeader>
           
           <div className="mt-4">
             <div className="space-y-3">
-              {/* LINE 按钮 */}
+              {/* LINE 按鈕 */}
               <Button
                 onClick={handleLineClick}
                 className="w-full bg-white/80 backdrop-blur-sm text-gray-800 hover:bg-white hover:shadow-lg justify-start p-4 h-auto shadow-md border-0 transition-all duration-300"
@@ -69,12 +69,12 @@ const ChatButton = () => {
                   className="w-12 h-12 mr-4"
                 />
                 <div className="flex flex-col items-start">
-                  <span className="font-semibold text-base bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">专业药师咨询</span>
-                  <span className="text-sm text-gray-600 mt-1">营业时间内药师即时回复 • 其他时段 AI 智能协助</span>
+                  <span className="font-semibold text-base bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">專業藥師諮詢</span>
+                  <span className="text-sm text-gray-600 mt-1">營業時間內藥師即時回覆 • 其他時段 AI 智能協助</span>
                 </div>
               </Button>
 
-              {/* 联络我们按钮 */}
+              {/* 聯絡我們按鈕 */}
               <Link to="/contact" onClick={() => setIsOpen(false)}>
                 <Button
                   className="w-full bg-white/80 backdrop-blur-sm text-gray-800 hover:bg-white hover:shadow-lg justify-start p-4 h-auto shadow-md border-0 transition-all duration-300"
@@ -83,20 +83,20 @@ const ChatButton = () => {
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex flex-col items-start">
-                    <span className="font-semibold text-base bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">联络我们</span>
-                    <span className="text-sm text-gray-600 mt-1">查看完整联络资讯 • 客服专线 • 营业时间</span>
+                    <span className="font-semibold text-base bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">聯絡我們</span>
+                    <span className="text-sm text-gray-600 mt-1">查看完整聯絡資訊 • 客服專線 • 營業時間</span>
                   </div>
                 </Button>
               </Link>
             </div>
 
-            {/* QR Code 区域 */}
+            {/* QR Code 區域 */}
             <div className="mt-6 text-center">
               <div className="w-32 h-32 bg-white/80 backdrop-blur-sm mx-auto rounded-xl shadow-lg flex items-center justify-center border border-white/50">
                 <div className="text-gray-400 text-xs">LINE QR Code</div>
               </div>
-              <p className="text-sm mt-3 text-gray-700 font-medium">扫描 QR Code 或点击上方按钮</p>
-              <p className="text-xs mt-1 text-gray-600">立即获得专业健康咨询</p>
+              <p className="text-sm mt-3 text-gray-700 font-medium">掃描 QR Code 或點擊上方按鈕</p>
+              <p className="text-xs mt-1 text-gray-600">立即獲得專業健康諮詢</p>
             </div>
           </div>
         </DialogContent>
@@ -105,7 +105,7 @@ const ChatButton = () => {
   );
 };
 
-// FloatingCartButton 组件内嵌定义
+// FloatingCartButton 組件內嵌定義
 const FloatingCartButton: React.FC = () => {
   const { getTotalItems } = useCart();
   const totalItems = getTotalItems();
@@ -133,27 +133,27 @@ const XinShuMuProductPage = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isLiked, setIsLiked] = useState(false);
-  const [activeTab, setActiveTab] = useState('商品介绍');
+  const [activeTab, setActiveTab] = useState('商品介紹');
   const reviewsRef = React.useRef<HTMLDivElement>(null);
 
-  // 商品资讯
+  // 商品資訊
   const productInfo = {
     id: 'shumubo-capsule',
-    name: '新舒目宝软胶囊 SHUMUBO',
+    name: '新舒目寶軟膠囊 SHUMUBO',
     price: 890,
     originalPrice: 1280,
     rating: 4.6,
     reviewCount: 186,
-    description: '专业眼部保健软胶囊，守护您的明亮视界',
+    description: '專業眼部保健軟膠囊，守護您的明亮視界',
     category: '眼部保健'
   };
 
-  // 获取购物车中此商品的数量
+  // 獲取購物車中此商品的數量
   const cartItem = cartItems.find(item => item.id === productInfo.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
-    // 检查用户登入状态
+    // 檢查用戶登入狀態
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     
@@ -218,7 +218,7 @@ const XinShuMuProductPage = () => {
     '/api/placeholder/400/400'
   ];
 
-  const tabs = ['商品介绍', '成分与营养标示', '顾客评论'];
+  const tabs = ['商品介紹', '成分與營養標示', '顧客評論'];
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % productImages.length);
@@ -229,7 +229,7 @@ const XinShuMuProductPage = () => {
   };
 
   const scrollToReviews = () => {
-    setActiveTab('顾客评论');
+    setActiveTab('顧客評論');
     setTimeout(() => {
       reviewsRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
@@ -253,12 +253,12 @@ const XinShuMuProductPage = () => {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Healixir
                 </h1>
-                <p className="text-xs text-gray-500">智能保健顾问</p>
+                <p className="text-xs text-gray-500">智能保健顧問</p>
               </div>
             </Link>
             
             <nav className="flex items-center space-x-6">
-              <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors">首页</Link>
+              <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors">首頁</Link>
               <Link to="/shopDetail">
                 <Button variant="ghost" size="sm" className="hover:bg-blue-50">
                   <ShoppingCart className="w-4 h-4 mr-2" />
@@ -268,14 +268,14 @@ const XinShuMuProductPage = () => {
               <Link to="/member">
                 <Button variant="ghost" size="sm" className="hover:bg-blue-50">
                   <User className="w-4 h-4 mr-2" />
-                  会员
+                  會員
                 </Button>
               </Link>
               
               {user ? (
                 <div className="flex items-center space-x-4">
                   <span className="text-gray-700">
-                    欢迎，<span className="font-medium text-blue-600">{user.name || user.email}</span>
+                    歡迎，<span className="font-medium text-blue-600">{user.name || user.email}</span>
                   </span>
                   <Button 
                     onClick={handleLogout}
@@ -304,7 +304,7 @@ const XinShuMuProductPage = () => {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-gray-500 hover:text-blue-600">首页</Link>
+            <Link to="/" className="text-gray-500 hover:text-blue-600">首頁</Link>
             <span className="text-gray-400">/</span>
             <Link to="/shopDetail" className="text-gray-500 hover:text-blue-600">商品</Link>
             <span className="text-gray-400">/</span>
@@ -348,7 +348,7 @@ const XinShuMuProductPage = () => {
                     currentImage === index ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
-                  <img src={productImages[index]} alt={`产品图 ${index + 1}`} className="w-full h-full object-cover" />
+                  <img src={productImages[index]} alt={`產品圖 ${index + 1}`} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -368,7 +368,7 @@ const XinShuMuProductPage = () => {
                   </div>
                   <span className="text-lg text-gray-600 font-medium ml-2">{productInfo.rating}</span>
                 </div>
-                <span className="text-gray-500 cursor-pointer hover:text-gray-700" onClick={scrollToReviews}>{productInfo.reviewCount} 则评论</span>
+                <span className="text-gray-500 cursor-pointer hover:text-gray-700" onClick={scrollToReviews}>{productInfo.reviewCount} 則評論</span>
               </div>
             </div>
 
@@ -388,15 +388,15 @@ const XinShuMuProductPage = () => {
                   <span className="text-white text-xs">✓</span>
                 </div>
                 <div className="space-y-3">
-                  <p className="font-semibold text-blue-800">使用建议</p>
+                  <p className="font-semibold text-blue-800">使用建議</p>
                   <div className="text-blue-700 space-y-2">
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">软胶囊配方 • 每日 2 粒 • 持续使用90天</span>
+                      <span className="text-sm">軟膠囊配方 • 每日 2 粒 • 持續使用90天</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">餐后食用，搭配充足水分服用</span>
+                      <span className="text-sm">餐後食用，搭配充足水分服用</span>
                     </div>
                   </div>
                 </div>
@@ -406,7 +406,7 @@ const XinShuMuProductPage = () => {
             {/* Quantity Selector */}
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <span className="font-medium text-lg">购买数量：</span>
+                <span className="font-medium text-lg">購買數量：</span>
                 <div className="flex items-center border border-gray-300 rounded-lg bg-white">
                   <button
                     onClick={() => handleQuantityChange(quantity - 1)}
@@ -424,10 +424,10 @@ const XinShuMuProductPage = () => {
                 </div>
               </div>
               
-              {/* 显示购物车中的数量资讯 */}
+              {/* 顯示購物車中的數量資訊 */}
               {cartQuantity > 0 && (
                 <div className="text-sm text-gray-600">
-                  购物车中已有 {cartQuantity} 件此商品
+                  購物車中已有 {cartQuantity} 件此商品
                 </div>
               )}
             </div>
@@ -439,10 +439,10 @@ const XinShuMuProductPage = () => {
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold rounded-xl"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
-                加入购物车
+                加入購物車
               </Button>
               <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white py-4 text-lg font-semibold rounded-xl">
-                立即购买
+                立即購買
               </Button>
               <div className="flex space-x-4">
                 <Button
@@ -484,58 +484,58 @@ const XinShuMuProductPage = () => {
             </div>
 
             <div className="p-8 space-y-10">
-              {activeTab === '商品介绍' && (
+              {activeTab === '商品介紹' && (
                 <div className="space-y-10">
                   <div>
-                    <h3 className="text-2xl font-bold mb-6">产品简介</h3>
+                    <h3 className="text-2xl font-bold mb-6">產品簡介</h3>
                     <p className="text-gray-700 leading-relaxed text-lg">
-                      新舒目宝软胶囊采用先进软胶囊技术，结合多种珍贵护眼成分，包含高浓度叶黄素、玉米黄素、花青素等。特殊的软胶囊剂型提升了营养成分的生物利用度，为长期面对电脑、手机萤幕的现代人提供全方位的眼部保护。
+                      新舒目寶軟膠囊採用先進軟膠囊技術，結合多種珍貴護眼成分，包含高濃度葉黃素、玉米黃素、花青素等。特殊的軟膠囊劑型提升了營養成分的生物利用度，為長期面對電腦、手機螢幕的現代人提供全方位的眼部保護。
                     </p>
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-bold mb-8">功效说明</h3>
+                    <h3 className="text-2xl font-bold mb-8">功效說明</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Droplets className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">软胶囊技术</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">軟膠囊技術</h4>
                         </div>
-                        <p className="text-gray-700">软胶囊剂型提升营养成分吸收率</p>
+                        <p className="text-gray-700">軟膠囊劑型提升營養成分吸收率</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Shield className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">视网膜保护</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">視網膜保護</h4>
                         </div>
-                        <p className="text-gray-700">保护视网膜细胞，维护视觉健康</p>
+                        <p className="text-gray-700">保護視網膜細胞，維護視覺健康</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Eye className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">舒缓眼疲劳</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">舒緩眼疲勞</h4>
                         </div>
-                        <p className="text-gray-700">有效缓解长时间用眼造成的疲劳</p>
+                        <p className="text-gray-700">有效緩解長時間用眼造成的疲勞</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Sun className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">抗氧化防护</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">抗氧化防護</h4>
                         </div>
-                        <p className="text-gray-700">强效抗氧化成分，对抗自由基伤害</p>
+                        <p className="text-gray-700">強效抗氧化成分，對抗自由基傷害</p>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-bold mb-6">适合族群</h3>
+                    <h3 className="text-2xl font-bold mb-6">適合族群</h3>
                     <div className="flex flex-wrap gap-3">
                       <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">重度3C使用者</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">职场上班族</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">学生族群</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">银发族</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">夜间工作者</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">视力保健需求者</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">職場上班族</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">學生族群</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">銀髮族</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">夜間工作者</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">視力保健需求者</Badge>
                     </div>
                   </div>
 
@@ -545,13 +545,13 @@ const XinShuMuProductPage = () => {
                         <span className="text-white text-sm font-bold">!</span>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-red-800 mb-3 text-lg">注意事项</h4>
+                        <h4 className="font-semibold text-red-800 mb-3 text-lg">注意事項</h4>
                         <ul className="space-y-2 text-red-700">
-                          <li>• 请存放于阴凉干燥处，避免高温及阳光直射</li>
-                          <li>• 孕妇、哺乳期妇女及12岁以下儿童请咨询医师后使用</li>
-                          <li>• 对本产品任何成分过敏者请勿使用</li>
-                          <li>• 软胶囊请整粒吞服，勿咬破或切开</li>
-                          <li>• 开封后请尽快食用完毕，并注意保存期限</li>
+                          <li>• 請存放於陰涼乾燥處，避免高溫及陽光直射</li>
+                          <li>• 孕婦、哺乳期婦女及12歲以下兒童請諮詢醫師後使用</li>
+                          <li>• 對本產品任何成分過敏者請勿使用</li>
+                          <li>• 軟膠囊請整粒吞服，勿咬破或切開</li>
+                          <li>• 開封後請儘快食用完畢，並注意保存期限</li>
                         </ul>
                       </div>
                     </div>
@@ -559,21 +559,21 @@ const XinShuMuProductPage = () => {
                 </div>
               )}
 
-              {activeTab === '成分与营养标示' && (
+              {activeTab === '成分與營養標示' && (
                 <div className="space-y-10">
                   <div>
                     <h3 className="text-2xl font-bold mb-6">主要成分</h3>
                     <div className="bg-gray-50 rounded-xl p-6 space-y-4">
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium text-lg">游离型叶黄素</span>
+                        <span className="font-medium text-lg">游離型葉黃素</span>
                         <span className="text-lg text-gray-600 font-semibold">40mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">游离型玉米黄素</span>
+                        <span className="font-medium">游離型玉米黃素</span>
                         <span className="text-gray-600">8mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">蓝莓花青素</span>
+                        <span className="font-medium">藍莓花青素</span>
                         <span className="text-gray-600">100mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
@@ -581,15 +581,15 @@ const XinShuMuProductPage = () => {
                         <span className="text-gray-600">60mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">维生素A</span>
+                        <span className="font-medium">維生素A</span>
                         <span className="text-gray-600">700μg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">维生素E</span>
+                        <span className="font-medium">維生素E</span>
                         <span className="text-gray-600">20mg</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="font-medium">锌</span>
+                        <span className="font-medium">鋅</span>
                         <span className="text-gray-600">12mg</span>
                       </div>
                     </div>
@@ -601,15 +601,15 @@ const XinShuMuProductPage = () => {
                       <ul className="space-y-3 text-blue-800">
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>每日2粒，餐后食用</span>
+                          <span>每日2粒，餐後食用</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>配合充足温水整粒吞服</span>
+                          <span>配合充足溫水整粒吞服</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>建议持续使用90天以上</span>
+                          <span>建議持續使用90天以上</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
@@ -617,7 +617,7 @@ const XinShuMuProductPage = () => {
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>请勿咬破软胶囊</span>
+                          <span>請勿咬破軟膠囊</span>
                         </li>
                       </ul>
                     </div>
@@ -625,10 +625,10 @@ const XinShuMuProductPage = () => {
                 </div>
               )}
 
-              {activeTab === '顾客评论' && (
+              {activeTab === '顧客評論' && (
                 <div ref={reviewsRef}>
                   <div>
-                    <h3 className="text-2xl font-bold mb-6">顾客评论</h3>
+                    <h3 className="text-2xl font-bold mb-6">顧客評論</h3>
                     <div className="bg-gray-50 rounded-xl p-6 mb-8">
                       <div className="flex items-center space-x-6 mb-6">
                         <div className="text-4xl font-bold text-gray-900">{productInfo.rating}</div>
@@ -638,7 +638,7 @@ const XinShuMuProductPage = () => {
                               <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                             ))}
                           </div>
-                          <div className="text-gray-600">基于{productInfo.reviewCount}则评论</div>
+                          <div className="text-gray-600">基於{productInfo.reviewCount}則評論</div>
                         </div>
                       </div>
                       <div className="space-y-3">
@@ -663,10 +663,10 @@ const XinShuMuProductPage = () => {
                   <div className="space-y-8">
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-medium">刘</div>
+                        <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-medium">劉</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">刘小姐</span>
+                            <span className="font-medium">劉小姐</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -675,19 +675,19 @@ const XinShuMuProductPage = () => {
                             <span className="text-sm text-gray-500">2024年6月28日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            软胶囊真的比锭剂好吞很多！我是会计师，每天要盯电脑萤幕超过10小时，使用新舒目宝三个月后，眼睛干涩的问题明显改善，而且晚上眼睛也不会那么疲劳了。
+                            軟膠囊真的比錠劑好吞很多！我是會計師，每天要盯電腦螢幕超過10小時，使用新舒目寶三個月後，眼睛乾澀的問題明顯改善，而且晚上眼睛也不會那麼疲勞了。
                           </p>
-                          <div className="text-sm text-gray-500">已购买：新舒目宝软胶囊 60粒装</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-medium">陈</div>
+                        <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-medium">陳</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">陈先生</span>
+                            <span className="font-medium">陳先生</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -696,9 +696,9 @@ const XinShuMuProductPage = () => {
                             <span className="text-sm text-gray-500">2024年6月25日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            软胶囊的吸收效果真的比较好，我之前试过很多护眼产品都没什么感觉，但新舒目宝用了两个月后，看东西明显比较清楚，眼睛也比较不会疲劳。值得推荐！
+                            軟膠囊的吸收效果真的比較好，我之前試過很多護眼產品都沒什麼感覺，但新舒目寶用了兩個月後，看東西明顯比較清楚，眼睛也比較不會疲勞。值得推薦！
                           </p>
-                          <div className="text-sm text-gray-500">已购买：新舒目宝软胶囊 90粒装</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 90粒裝</div>
                         </div>
                       </div>
                     </div>
@@ -717,19 +717,19 @@ const XinShuMuProductPage = () => {
                             <span className="text-sm text-gray-500">2024年6月22日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            买给60岁的爸爸使用，他说软胶囊很好吞，不会卡喉咙。使用三个月后，爸爸说看报纸比较不会模糊，夜间开车的视力也有改善。全家人都很满意这个产品。
+                            買給60歲的爸爸使用，他說軟膠囊很好吞，不會卡喉嚨。使用三個月後，爸爸說看報紙比較不會模糊，夜間開車的視力也有改善。全家人都很滿意這個產品。
                           </p>
-                          <div className="text-sm text-gray-500">已购买：新舒目宝软胶囊 60粒装</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-white font-medium">张</div>
+                        <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-white font-medium">張</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">张小姐</span>
+                            <span className="font-medium">張小姐</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -738,9 +738,9 @@ const XinShuMuProductPage = () => {
                             <span className="text-sm text-gray-500">2024年6月16日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            护理师工作需要长时间专注，眼睛常常很疲劳。软胶囊真的比锭剂好很多，吞服方便，成分吸收也比较好。使用新舒目宝后，工作时眼睛舒服很多，非常推荐！
+                            護理師工作需要長時間專注，眼睛常常很疲勞。軟膠囊真的比錠劑好很多，吞服方便，成分吸收也比較好。使用新舒目寶後，工作時眼睛舒服很多，非常推薦！
                           </p>
-                          <div className="text-sm text-gray-500">已购买：新舒目宝软胶囊 90粒装</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 90粒裝</div>
                         </div>
                       </div>
                     </div>
@@ -753,13 +753,13 @@ const XinShuMuProductPage = () => {
 
         {/* Related Products */}
         <div className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">相关商品推荐</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">相關商品推薦</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "蓉易明叶黄素复方胶囊", price: 720, image: "/api/placeholder/300/300" },
-              { name: "明适E叶黄素II代", price: 680, image: "/api/placeholder/300/300" },
-              { name: "金博氏金晶明胶囊", price: 650, image: "/api/placeholder/300/300" },
-              { name: "护眼蓝莓精华锭", price: 899, image: "/api/placeholder/300/300" }
+              { name: "蓉易明葉黃素複方膠囊", price: 720, image: "/api/placeholder/300/300" },
+              { name: "明適E葉黃素II代", price: 680, image: "/api/placeholder/300/300" },
+              { name: "金博氏金晶明膠囊", price: 650, image: "/api/placeholder/300/300" },
+              { name: "護眼藍莓精華錠", price: 899, image: "/api/placeholder/300/300" }
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <div className="aspect-square bg-gray-100">
@@ -777,7 +777,7 @@ const XinShuMuProductPage = () => {
                     <span className="text-lg font-bold text-blue-600">NT$ {item.price}</span>
                     <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
                       <ShoppingCart className="w-3 h-3 mr-1" />
-                      加入购物车
+                      加入購物車
                     </Button>
                   </div>
                 </div>

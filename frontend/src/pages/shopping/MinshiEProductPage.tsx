@@ -15,13 +15,91 @@ import {
   LogIn,
   Eye,
   Zap,
-  Sun
+  Sun,
+  MessageCircle,
+  Phone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useCart } from '@/contexts/CartContext';
 
-// FloatingCartButton 組件內嵌定義
+// ChatButton 組件
+const ChatButton = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleLineClick = () => {
+    console.log("開啟 LINE");
+  };
+
+  return (
+    <>
+      <div className="fixed bottom-6 right-6 z-50">
+        <div
+          onClick={() => setIsOpen(true)}
+          className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 cursor-pointer flex items-center justify-center group"
+        >
+          <MessageCircle className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+        </div>
+      </div>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-md bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 border-0 shadow-2xl">
+          <DialogHeader>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-lg font-bold">
+                Healixir - 為你的健康量身推薦的保健食品
+              </DialogTitle>
+            </div>
+          </DialogHeader>
+          
+          <div className="mt-4">
+            <div className="space-y-3">
+              <Button
+                onClick={handleLineClick}
+                className="w-full bg-white/80 backdrop-blur-sm text-gray-800 hover:bg-white hover:shadow-lg justify-start p-4 h-auto shadow-md border-0 transition-all duration-300"
+              >
+                <img 
+                  src="/line.ico" 
+                  alt="LINE" 
+                  className="w-12 h-12 mr-4"
+                />
+                <div className="flex flex-col items-start">
+                  <span className="font-semibold text-base bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">專業藥師諮詢</span>
+                  <span className="text-sm text-gray-600 mt-1">營業時間內藥師即時回覆 • 其他時段 AI 智能協助</span>
+                </div>
+              </Button>
+
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                <Button
+                  className="w-full bg-white/80 backdrop-blur-sm text-gray-800 hover:bg-white hover:shadow-lg justify-start p-4 h-auto shadow-md border-0 transition-all duration-300"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                    <Phone className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="font-semibold text-base bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">聯絡我們</span>
+                    <span className="text-sm text-gray-600 mt-1">查看完整聯絡資訊 • 客服專線 • 營業時間</span>
+                  </div>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="mt-6 text-center">
+              <div className="w-32 h-32 bg-white/80 backdrop-blur-sm mx-auto rounded-xl shadow-lg flex items-center justify-center border border-white/50">
+                <div className="text-gray-400 text-xs">LINE QR Code</div>
+              </div>
+              <p className="text-sm mt-3 text-gray-700 font-medium">掃描 QR Code 或點擊上方按鈕</p>
+              <p className="text-xs mt-1 text-gray-600">立即獲得專業健康諮詢</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+// FloatingCartButton 組件
 const FloatingCartButton: React.FC = () => {
   const { getTotalItems } = useCart();
   const totalItems = getTotalItems();
@@ -52,7 +130,6 @@ const MinshiEProductPage = () => {
   const [activeTab, setActiveTab] = useState('商品介紹');
   const reviewsRef = React.useRef<HTMLDivElement>(null);
 
-  // 商品資訊
   const productInfo = {
     id: 'lutein-gen2',
     name: '明適E 葉黃素II代',
@@ -64,12 +141,10 @@ const MinshiEProductPage = () => {
     category: '眼部保健'
   };
 
-  // 獲取購物車中此商品的數量
   const cartItem = cartItems.find(item => item.id === productInfo.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
-    // 檢查用戶登入狀態
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     
@@ -93,71 +168,38 @@ const MinshiEProductPage = () => {
   };
 
   const handleAddToCart = () => {
-    // 使用實時的購物車狀態來判斷
     const currentCartItem = cartItems.find(item => item.id === productInfo.id);
     const currentCartQuantity = currentCartItem ? currentCartItem.quantity : 0;
-    
-    // 計算新的總數量（當前數量 + 選擇的數量）
     const newTotalQuantity = currentCartQuantity + quantity;
     
-    console.log('添加購物車:', {
-      currentCartQuantity,
-      selectedQuantity: quantity,
-      newTotalQuantity,
-      hasExistingItem: !!currentCartItem
-    });
-    
-    // 統一使用 updateQuantity，如果商品不存在會自動創建
     if (currentCartItem) {
-      // 商品已存在，累加數量
       updateQuantity(productInfo.id, newTotalQuantity);
     } else {
-      // 商品不存在，創建新商品並設置數量
-      // 先添加商品
       addToCart({
         id: productInfo.id,
         name: productInfo.name,
         price: productInfo.price,
         image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
-        quantity: 1, // 先添加1件
+        quantity: 1,
         description: productInfo.description
       });
       
-      // 如果選擇的數量大於1，再更新到正確的數量
       if (quantity > 1) {
-        // 使用 setTimeout 確保 addToCart 完成後再更新
         setTimeout(() => {
           updateQuantity(productInfo.id, quantity);
         }, 0);
       }
     }
     
-    // 加入購物車後重置數量為1
     setQuantity(1);
   };
 
   const handleQuantityChange = (newQuantity: number) => {
-    // 確保數量不能小於1
     if (newQuantity < 1) {
       setQuantity(1);
       return;
     }
     setQuantity(newQuantity);
-  };
-
-  // 新增直接更新購物車數量的函數 - 已移除大部分功能
-  const handleUpdateCartQuantity = (newCartQuantity: number) => {
-    if (newCartQuantity === 0) {
-      // 如果數量為0，從購物車移除
-      if (cartItem) {
-        removeFromCart(productInfo.id);
-      }
-    } else {
-      // 更新購物車中的數量
-      if (cartItem) {
-        updateQuantity(productInfo.id, newCartQuantity);
-      }
-    }
   };
 
   const productImages = [
@@ -188,7 +230,6 @@ const MinshiEProductPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -249,7 +290,6 @@ const MinshiEProductPage = () => {
         </div>
       </header>
 
-      {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center space-x-2 text-sm">
@@ -264,9 +304,7 @@ const MinshiEProductPage = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column - Product Images */}
           <div className="space-y-4">
-            {/* Main Image */}
             <div className="relative bg-white rounded-2xl overflow-hidden aspect-square shadow-lg">
               <img 
                 src={productImages[currentImage]} 
@@ -287,7 +325,6 @@ const MinshiEProductPage = () => {
               </button>
             </div>
             
-            {/* Thumbnail Images */}
             <div className="flex space-x-3">
               {productImages.map((_, index) => (
                 <button
@@ -303,9 +340,7 @@ const MinshiEProductPage = () => {
             </div>
           </div>
 
-          {/* Right Column - Product Info */}
           <div className="space-y-6">
-            {/* Product Title */}
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">{productInfo.name}</h1>
               <div className="flex items-center space-x-4 mb-6">
@@ -321,7 +356,6 @@ const MinshiEProductPage = () => {
               </div>
             </div>
 
-            {/* Price */}
             <div className="space-y-2">
               <div className="flex items-baseline space-x-4">
                 <span className="text-4xl font-bold text-blue-600">NT$ {productInfo.price.toLocaleString()}</span>
@@ -330,7 +364,6 @@ const MinshiEProductPage = () => {
               </div>
             </div>
 
-            {/* Usage Instructions */}
             <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
               <div className="flex items-start space-x-3">
                 <div className="w-6 h-6 bg-blue-500 rounded-full mt-1 flex-shrink-0 flex items-center justify-center">
@@ -352,7 +385,6 @@ const MinshiEProductPage = () => {
               </div>
             </div>
 
-            {/* Quantity Selector */}
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
                 <span className="font-medium text-lg">購買數量：</span>
@@ -373,7 +405,6 @@ const MinshiEProductPage = () => {
                 </div>
               </div>
               
-              {/* 顯示購物車中的數量資訊 */}
               {cartQuantity > 0 && (
                 <div className="text-sm text-gray-600">
                   購物車中已有 {cartQuantity} 件此商品
@@ -381,7 +412,6 @@ const MinshiEProductPage = () => {
               )}
             </div>
 
-            {/* Action Buttons */}
             <div className="space-y-4">
               <Button 
                 onClick={handleAddToCart}
@@ -411,10 +441,8 @@ const MinshiEProductPage = () => {
           </div>
         </div>
 
-        {/* Product Details Tabs */}
         <div className="mt-16">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            {/* Tab Navigation */}
             <div className="border-b border-gray-200 bg-gray-50">
               <div className="flex space-x-8 overflow-x-auto px-8">
                 {tabs.map((tab) => (
@@ -433,11 +461,9 @@ const MinshiEProductPage = () => {
               </div>
             </div>
 
-            {/* Tab Content */}
             <div className="p-8 space-y-10">
               {activeTab === '商品介紹' && (
                 <div className="space-y-10">
-                  {/* Product Description */}
                   <div>
                     <h3 className="text-2xl font-bold mb-6">產品簡介</h3>
                     <p className="text-gray-700 leading-relaxed text-lg">
@@ -445,7 +471,6 @@ const MinshiEProductPage = () => {
                     </p>
                   </div>
 
-                  {/* Features */}
                   <div>
                     <h3 className="text-2xl font-bold mb-8">功效說明</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -480,7 +505,6 @@ const MinshiEProductPage = () => {
                     </div>
                   </div>
 
-                  {/* Target Audience */}
                   <div>
                     <h3 className="text-2xl font-bold mb-6">適合族群</h3>
                     <div className="flex flex-wrap gap-3">
@@ -493,7 +517,6 @@ const MinshiEProductPage = () => {
                     </div>
                   </div>
 
-                  {/* Warning */}
                   <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-xl">
                     <div className="flex items-start space-x-4">
                       <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -505,7 +528,7 @@ const MinshiEProductPage = () => {
                           <li>• 請存放於陰涼乾燥處，避免陽光直射</li>
                           <li>• 孕婦、哺乳期婦女及12歲以下兒童請諮詢醫師後使用</li>
                           <li>• 本產品含有大豆，對大豆過敏者請謹慎使用</li>
-                          <li>• 開封後請盡快食用完畢，並注意保存期限</li>
+                          <li>• 開封後請儘快食用完畢，並注意保存期限</li>
                         </ul>
                       </div>
                     </div>
@@ -515,7 +538,6 @@ const MinshiEProductPage = () => {
 
               {activeTab === '成分與營養標示' && (
                 <div className="space-y-10">
-                  {/* Ingredients */}
                   <div>
                     <h3 className="text-2xl font-bold mb-6">主要成分</h3>
                     <div className="bg-gray-50 rounded-xl p-6 space-y-4">
@@ -546,15 +568,10 @@ const MinshiEProductPage = () => {
                     </div>
                   </div>
 
-                  {/* Usage Instructions */}
                   <div>
                     <h3 className="text-2xl font-bold mb-6">食用方法</h3>
                     <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
                       <ul className="space-y-3 text-blue-800">
-                        <li className="flex items-center space-x-3">
-                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>每日1粒，飯後食用</span>
-                        </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                           <span>配合溫開水吞服</span>
@@ -575,41 +592,37 @@ const MinshiEProductPage = () => {
 
               {activeTab === '顧客評論' && (
                 <div ref={reviewsRef}>
-                  {/* Reviews Summary */}
-                  <div>
-                    <h3 className="text-2xl font-bold mb-6">顧客評論</h3>
-                    <div className="bg-gray-50 rounded-xl p-6 mb-8">
-                      <div className="flex items-center space-x-6 mb-6">
-                        <div className="text-4xl font-bold text-gray-900">{productInfo.rating}</div>
-                        <div>
-                          <div className="flex mb-2">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
-                            ))}
-                          </div>
-                          <div className="text-gray-600">基於{productInfo.reviewCount}則評論</div>
+                  <h3 className="text-2xl font-bold mb-6">顧客評論</h3>
+                  <div className="bg-gray-50 rounded-xl p-6 mb-8">
+                    <div className="flex items-center space-x-6 mb-6">
+                      <div className="text-4xl font-bold text-gray-900">{productInfo.rating}</div>
+                      <div>
+                        <div className="flex mb-2">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                          ))}
                         </div>
+                        <div className="text-gray-600">基於{productInfo.reviewCount}則評論</div>
                       </div>
-                      <div className="space-y-3">
-                        {[5, 4, 3, 2, 1].map((stars) => (
-                          <div key={stars} className="flex items-center space-x-3">
-                            <span className="w-8">{stars}星</span>
-                            <div className="flex-1 bg-gray-200 rounded-full h-3">
-                              <div 
-                                className="bg-yellow-400 h-3 rounded-full" 
-                                style={{width: stars === 5 ? '70%' : stars === 4 ? '22%' : stars === 3 ? '5%' : stars === 2 ? '2%' : '1%'}}
-                              ></div>
-                            </div>
-                            <span className="text-gray-600 w-10 text-right">
-                              {stars === 5 ? '86' : stars === 4 ? '27' : stars === 3 ? '6' : stars === 2 ? '2' : '2'}
-                            </span>
+                    </div>
+                    <div className="space-y-3">
+                      {[5, 4, 3, 2, 1].map((stars) => (
+                        <div key={stars} className="flex items-center space-x-3">
+                          <span className="w-8">{stars}星</span>
+                          <div className="flex-1 bg-gray-200 rounded-full h-3">
+                            <div 
+                              className="bg-yellow-400 h-3 rounded-full" 
+                              style={{width: stars === 5 ? '70%' : stars === 4 ? '22%' : stars === 3 ? '5%' : stars === 2 ? '2%' : '1%'}}
+                            ></div>
                           </div>
-                        ))}
-                      </div>
+                          <span className="text-gray-600 w-10 text-right">
+                            {stars === 5 ? '86' : stars === 4 ? '27' : stars === 3 ? '6' : stars === 2 ? '2' : '2'}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Individual Reviews */}
                   <div className="space-y-8">
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
@@ -702,7 +715,6 @@ const MinshiEProductPage = () => {
           </div>
         </div>
 
-        {/* Related Products */}
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">相關商品推薦</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -738,8 +750,8 @@ const MinshiEProductPage = () => {
         </div>
       </main>
 
-      {/* Floating Cart Button */}
       <FloatingCartButton />
+      <ChatButton />
     </div>
   );
 };
