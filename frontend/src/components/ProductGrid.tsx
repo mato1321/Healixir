@@ -91,9 +91,10 @@ const StarRating: React.FC<{
 
 // 商品卡片組件
 const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount }) => {
-  // 只有蓉易明葉黃素複方膠囊和明適E葉黃素II代可以點擊
+  // 檢查是否為可點擊的商品
   const isClickable = (product.name.includes('蓉易明') && product.name.includes('葉黃素')) || 
-                     (product.name.includes('明適E') && product.name.includes('葉黃素'));
+                     (product.name.includes('明適E') && product.name.includes('葉黃素')) ||
+                     product.id === 'gold-eye-capsule';
 
   const handleCardClick = (e: React.MouseEvent) => {
     // 如果點擊的是按鈕區域，不要觸發卡片點擊
@@ -206,7 +207,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
     </Card>
   );
 
-  // 只有指定的葉黃素商品才包裝在 Link 中
+  // 只有指定的商品才包裝在 Link 中
   if (isClickable) {
     return (
       <Link to={`/product/${product.id}`} className="block cursor-pointer">
