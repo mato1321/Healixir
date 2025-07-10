@@ -21,6 +21,27 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
 
+// FloatingCartButton 組件內嵌定義
+const FloatingCartButton: React.FC = () => {
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+
+  return (
+    <Link to="/cart">
+      <div className="fixed bottom-24 right-6 w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 z-50 flex items-center justify-center group">
+        <div className="relative">
+          <ShoppingCart className="w-8 h-8 group-hover:scale-110 transition-transform" />
+          {totalItems > 0 && (
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold min-w-[20px]">
+              {totalItems > 99 ? '99+' : totalItems}
+            </div>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
 const MinshiEProductPage = () => {
   const navigate = useNavigate();
   const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
@@ -64,13 +85,6 @@ const MinshiEProductPage = () => {
     }
   }, []);
 
-  // 同步購物車數量到詳情頁數量
-  useEffect(() => {
-    if (cartQuantity > 0) {
-      setQuantity(cartQuantity);
-    }
-  }, [cartQuantity]);
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -79,28 +93,61 @@ const MinshiEProductPage = () => {
   };
 
   const handleAddToCart = () => {
-    if (cartItem) {
-      // 如果購物車中已有此商品，更新數量
-      updateQuantity(productInfo.id, quantity);
+    // 使用實時的購物車狀態來判斷
+    const currentCartItem = cartItems.find(item => item.id === productInfo.id);
+    const currentCartQuantity = currentCartItem ? currentCartItem.quantity : 0;
+    
+    // 計算新的總數量（當前數量 + 選擇的數量）
+    const newTotalQuantity = currentCartQuantity + quantity;
+    
+    console.log('添加購物車:', {
+      currentCartQuantity,
+      selectedQuantity: quantity,
+      newTotalQuantity,
+      hasExistingItem: !!currentCartItem
+    });
+    
+    // 統一使用 updateQuantity，如果商品不存在會自動創建
+    if (currentCartItem) {
+      // 商品已存在，累加數量
+      updateQuantity(productInfo.id, newTotalQuantity);
     } else {
-      // 如果購物車中沒有此商品，添加新商品
+      // 商品不存在，創建新商品並設置數量
+      // 先添加商品
       addToCart({
         id: productInfo.id,
         name: productInfo.name,
         price: productInfo.price,
         image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
-        quantity: quantity,
+        quantity: 1, // 先添加1件
         description: productInfo.description
       });
+      
+      // 如果選擇的數量大於1，再更新到正確的數量
+      if (quantity > 1) {
+        // 使用 setTimeout 確保 addToCart 完成後再更新
+        setTimeout(() => {
+          updateQuantity(productInfo.id, quantity);
+        }, 0);
+      }
     }
     
-    alert('商品已加入購物車！');
+    // 加入購物車後重置數量為1
+    setQuantity(1);
   };
 
   const handleQuantityChange = (newQuantity: number) => {
+    // 確保數量不能小於1
+    if (newQuantity < 1) {
+      setQuantity(1);
+      return;
+    }
     setQuantity(newQuantity);
-    
-    if (newQuantity === 0) {
+  };
+
+  // 新增直接更新購物車數量的函數 - 已移除大部分功能
+  const handleUpdateCartQuantity = (newCartQuantity: number) => {
+    if (newCartQuantity === 0) {
       // 如果數量為0，從購物車移除
       if (cartItem) {
         removeFromCart(productInfo.id);
@@ -108,7 +155,7 @@ const MinshiEProductPage = () => {
     } else {
       // 更新購物車中的數量
       if (cartItem) {
-        updateQuantity(productInfo.id, newQuantity);
+        updateQuantity(productInfo.id, newCartQuantity);
       }
     }
   };
@@ -308,10 +355,10 @@ const MinshiEProductPage = () => {
             {/* Quantity Selector */}
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <span className="font-medium text-lg">數量：</span>
+                <span className="font-medium text-lg">購買數量：</span>
                 <div className="flex items-center border border-gray-300 rounded-lg bg-white">
                   <button
-                    onClick={() => handleQuantityChange(Math.max(1, quantity - 1))}
+                    onClick={() => handleQuantityChange(quantity - 1)}
                     className="px-4 py-3 hover:bg-gray-100 text-gray-600"
                   >
                     <Minus className="w-4 h-4" />
@@ -326,7 +373,7 @@ const MinshiEProductPage = () => {
                 </div>
               </div>
               
-              {/* 顯示購物車中的數量 */}
+              {/* 顯示購物車中的數量資訊 */}
               {cartQuantity > 0 && (
                 <div className="text-sm text-gray-600">
                   購物車中已有 {cartQuantity} 件此商品
@@ -341,7 +388,7 @@ const MinshiEProductPage = () => {
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold rounded-xl"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
-                {cartItem ? '更新購物車' : '加入購物車'}
+                加入購物車
               </Button>
               <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white py-4 text-lg font-semibold rounded-xl">
                 立即購買
@@ -690,6 +737,9 @@ const MinshiEProductPage = () => {
           </div>
         </div>
       </main>
+
+      {/* Floating Cart Button */}
+      <FloatingCartButton />
     </div>
   );
 };

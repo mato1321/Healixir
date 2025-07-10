@@ -14,6 +14,7 @@ import ShopDetail from "./pages/shop/shopDetail";
 import LuteinProductPage from "./pages/shopping/LuteinProductPage";  // 蓉易明葉黃素專屬頁面
 import MinshiEProductPage from "./pages/shopping/MinshiEProductPage";  // 明適E葉黃素II代專屬頁面
 import JinJingMingProductPage from "./pages/shopping/JinJingMingProductPage";  // 金博氏金晶明膠囊專屬頁面
+import XinShuMuProductPage from "./pages/shopping/XinShuMuProductPage";  // 新舒目寶軟膠囊專屬頁面
 import ContactUs from "./pages/legal/ContactUs";
 import Member from "./pages/member/index";
 import EditProfile from "./pages/member/EditProfile";  // 新增編輯個人資料頁面
@@ -97,6 +98,7 @@ const App = () => (
             <Route path="/product/lutein-complex" element={<LuteinProductPage />} />
             <Route path="/product/lutein-gen2" element={<MinshiEProductPage />} />
             <Route path="/product/gold-eye-capsule" element={<JinJingMingProductPage />} />
+            <Route path="/product/xinshumu-softgel" element={<XinShuMuProductPage />} />
                         
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact" element={<ContactUs />} />

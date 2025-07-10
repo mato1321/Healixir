@@ -91,10 +91,12 @@ const StarRating: React.FC<{
 
 // 商品卡片組件
 const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount }) => {
-  // 檢查是否為可點擊的商品
+  // 檢查是否為可點擊的商品 - 修正新舒目寶的判斷
   const isClickable = (product.name.includes('蓉易明') && product.name.includes('葉黃素')) || 
                      (product.name.includes('明適E') && product.name.includes('葉黃素')) ||
-                     product.id === 'gold-eye-capsule';
+                     product.id === 'gold-eye-capsule' ||
+                     product.id === 'shumubo-capsule' ||  // 修正為正確的 ID
+                     product.name.includes('新舒目寶');
 
   const handleCardClick = (e: React.MouseEvent) => {
     // 如果點擊的是按鈕區域，不要觸發卡片點擊
@@ -103,6 +105,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
       e.preventDefault();
       e.stopPropagation();
       return;
+    }
+  };
+
+  // 根據商品 ID 決定路由路徑
+  const getProductPath = (productId: string) => {
+    switch (productId) {
+      case 'lutein-complex':
+        return '/product/lutein-complex';
+      case 'lutein-gen2':
+        return '/product/lutein-gen2';
+      case 'gold-eye-capsule':
+        return '/product/gold-eye-capsule';
+      case 'shumubo-capsule':
+        return '/product/xinshumu-softgel';  // 對應到我們創建的路由
+      default:
+        return `/product/${productId}`;
     }
   };
 
@@ -210,7 +228,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, count, onUpdateCount
   // 只有指定的商品才包裝在 Link 中
   if (isClickable) {
     return (
-      <Link to={`/product/${product.id}`} className="block cursor-pointer">
+      <Link to={getProductPath(product.id)} className="block cursor-pointer">
         {cardContent}
       </Link>
     );

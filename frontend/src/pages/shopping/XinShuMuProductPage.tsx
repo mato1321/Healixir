@@ -15,7 +15,8 @@ import {
   LogIn,
   Eye,
   Zap,
-  Sun
+  Sun,
+  Droplets
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -42,7 +43,7 @@ const FloatingCartButton: React.FC = () => {
   );
 };
 
-const LuteinProductPage = () => {
+const XinShuMuProductPage = () => {
   const navigate = useNavigate();
   const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
   const [user, setUser] = useState<any>(null);
@@ -54,13 +55,13 @@ const LuteinProductPage = () => {
 
   // 商品資訊
   const productInfo = {
-    id: 'lutein-complex',
-    name: '蓉易明 葉黃素複方膠囊',
-    price: 720,
-    originalPrice: 1299,
-    rating: 4.5,
-    reviewCount: 156,
-    description: '保護眼部健康的專業葉黃素複方膠囊',
+    id: 'shumubo-capsule',  // 修正為與 supplementData 一致的 ID
+    name: '新舒目寶軟膠囊 SHUMUBO',  // 修正為與 supplementData 一致的名稱
+    price: 890,
+    originalPrice: 1280,
+    rating: 4.6,
+    reviewCount: 186,
+    description: '專業眼部保健軟膠囊，守護您的明亮視界',
     category: '眼部保健'
   };
 
@@ -84,13 +85,6 @@ const LuteinProductPage = () => {
       }
     }
   }, []);
-
-  // 移除這個 useEffect，讓數量選擇器獨立於購物車數量
-  // useEffect(() => {
-  //   if (cartQuantity > 0) {
-  //     setQuantity(cartQuantity);
-  //   }
-  // }, [cartQuantity]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -150,21 +144,6 @@ const LuteinProductPage = () => {
       return;
     }
     setQuantity(newQuantity);
-  };
-
-  // 新增直接更新購物車數量的函數 - 已移除大部分功能
-  const handleUpdateCartQuantity = (newCartQuantity: number) => {
-    if (newCartQuantity === 0) {
-      // 如果數量為0，從購物車移除
-      if (cartItem) {
-        removeFromCart(productInfo.id);
-      }
-    } else {
-      // 更新購物車中的數量
-      if (cartItem) {
-        updateQuantity(productInfo.id, newCartQuantity);
-      }
-    }
   };
 
   const productImages = [
@@ -348,18 +327,16 @@ const LuteinProductPage = () => {
                   <div className="text-blue-700 space-y-2">
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">護眼配方 • 每日 1 粒 • 連續60天</span>
+                      <span className="text-sm">軟膠囊配方 • 每日 2 粒 • 持續使用90天</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">飯後食用，配合溫開水服用</span>
+                      <span className="text-sm">餐後食用，搭配充足水分服用</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* 顯示購物車中的數量 - 移除此區塊 */}
 
             {/* Quantity Selector */}
             <div className="space-y-4">
@@ -445,12 +422,12 @@ const LuteinProductPage = () => {
             {/* Tab Content */}
             <div className="p-8 space-y-10">
               {activeTab === '商品介紹' && (
-                <>
+                <div className="space-y-10">
                   {/* Product Description */}
                   <div>
                     <h3 className="text-2xl font-bold mb-6">產品簡介</h3>
                     <p className="text-gray-700 leading-relaxed text-lg">
-                      蓉易明葉黃素複方膠囊採用專利FloraGLO®葉黃素，結合玉米黃素、山桑子萃取物等多種護眼成分，專為現代人眼部健康設計。每粒含高濃度葉黃素20mg，有效過濾藍光，保護黃斑部健康，減緩眼部疲勞。
+                      新舒目寶軟膠囊採用先進軟膠囊技術，結合多種珍貴護眼成分，包含高濃度葉黃素、玉米黃素、花青素等。特殊的軟膠囊劑型提升了營養成分的生物利用度，為長期面對電腦、手機螢幕的現代人提供全方位的眼部保護。
                     </p>
                   </div>
 
@@ -460,31 +437,31 @@ const LuteinProductPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
-                          <Eye className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">護眼抗藍光</h4>
+                          <Droplets className="w-8 h-8 text-blue-600" />
+                          <h4 className="font-semibold text-gray-900 text-lg">軟膠囊技術</h4>
                         </div>
-                        <p className="text-gray-700">有效過濾有害藍光，保護視網膜健康</p>
+                        <p className="text-gray-700">軟膠囊劑型提升營養成分吸收率</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Shield className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">黃斑部保護</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">視網膜保護</h4>
                         </div>
-                        <p className="text-gray-700">維護黃斑部健康，預防老化性眼疾</p>
+                        <p className="text-gray-700">保護視網膜細胞，維護視覺健康</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
-                          <Zap className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">緩解疲勞</h4>
+                          <Eye className="w-8 h-8 text-blue-600" />
+                          <h4 className="font-semibold text-gray-900 text-lg">舒緩眼疲勞</h4>
                         </div>
-                        <p className="text-gray-700">改善眼部疲勞，提升視覺舒適度</p>
+                        <p className="text-gray-700">有效緩解長時間用眼造成的疲勞</p>
                       </div>
                       <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
                         <div className="flex items-center space-x-4 mb-3">
                           <Sun className="w-8 h-8 text-blue-600" />
-                          <h4 className="font-semibold text-gray-900 text-lg">抗氧化保護</h4>
+                          <h4 className="font-semibold text-gray-900 text-lg">抗氧化防護</h4>
                         </div>
-                        <p className="text-gray-700">強化眼部抗氧化能力，延緩老化</p>
+                        <p className="text-gray-700">強效抗氧化成分，對抗自由基傷害</p>
                       </div>
                     </div>
                   </div>
@@ -493,11 +470,12 @@ const LuteinProductPage = () => {
                   <div>
                     <h3 className="text-2xl font-bold mb-6">適合族群</h3>
                     <div className="flex flex-wrap gap-3">
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">長時間使用3C產品者</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">上班族</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">學生</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">中老年人</Badge>
-                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">關注眼部健康者</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">重度3C使用者</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">職場上班族</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">學生族群</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">銀髮族</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">夜間工作者</Badge>
+                      <Badge variant="outline" className="px-4 py-2 text-sm bg-gray-50 border-gray-300">視力保健需求者</Badge>
                     </div>
                   </div>
 
@@ -510,46 +488,51 @@ const LuteinProductPage = () => {
                       <div>
                         <h4 className="font-semibold text-red-800 mb-3 text-lg">注意事項</h4>
                         <ul className="space-y-2 text-red-700">
-                          <li>• 請存放於陰涼乾燥處，避免陽光直射</li>
+                          <li>• 請存放於陰涼乾燥處，避免高溫及陽光直射</li>
                           <li>• 孕婦、哺乳期婦女及12歲以下兒童請諮詢醫師後使用</li>
-                          <li>• 本產品含有大豆，對大豆過敏者請謹慎使用</li>
+                          <li>• 對本產品任何成分過敏者請勿使用</li>
+                          <li>• 軟膠囊請整粒吞服，勿咬破或切開</li>
                           <li>• 開封後請盡快食用完畢，並注意保存期限</li>
                         </ul>
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               )}
 
               {activeTab === '成分與營養標示' && (
-                <>
+                <div className="space-y-10">
                   {/* Ingredients */}
                   <div>
                     <h3 className="text-2xl font-bold mb-6">主要成分</h3>
                     <div className="bg-gray-50 rounded-xl p-6 space-y-4">
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium text-lg">FloraGLO®葉黃素</span>
-                        <span className="text-lg text-gray-600 font-semibold">20mg</span>
+                        <span className="font-medium text-lg">游離型葉黃素</span>
+                        <span className="text-lg text-gray-600 font-semibold">40mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">玉米黃素</span>
-                        <span className="text-gray-600">4mg</span>
+                        <span className="font-medium">游離型玉米黃素</span>
+                        <span className="text-gray-600">8mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                        <span className="font-medium">山桑子萃取物</span>
-                        <span className="text-gray-600">50mg</span>
+                        <span className="font-medium">藍莓花青素</span>
+                        <span className="text-gray-600">100mg</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+                        <span className="font-medium">黑醋栗萃取物</span>
+                        <span className="text-gray-600">60mg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
                         <span className="font-medium">維生素A</span>
-                        <span className="text-gray-600">800μg</span>
+                        <span className="text-gray-600">700μg</span>
                       </div>
                       <div className="flex justify-between items-center border-b border-gray-200 pb-3">
                         <span className="font-medium">維生素E</span>
-                        <span className="text-gray-600">12mg</span>
+                        <span className="text-gray-600">20mg</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="font-medium">鋅</span>
-                        <span className="text-gray-600">15mg</span>
+                        <span className="text-gray-600">12mg</span>
                       </div>
                     </div>
                   </div>
@@ -561,24 +544,28 @@ const LuteinProductPage = () => {
                       <ul className="space-y-3 text-blue-800">
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>每日1粒，飯後食用</span>
+                          <span>每日2粒，餐後食用</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>配合溫開水吞服</span>
+                          <span>配合充足溫水整粒吞服</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>建議連續食用60天以上</span>
+                          <span>建議持續使用90天以上</span>
                         </li>
                         <li className="flex items-center space-x-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                          <span>避免與咖啡、茶同時服用</span>
+                          <span>可分早晚各1粒，提升吸收效果</span>
+                        </li>
+                        <li className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          <span>請勿咬破軟膠囊</span>
                         </li>
                       </ul>
                     </div>
                   </div>
-                </>
+                </div>
               )}
 
               {activeTab === '顧客評論' && (
@@ -605,11 +592,11 @@ const LuteinProductPage = () => {
                             <div className="flex-1 bg-gray-200 rounded-full h-3">
                               <div 
                                 className="bg-yellow-400 h-3 rounded-full" 
-                                style={{width: stars === 5 ? '75%' : stars === 4 ? '18%' : stars === 3 ? '4%' : stars === 2 ? '2%' : '1%'}}
+                                style={{width: stars === 5 ? '78%' : stars === 4 ? '15%' : stars === 3 ? '4%' : stars === 2 ? '2%' : '1%'}}
                               ></div>
                             </div>
                             <span className="text-gray-600 w-10 text-right">
-                              {stars === 5 ? '117' : stars === 4 ? '28' : stars === 3 ? '6' : stars === 2 ? '3' : '2'}
+                              {stars === 5 ? '145' : stars === 4 ? '28' : stars === 3 ? '8' : stars === 2 ? '3' : '2'}
                             </span>
                           </div>
                         ))}
@@ -621,7 +608,28 @@ const LuteinProductPage = () => {
                   <div className="space-y-8">
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium">陳</div>
+                        <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-medium">劉</div>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-3">
+                            <span className="font-medium">劉小姐</span>
+                            <div className="flex">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                              ))}
+                            </div>
+                            <span className="text-sm text-gray-500">2024年6月28日</span>
+                          </div>
+                          <p className="text-gray-700 mb-3 leading-relaxed">
+                            軟膠囊真的比錠劑好吞很多！我是會計師，每天要盯電腦螢幕超過10小時，使用新舒目寶三個月後，眼睛乾澀的問題明顯改善，而且晚上眼睛也不會那麼疲勞了。
+                          </p>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 60粒裝</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-b border-gray-200 pb-8">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-medium">陳</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
                             <span className="font-medium">陳先生</span>
@@ -630,76 +638,76 @@ const LuteinProductPage = () => {
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月20日</span>
+                            <span className="text-sm text-gray-500">2024年6月25日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            工作需要長時間看電腦，使用蓉易明葉黃素一個月後，明顯感覺眼睛比較不會疲勞乾澀。晚上加班看螢幕也不會像以前那麼不舒服，很推薦給上班族！
+                            軟膠囊的吸收效果真的比較好，我之前試過很多護眼產品都沒什麼感覺，但新舒目寶用了兩個月後，看東西明顯比較清楚，眼睛也比較不會疲勞。值得推薦！
                           </p>
-                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 60粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 90粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-medium">林</div>
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-medium">李</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">林小姐</span>
+                            <span className="font-medium">李太太</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月18日</span>
+                            <span className="text-sm text-gray-500">2024年6月22日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            我是學生，每天要讀書看手機，眼睛常常很疲勞。吃了這個葉黃素後，眼睛比較不會酸澀，看東西也比較清楚。膠囊不大，很好吞服。
+                            買給60歲的爸爸使用，他說軟膠囊很好吞，不會卡喉嚨。使用三個月後，爸爸說看報紙比較不會模糊，夜間開車的視力也有改善。全家人都很滿意這個產品。
                           </p>
-                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 30粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-medium">張</div>
+                        <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center text-white font-medium">王</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">張太太</span>
+                            <span className="font-medium">王先生</span>
                             <div className="flex">
                               {[...Array(4)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                               <Star className="w-4 h-4 text-gray-300" />
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月15日</span>
+                            <span className="text-sm text-gray-500">2024年6月19日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            買給50歲的媽媽吃，她說吃了兩個月後，看東西比較不會模糊，眼睛也比較不會乾。品質不錯，價格也合理，會持續購買。
+                            遊戲工程師，每天要寫程式看螢幕14小時以上。新舒目寶的軟膠囊劑型真的很方便，效果也不錯，眼睛疲勞感有明顯減輕。唯一小缺點是價格稍高，但效果值得。
                           </p>
-                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 60粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 60粒裝</div>
                         </div>
                       </div>
                     </div>
 
                     <div className="pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-medium">黃</div>
+                        <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-white font-medium">張</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
-                            <span className="font-medium">黃先生</span>
+                            <span className="font-medium">張小姐</span>
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <span className="text-sm text-gray-500">2024年6月12日</span>
+                            <span className="text-sm text-gray-500">2024年6月16日</span>
                           </div>
                           <p className="text-gray-700 mb-3 leading-relaxed">
-                            程式設計師，每天盯螢幕超過10小時。使用蓉易明葉黃素後，眼睛疲勞感明顯減少，而且晚上看手機也不會像以前那麼刺眼。很棒的產品！
+                            護理師工作需要長時間專注，眼睛常常很疲勞。軟膠囊真的比錠劑好很多，吞服方便，成分吸收也比較好。使用新舒目寶後，工作時眼睛舒服很多，非常推薦！
                           </p>
-                          <div className="text-sm text-gray-500">已購買：蓉易明葉黃素複方膠囊 60粒裝</div>
+                          <div className="text-sm text-gray-500">已購買：新舒目寶軟膠囊 90粒裝</div>
                         </div>
                       </div>
                     </div>
@@ -715,10 +723,10 @@ const LuteinProductPage = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">相關商品推薦</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "善存 護眼膠囊", price: 899, image: "/api/placeholder/300/300" },
-              { name: "白蘭氏 深海魚油", price: 1199, image: "/api/placeholder/300/300" },
-              { name: "維他命A+E護眼錠", price: 699, image: "/api/placeholder/300/300" },
-              { name: "藍莓葉黃素軟膠囊", price: 1099, image: "/api/placeholder/300/300" }
+              { name: "蓉易明葉黃素複方膠囊", price: 720, image: "/api/placeholder/300/300" },
+              { name: "明適E葉黃素II代", price: 680, image: "/api/placeholder/300/300" },
+              { name: "金博氏金晶明膠囊", price: 650, image: "/api/placeholder/300/300" },
+              { name: "護眼藍莓精華錠", price: 899, image: "/api/placeholder/300/300" }
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <div className="aspect-square bg-gray-100">
@@ -730,7 +738,7 @@ const LuteinProductPage = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                     ))}
-                    <span className="text-xs text-gray-600 ml-1">4.8</span>
+                    <span className="text-xs text-gray-600 ml-1">4.7</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-blue-600">NT$ {item.price}</span>
@@ -752,4 +760,4 @@ const LuteinProductPage = () => {
   );
 };
 
-export default LuteinProductPage;
+export default XinShuMuProductPage;
