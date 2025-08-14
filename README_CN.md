@@ -303,6 +303,7 @@ cd backend
 venv\Scripts\activate                    # 啟動虛擬環境 (Windows)
 source venv/bin/activate                 # 啟動虛擬環境 (macOS/Linux)
 python -m app.main                       # 啟動開發服務器
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---

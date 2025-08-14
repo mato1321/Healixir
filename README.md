@@ -307,6 +307,7 @@ cd backend
 venv\Scripts\activate                    # Activate virtual environment (Windows)
 source venv/bin/activate                 # Activate virtual environment (macOS/Linux)
 python -m app.main                       # Start development server
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---
