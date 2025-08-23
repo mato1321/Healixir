@@ -126,7 +126,7 @@ const HealthReport = () => {
               />
               <div>
                 <h1 className="text-3xl font-bold">Healixir</h1>
-                <p className="text-blue-100">智能保健顧問</p>
+                <p className="text-blue-100">專業保健顧問</p>
               </div>
             </div>
             <h2 className="text-4xl font-bold text-center mt-6">健康評估報告</h2>
@@ -229,7 +229,7 @@ const HealthReport = () => {
 
             {/* 報告底部資訊 */}
             <div className="mt-12 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
-              <p>本報告由 Healixir 智能健康評估系統生成</p>
+              <p>本報告由 Healixir 專業健康評估系統生成</p>
               <p className="mt-2">如有任何疑問，請諮詢專業醫療人員</p>
             </div>
           </div>

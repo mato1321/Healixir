@@ -49,7 +49,7 @@ const ChatButton = () => {
                 />
                 <div className="flex flex-col items-start">
                   <span className="font-semibold text-base bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">專業藥師諮詢</span>
-                  <span className="text-sm text-gray-600 mt-1">營業時間內藥師即時回覆 • 其他時段 AI 智能協助</span>
+                  <span className="text-sm text-gray-600 mt-1">營業時間內藥師即時回覆 • 其他時段專業系統協助</span>
                 </div>
               </Button>
 

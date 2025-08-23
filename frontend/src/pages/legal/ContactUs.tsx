@@ -21,7 +21,7 @@ const ContactUs = () => {
                   <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
-                  <p className="text-xs text-gray-500">智能保健顧問</p>
+                  <p className="text-xs text-gray-500">專業保健顧問</p>
                 </div>
               </Link>
             </div>
@@ -62,7 +62,7 @@ const ContactUs = () => {
                   </div>
                   <div className="flex items-start text-gray-600 text-sm">
                     <Headphones className="w-4 h-4 mr-3 text-blue-600 mt-0.5" />
-                    <span>營業時間由專業藥師回覆，其他時間由 AI 智能助理為您服務</span>
+                    <span>營業時間由專業藥師回覆，其他時間由專業系統為您服務</span>
                   </div>
                 </div>
               </CardContent>
@@ -175,7 +175,7 @@ const ContactUs = () => {
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                      <span className="text-gray-700">24小時 AI 智能客服</span>
+                      <span className="text-gray-700">24小時專業客服</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>

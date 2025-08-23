@@ -79,7 +79,7 @@ const Dashboard = () => {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Healixir
                 </h1>
-                <p className="text-xs text-gray-500">智能保健顧問</p>
+                <p className="text-xs text-gray-500">專業保健顧問</p>
               </div>
             </div>
             
@@ -150,14 +150,11 @@ const Dashboard = () => {
             <div className="flex flex-col items-center mb-8">
               <Link to="/nutrition/personal-info" className="mb-4">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-32 py-12 text-3xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
-                  <Star className="w-12 h-12 mr-6" fill="currentColor" />
-                  立即免費評估
+                                   立即免費評估
                 </Button>
               </Link>
               <div className="text-lg text-gray-500 flex items-center space-x-6">
-                <span>⏱️ 僅需 3 分鐘</span>
-                <span>💊 個人化推薦</span>
-              </div>
+                              </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
@@ -211,11 +208,11 @@ const Dashboard = () => {
                   <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Brain className="w-10 h-10 text-white" />
                   </div>
-                  <CardTitle className="text-xl">AI 分析生活狀況</CardTitle>
+                  <CardTitle className="text-xl">專業分析生活狀況</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-gray-600">
-                    智能分析您的身體與生活習慣
+                    專業分析您的身體與生活習慣
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -267,11 +264,11 @@ const Dashboard = () => {
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Sparkles className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">AI 精準分析</CardTitle>
+                  <CardTitle className="text-xl">精準分析系統</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-gray-600">
-                    運用先進人工智慧技術，精準分析您的健康需求
+                    運用先進演算法技術，精準分析您的健康需求
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -376,7 +373,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <p className="text-gray-600 italic leading-relaxed">
-                    "AI分析很準確，藥師的專業建議讓我很放心。"
+                    "分析很準確，藥師的專業建議讓我很放心。"
                   </p>
                 </CardContent>
               </Card>
@@ -395,18 +392,17 @@ const Dashboard = () => {
               開始您的健康之旅
             </h2>
             <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
-              立即進行免費評估，讓 AI 為您推薦最適合的保健方案
+              立即進行免費評估，讓系統為您推薦最適合的保健方案
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/nutrition/personal-info">
                 <Button className="bg-white text-blue-600 hover:bg-gray-100 px-24 py-6 text-2xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
-                  <Award className="w-8 h-8 mr-4" />
+                  
                   立即免費評估
                 </Button>
               </Link>
               <div className="text-white/80 text-sm">
-                ✨ 完全免費 • 🚀 即時結果 • 🎯 個人專屬
-              </div>
+                              </div>
             </div>
           </div>
         </section>

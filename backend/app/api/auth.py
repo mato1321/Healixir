@@ -3,31 +3,15 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from datetime import timedelta
 from app.core.database import get_db
-from app.core.security import verify_password, get_password_hash, create_access_token, verify_token
+from app.core.security import verify_password, get_password_hash, create_access_token
 from app.core.config import settings
 from app.models.user import User
-from app.schemas.user import UserCreate, UserLogin, UserResponse, Token
+from app.schemas.user import UserCreate, UserLogin, UserResponse, Token, UserUpdate
+from app.api.deps import get_current_user
 
 # Remove prefix from here since it's set in main.py
 router = APIRouter(tags=["authentication"])
 security = HTTPBearer()
-
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
-    token = credentials.credentials
-    email = verify_token(token)  # This now returns email directly
-    if email is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token"
-        )
-    
-    user = db.query(User).filter(User.email == email).first()
-    if user is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
-    return user
 
 @router.post("/register", response_model=UserResponse)
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
@@ -90,3 +74,44 @@ def login(user_data: UserLogin, db: Session = Depends(get_db)):
 @router.get("/me", response_model=UserResponse)
 def get_current_user_info(current_user: User = Depends(get_current_user)):
     return current_user
+
+@router.get("/test-auth")
+def test_auth(current_user: User = Depends(get_current_user)):
+    """Simple auth test endpoint"""
+    return {
+        "message": "Authentication successful", 
+        "user_email": current_user.email,
+        "user_id": current_user.id
+    }
+
+@router.put("/update", response_model=dict)
+def update_user_profile_auth(
+    user_update: UserUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update user info via auth route (consistent with editProfile frontend)"""
+    from app.crud.user import update_user
+    
+    updated_user = update_user(db, current_user.id, user_update)
+    if not updated_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    # Return response consistent with frontend expectations
+    return {
+        "message": "User updated successfully",
+        "user": {
+            "id": updated_user.id,
+            "name": updated_user.name,
+            "email": updated_user.email,
+            "phone": updated_user.phone,
+            "birth_date": str(updated_user.birth_date) if updated_user.birth_date else None,
+            "gender": updated_user.gender.value if updated_user.gender else None,
+            "is_active": updated_user.is_active,
+            "created_at": updated_user.created_at.isoformat(),
+            "updated_at": updated_user.updated_at.isoformat()
+        }
+    }

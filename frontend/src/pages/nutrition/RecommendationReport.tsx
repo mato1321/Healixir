@@ -55,7 +55,7 @@ const RecommendationReport = () => {
             <div className="flex items-center justify-center mb-4">
               <Sparkles className="w-8 h-8 text-blue-600 mr-2" />
               <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AI 個人化健康建議
+個人化健康建議
               </CardTitle>
             </div>
             <p className="text-gray-600 text-lg mt-2">

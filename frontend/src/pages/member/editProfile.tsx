@@ -27,8 +27,8 @@ const EditProfilePage = () => {
         return;
       }
 
-      // 從後端 API 取得最新的用戶資料
-      const response = await fetch('http://localhost:8000/api/user/me', {
+      // 從後端 API 取得最新的用戶資料 (使用一致的 auth 路由)
+      const response = await fetch('http://localhost:8000/auth/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -42,6 +42,12 @@ const EditProfilePage = () => {
           phone: userData.phone || '',
           birth_date: userData.birth_date || ''
         });
+      } else if (response.status === 401) {
+        // Token 過期或無效，重定向到登入頁面
+        console.log('Token expired or invalid, redirecting to login');
+        localStorage.clear();
+        navigate('/login');
+        return;
       } else {
         // 如果 API 失敗，嘗試從 localStorage 載入
         const localUser = localStorage.getItem('user');
@@ -100,8 +106,8 @@ const EditProfilePage = () => {
       if (formData.phone.trim()) updateData.phone = formData.phone.trim();
       if (formData.birth_date) updateData.birth_date = formData.birth_date;
 
-      // 發送更新請求到後端 (修正為正確的端點)
-      const response = await fetch('http://localhost:8000/api/user/update', {
+      // 發送更新請求到後端 (使用一致的 auth 路由)
+      const response = await fetch('http://localhost:8000/auth/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -111,6 +117,12 @@ const EditProfilePage = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 401) {
+          // Token 過期或無效
+          localStorage.clear();
+          navigate('/login');
+          return;
+        }
         const errorData = await response.json();
         throw new Error(errorData.detail || '更新失敗');
       }
@@ -156,7 +168,7 @@ const EditProfilePage = () => {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Healixir
                 </h1>
-                <p className="text-xs text-gray-500">智能保健顧問</p>
+                <p className="text-xs text-gray-500">專業保健顧問</p>
               </div>
             </Link>
             <div className="text-sm text-gray-600">

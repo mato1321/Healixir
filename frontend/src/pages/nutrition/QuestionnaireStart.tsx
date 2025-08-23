@@ -33,7 +33,7 @@ const QuestionnaireStart = () => {
                   <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
-                  <p className="text-xs text-gray-500">智能保健顧問</p>
+                  <p className="text-xs text-gray-500">專業保健顧問</p>
                 </div>
               </Link>
             </div>
