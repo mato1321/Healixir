@@ -12,6 +12,7 @@ interface NutritionQuestionProps {
   options: string[];
   isMultiSelect?: boolean;
   skipCondition?: string;
+  showSkipButton?: boolean; // 新增：是否顯示跳過按鈕
   currentRoute: string;
   nextRoute: string | null;
   previousRoute: string | null;
@@ -23,6 +24,7 @@ const NutritionQuestion = ({
   options,
   isMultiSelect = false,
   skipCondition,
+  showSkipButton = false,
   currentRoute,
   nextRoute,
   previousRoute
@@ -69,7 +71,20 @@ const NutritionQuestion = ({
   };
 
   const handleNext = () => {
-    // 保存答案
+    // 檢查是否選擇了跳過選項
+    const hasSkipOption = selectedOptions.some(option => 
+      option.includes('跳過此題') || option.includes('不適用')
+    );
+    
+    // 如果選擇了跳過選項，不保存答案，直接跳過
+    if (hasSkipOption) {
+      if (nextRoute) {
+        navigate(nextRoute);
+      }
+      return;
+    }
+    
+    // 正常情況：保存答案
     if (selectedOptions.length > 0) {
       saveAnswer();
     }
@@ -164,7 +179,7 @@ const NutritionQuestion = ({
             </div>
 
             <div className="flex justify-center gap-4">
-              {isMultiSelect && skipCondition && (
+              {(showSkipButton || (isMultiSelect && skipCondition)) && (
                 <Button
                   onClick={handleSkip}
                   variant="outline"
@@ -175,7 +190,7 @@ const NutritionQuestion = ({
               )}
               <Button
                 onClick={handleNext}
-                disabled={!canProceed && !isMultiSelect}
+                disabled={!canProceed && !isMultiSelect && !showSkipButton}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:bg-gray-300 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 {nextRoute === "/nutrition/analysis" ? "完成問卷" : "下一題"}

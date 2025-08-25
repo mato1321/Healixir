@@ -7,6 +7,8 @@ const Question35 = () => {
       questionNumber={35}
       question="(生理性別女)您正處於以下哪一個階段"
       options={["有生理週期", "初經還未到來", "已停經"]}
+      skipCondition="此題僅適用於女性用戶，男性用戶請點選「跳過此題」"
+      showSkipButton={true}
       currentRoute="/nutrition/question/35"
       nextRoute="/nutrition/question/36"
       previousRoute="/nutrition/question/34"
