@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AssessmentApiService, AssessmentListItem } from "@/services/assessmentApi";
+import { HealthAnalysisService } from "@/services/healthAnalysis";
 import { 
   ArrowLeft,
   User,
@@ -20,6 +22,8 @@ const Member = () => {
   const [user, setUser] = useState<any>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [assessments, setAssessments] = useState<AssessmentListItem[]>([]);
+  const [assessmentsLoading, setAssessmentsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,23 +50,41 @@ const Member = () => {
     setIsLoading(false);
   }, []);
 
-  // 模擬評估資料
-  const mockAssessments = [
-    {
-      id: 1,
-      date: "2024-06-20",
-      type: "營養目標評估",
-      status: "已完成",
-      result: "個人化營養建議已生成"
-    },
-    {
-      id: 2,
-      date: "2024-05-15",
-      type: "營養目標評估",
-      status: "已完成",
-      result: "個人化營養建議已生成"
-    }
-  ];
+  // 載入評估記錄
+  useEffect(() => {
+    const loadAssessments = async () => {
+      if (isLoggedIn && !isLoading) {
+        setAssessmentsLoading(true);
+        try {
+          const data = await AssessmentApiService.getAssessments(0, 10);
+          setAssessments(data);
+        } catch (error) {
+          console.error('載入評估記錄失敗:', error);
+          // 如果API失敗，顯示空列表（不使用模擬數據）
+          setAssessments([]);
+        } finally {
+          setAssessmentsLoading(false);
+        }
+      }
+    };
+
+    loadAssessments();
+  }, [isLoggedIn, isLoading]);
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('zh-TW', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+  };
+
+  const getScoreStatus = (score: number) => {
+    if (score >= 80) return { text: '優秀', color: 'text-green-600' };
+    if (score >= 60) return { text: '良好', color: 'text-yellow-600' };
+    if (score >= 40) return { text: '普通', color: 'text-orange-600' };
+    return { text: '需改善', color: 'text-red-600' };
+  };
 
   // 模擬訂單資料
   const mockOrders = [
@@ -300,34 +322,70 @@ const Member = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {mockAssessments.map((assessment) => (
-                    <Link key={assessment.id} to={`/nutrition/assessment/${assessment.id}`}>
-                      <div className="flex items-center justify-between p-4 border rounded-lg bg-white/60 hover:bg-white/80 transition-colors cursor-pointer">
-                        <div className="flex items-center">
-                          <FileText className="w-5 h-5 text-blue-600 mr-4" />
-                          <div>
-                            <div className="flex items-center mb-2">
-                              <Calendar className="w-4 h-4 mr-2 text-gray-500" />
-                              <span className="text-sm text-gray-500">{assessment.date}</span>
-                              <span className="ml-4 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-                                {assessment.status}
-                              </span>
+                  {assessmentsLoading ? (
+                    <div className="text-center py-8">
+                      <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-gray-600">載入評估記錄中...</p>
+                    </div>
+                  ) : assessments.length > 0 ? (
+                    assessments.map((assessment) => {
+                      const scoreStatus = getScoreStatus(assessment.overall_score);
+                      return (
+                        <Link key={assessment.id} to={`/nutrition/assessment/${assessment.id}`}>
+                          <div className="flex items-center justify-between p-4 border rounded-lg bg-white/60 hover:bg-white/80 transition-colors cursor-pointer">
+                            <div className="flex items-center flex-1">
+                              <FileText className="w-5 h-5 text-blue-600 mr-4" />
+                              <div className="flex-1">
+                                <div className="flex items-center mb-2">
+                                  <Calendar className="w-4 h-4 mr-2 text-gray-500" />
+                                  <span className="text-sm text-gray-500">
+                                    {formatDate(assessment.created_at)}
+                                  </span>
+                                  <span className="ml-4 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                                    已完成
+                                  </span>
+                                </div>
+                                <h3 className="font-medium text-gray-800 mb-1">
+                                  {assessment.assessment_type === 'nutrition_assessment' ? '營養健康評估' : '健康評估'}
+                                </h3>
+                                <p className="text-sm text-gray-600">
+                                  綜合健康分數：
+                                  <span className={`font-semibold ml-1 ${scoreStatus.color}`}>
+                                    {assessment.overall_score}分 ({scoreStatus.text})
+                                  </span>
+                                </p>
+                              </div>
                             </div>
-                            <h3 className="font-medium text-gray-800 mb-1">{assessment.type}</h3>
-                            <p className="text-sm text-gray-600">{assessment.result}</p>
+                            <div className="text-right ml-4">
+                              <div className={`text-2xl font-bold ${scoreStatus.color}`}>
+                                {assessment.overall_score}
+                              </div>
+                              <div className="text-xs text-gray-500">總分</div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+                        </Link>
+                      );
+                    })
+                  ) : (
+                    <div className="text-center py-8">
+                      <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                      <p className="text-gray-600 mb-2">尚未有評估記錄</p>
+                      <p className="text-sm text-gray-500">完成健康評估後，您的記錄會顯示在這裡</p>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-6 text-center">
-                  <Link to="/nutrition/personal-info">
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
-                      <FileText className="w-4 h-4 mr-2" />
-                      進行新的評估
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => {
+                      // 清除舊的評估數據後再導航
+                      HealthAnalysisService.clearAllData();
+                      navigate('/nutrition/personal-info');
+                    }}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    進行新的評估
+                  </Button>
                 </div>
               </CardContent>
             </Card>

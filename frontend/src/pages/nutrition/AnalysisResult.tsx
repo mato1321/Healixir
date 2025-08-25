@@ -4,10 +4,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Heart, TrendingUp, Activity, User, LogOut, LogIn } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { HealthAnalysisService, HealthAnalysisResult } from "@/services/healthAnalysis";
+import { AssessmentApiService } from "@/services/assessmentApi";
+import { useToast } from "@/components/ui/use-toast";
 
 const AnalysisResult = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [user, setUser] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<HealthAnalysisResult | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     // 檢查用戶登入狀態
@@ -24,6 +30,15 @@ const AnalysisResult = () => {
         localStorage.removeItem('token');
       }
     }
+
+    // 分析問卷答案
+    const answers = HealthAnalysisService.loadAnswers();
+    const userInfo = HealthAnalysisService.loadUserInfo();
+    
+    if (answers.length > 0) {
+      const result = HealthAnalysisService.analyzeAnswers(answers, userInfo || undefined);
+      setAnalysisResult(result);
+    }
   }, []);
 
   const handleLogout = () => {
@@ -33,19 +48,76 @@ const AnalysisResult = () => {
     navigate('/');
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    // 如果用戶已登入，先保存評估結果
+    if (user && analysisResult && !isSaving) {
+      setIsSaving(true);
+      try {
+        const answers = HealthAnalysisService.loadAnswers();
+        await AssessmentApiService.saveAssessment(analysisResult, answers);
+        
+        toast({
+          title: "評估結果已保存",
+          description: "您可以在會員中心查看歷史評估記錄",
+        });
+      } catch (error) {
+        console.error('保存評估失敗:', error);
+        
+        const errorMessage = error instanceof Error ? error.message : '保存評估失敗';
+        
+        // 檢查是否為登入過期錯誤
+        if (errorMessage.includes('登入已過期') || errorMessage.includes('請重新登入')) {
+          // 清除用戶狀態並提示重新登入
+          setUser(null);
+          toast({
+            title: "登入已過期",
+            description: "請重新登入後再次進行評估以保存結果",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "保存失敗",
+            description: errorMessage || "評估結果保存失敗，但您仍可查看推薦建議",
+            variant: "destructive",
+          });
+        }
+      } finally {
+        setIsSaving(false);
+      }
+    }
+    
     navigate("/nutrition/recommendations");
   };
 
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return "from-green-400 to-green-600";
+    if (score >= 60) return "from-yellow-400 to-yellow-600";
+    if (score >= 40) return "from-orange-400 to-orange-600";
+    return "from-red-400 to-red-600";
+  };
+
+  // 如果沒有分析結果，使用預設值
+  if (!analysisResult) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 flex items-center justify-center">
+        <div className="text-center">
+          <Activity className="w-16 h-16 mx-auto mb-4 text-blue-600" />
+          <h2 className="text-xl font-bold text-gray-800 mb-2">正在分析您的答案...</h2>
+          <p className="text-gray-600">請稍候，我們正在為您生成個人化健康報告</p>
+        </div>
+      </div>
+    );
+  }
+
   const analysisData = [
-    { category: "飲食", score: 70, color: "from-green-400 to-green-600" },
-    { category: "作息", score: 85, color: "from-green-400 to-green-600" },
-    { category: "心理", score: 25, color: "from-red-400 to-red-600" },
-    { category: "體質", score: 58, color: "from-yellow-400 to-yellow-600" },
-    { category: "運動", score: 9, color: "from-red-400 to-red-600" }
+    { category: "飲食", score: analysisResult.scores.diet, color: getScoreColor(analysisResult.scores.diet) },
+    { category: "作息", score: analysisResult.scores.lifestyle, color: getScoreColor(analysisResult.scores.lifestyle) },
+    { category: "心理", score: analysisResult.scores.mental, color: getScoreColor(analysisResult.scores.mental) },
+    { category: "體質", score: analysisResult.scores.physical, color: getScoreColor(analysisResult.scores.physical) },
+    { category: "運動", score: analysisResult.scores.exercise, color: getScoreColor(analysisResult.scores.exercise) }
   ];
 
-  const overallScore = Math.round(analysisData.reduce((sum, item) => sum + item.score, 0) / analysisData.length);
+  const overallScore = analysisResult.overallScore;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
@@ -173,38 +245,59 @@ const AnalysisResult = () => {
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
                   <p className="mb-2">您的綜合健康分數超過</p>
                   <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                    59% 的同齡人
+                    {analysisResult.percentile}% 的同齡人
                   </p>
                 </div>
                 
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="mb-2">您的身體質量指數為</p>
-                  <p className="mb-2">
-                    <span className="font-bold text-lg text-green-600">21.1 kg/m²</span>
-                    <span className="text-gray-600">，屬於正常範圍</span>
-                  </p>
-                </div>
-                
-                <div className="bg-orange-50 rounded-lg p-4">
-                  <p className="font-medium text-orange-800 mb-2">需要改善的領域：</p>
-                  <p className="text-orange-700">
-                    <span className="font-semibold">心理和運動</span> 方面需要特別關注
-                  </p>
-                </div>
-                
-                <div className="bg-gradient-to-r from-green-100 to-blue-100 p-4 rounded-lg shadow-inner">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-lg text-gray-800">BMI: 21.1</span>
-                      <span className="ml-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-sm">
-                        正常範圍
+                {analysisResult.bmi && (
+                  <div className={`rounded-lg p-4 ${analysisResult.bmi >= 18.5 && analysisResult.bmi <= 24.9 ? 'bg-green-50' : analysisResult.bmi < 18.5 ? 'bg-yellow-50' : 'bg-orange-50'}`}>
+                    <p className="mb-2">您的身體質量指數為</p>
+                    <p className="mb-2">
+                      <span className={`font-bold text-lg ${analysisResult.bmi >= 18.5 && analysisResult.bmi <= 24.9 ? 'text-green-600' : analysisResult.bmi < 18.5 ? 'text-yellow-600' : 'text-orange-600'}`}>
+                        {analysisResult.bmi} kg/m²
                       </span>
-                    </div>
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold">✓</span>
+                      <span className="text-gray-600">，
+                        {analysisResult.bmi < 18.5 ? '體重過輕' : 
+                         analysisResult.bmi <= 24.9 ? '屬於正常範圍' : 
+                         analysisResult.bmi <= 29.9 ? '體重過重' : '肥胖'}
+                      </span>
+                    </p>
+                  </div>
+                )}
+                
+                {analysisResult.needsImprovement.length > 0 && (
+                  <div className="bg-orange-50 rounded-lg p-4">
+                    <p className="font-medium text-orange-800 mb-2">需要改善的領域：</p>
+                    <p className="text-orange-700">
+                      <span className="font-semibold">{analysisResult.needsImprovement.join('、')}</span> 方面需要特別關注
+                    </p>
+                  </div>
+                )}
+                
+                {analysisResult.bmi && (
+                  <div className={`p-4 rounded-lg shadow-inner ${analysisResult.bmi >= 18.5 && analysisResult.bmi <= 24.9 ? 'bg-gradient-to-r from-green-100 to-blue-100' : 'bg-gradient-to-r from-yellow-100 to-orange-100'}`}>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-lg text-gray-800">BMI: {analysisResult.bmi}</span>
+                        <span className={`ml-3 px-3 py-1 rounded-full text-sm font-medium shadow-sm text-white ${
+                          analysisResult.bmi >= 18.5 && analysisResult.bmi <= 24.9 ? 'bg-green-500' : 
+                          analysisResult.bmi < 18.5 ? 'bg-yellow-500' : 'bg-orange-500'
+                        }`}>
+                          {analysisResult.bmi < 18.5 ? '過輕' : 
+                           analysisResult.bmi <= 24.9 ? '正常範圍' : 
+                           analysisResult.bmi <= 29.9 ? '過重' : '肥胖'}
+                        </span>
+                      </div>
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                        analysisResult.bmi >= 18.5 && analysisResult.bmi <= 24.9 ? 'bg-green-500' : 'bg-yellow-500'
+                      }`}>
+                        <span className="text-white font-bold">
+                          {analysisResult.bmi >= 18.5 && analysisResult.bmi <= 24.9 ? '✓' : '!'}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -214,10 +307,17 @@ const AnalysisResult = () => {
         <div className="mt-12 flex justify-center">
           <Button
             onClick={handleNext}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-20 py-6 rounded-full text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+            disabled={isSaving}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white px-20 py-6 rounded-full text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
           >
-            <span className="mr-4">查看個人化建議</span>
-            <ArrowRight className="w-8 h-8" />
+            <span className="mr-4">
+              {isSaving ? "保存中..." : "查看個人化建議"}
+            </span>
+            {isSaving ? (
+              <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <ArrowRight className="w-8 h-8" />
+            )}
           </Button>
         </div>
       </div>

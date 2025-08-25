@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, ArrowRight, User } from "lucide-react";
+import { HealthAnalysisService } from "@/services/healthAnalysis";
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
@@ -26,9 +27,27 @@ const PersonalInfo = () => {
     "媒體業", "藝術工作者", "自由業", "退休", "家管", "其他"
   ];
 
+  // 自動清除舊的評估數據，開始新評估
+  useEffect(() => {
+    if (HealthAnalysisService.hasOngoingAssessment()) {
+      HealthAnalysisService.clearAllData();
+    }
+  }, []);
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.gender && formData.birthYear && formData.birthMonth && formData.birthDay && formData.height && formData.weight && formData.occupation) {
+      // 保存用戶健康信息
+      const age = calculateAge();
+      if (age) {
+        HealthAnalysisService.saveUserInfo({
+          age,
+          height: parseFloat(formData.height),
+          weight: parseFloat(formData.weight)
+        });
+      }
+      
       navigate("/nutrition/health-goals");
     }
   };
@@ -261,6 +280,7 @@ const PersonalInfo = () => {
           </CardContent>
         </Card>
       </div>
+
     </div>
   );
 };

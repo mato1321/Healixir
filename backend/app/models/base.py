@@ -2,26 +2,26 @@ from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from typing import Any, Dict
 
-# ³Ğ«Ø°òÂ¦Ãş
+# å»ºç«‹åŸºç¤æ¨¡å‹
 Base = declarative_base()
 
 class BaseModel(Base):
     """
-    ©Ò¦³¼Ò«¬ªº°òÂ¦Ãş
-    ´£¨Ñ¦@¦Pªº¤èªk¡A¤£¥]§tÃB¥~Äæ¦ì
-    ¦]¬°²{¦³¸ê®Æ®wµ²ºc¤w¸g½T©w
+    åŸºç¤æ¨¡å‹é¡åˆ¥
+    åŒ…å«é€šç”¨çš„æ–¹æ³•ï¼Œä¾‹å¦‚è½‰æ›ç‚ºå­—å…¸
+    æ‰€æœ‰å…·é«”æ¨¡å‹éƒ½æ‡‰è©²ç¹¼æ‰¿æ­¤åŸºç¤é¡åˆ¥
     """
     __abstract__ = True
     
     def to_dict(self) -> Dict[str, Any]:
         """
-        ±N¼Ò«¬Âà´«¬°¦r¨å
-        ¤è«K§Ç¦C¤Æ©MAPI¦^¶Ç
+        å°‡æ¨¡å‹è½‰æ›ç‚ºå­—å…¸
+        ç”¨æ–¼åºåˆ—åŒ–å’ŒAPIå›å‚³
         """
         result = {}
         for column in self.__table__.columns:
             value = getattr(self, column.name)
-            # ³B²z¤é´Á®É¶¡®æ¦¡
+            # è™•ç†æ—¥æœŸæ™‚é–“æ ¼å¼
             if isinstance(value, datetime):
                 result[column.name] = value.isoformat()
             else:
@@ -30,19 +30,19 @@ class BaseModel(Base):
     
     def update_from_dict(self, data: Dict[str, Any]) -> None:
         """
-        ±q¦r¨å§ó·s¼Ò«¬Äİ©Ê
-        ¥Î©ó§ó·s¾Ş§@
+        å¾å­—å…¸æ›´æ–°æ¨¡å‹å±¬æ€§
+        ç”¨æ–¼æ›´æ–°æ“ä½œ
         """
         for key, value in data.items():
-            if hasattr(self, key) and key != 'email':  # ¤£¤¹³\§ó·s¥DÁäemail
+            if hasattr(self, key) and key != 'email':  # é¿å…ç›´æ¥æ›´æ–°ä¸»éµemail
                 setattr(self, key, value)
     
     def __repr__(self) -> str:
         """
-        ¼Ò«¬ªº¦r¦êªí¥Ü
-        ¤è«K°£¿ù
+        æ¨¡å‹çš„å­—ä¸²è¡¨ç¤º
+        ç”¨æ–¼èª¿è©¦
         """
         class_name = self.__class__.__name__
-        # ¨Ï¥Îemail§@¬°ÃÑ§O²Å¡]¦]¬°¥¦¬O¥DÁä¡^
+        # ä½¿ç”¨emailä½œç‚ºè­˜åˆ¥ç¬¦è™Ÿ(å‡è¨­æ‰€æœ‰æ¨¡å‹éƒ½æœ‰ä¸»éµ)
         email = getattr(self, 'email', 'unknown')
         return f"<{class_name}(email={email})>"

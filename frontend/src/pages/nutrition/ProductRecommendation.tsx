@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShoppingCart, Star, CheckCircle, Heart, User, LogOut, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
+import { HealthAnalysisService, HealthAnalysisResult } from "@/services/healthAnalysis";
 
 const ProductRecommendation = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<HealthAnalysisResult | null>(null);
 
   useEffect(() => {
     // 檢查用戶登入狀態
@@ -27,6 +29,15 @@ const ProductRecommendation = () => {
         localStorage.removeItem('token');
       }
     }
+
+    // 分析問卷答案
+    const answers = HealthAnalysisService.loadAnswers();
+    const userInfo = HealthAnalysisService.loadUserInfo();
+    
+    if (answers.length > 0) {
+      const result = HealthAnalysisService.analyzeAnswers(answers, userInfo || undefined);
+      setAnalysisResult(result);
+    }
   }, []);
 
   const handleLogout = () => {
@@ -43,49 +54,117 @@ const ProductRecommendation = () => {
   const handleRegister = () => {
     navigate('/register');
   };
-  const recommendedProducts = [
-    {
-      id: 1,
-      name: "優質綜合維生素B群",
-      description: "根據您的疲勞和精神狀態評估，特別推薦此B群配方",
-      price: 699,
-      originalPrice: 899,
-      rating: 4.8,
-      reviews: 234,
-      image: "/placeholder.svg",
-      category: "維生素",
-      matchScore: 95,
-      reasons: ["改善疲勞", "提升精神狀態", "適合您的年齡層"]
-    },
-    {
-      id: 2,
-      name: "高濃度魚油Omega-3",
-      description: "針對您的心血管健康需求，推薦此深海魚油",
-      price: 1299,
-      originalPrice: 1599,
-      rating: 4.9,
-      reviews: 189,
-      image: "/placeholder.svg",
-      category: "魚油",
-      matchScore: 88,
-      reasons: ["心血管保健", "抗炎作用", "符合您的健康目標"]
-    },
-    {
-      id: 3,
-      name: "天然鈣質補充劑",
-      description: "考量您的骨骼健康狀況，建議補充高吸收率鈣質",
-      price: 799,
-      originalPrice: 999,
-      rating: 4.7,
-      reviews: 156,
-      image: "/placeholder.svg",
-      category: "礦物質",
-      matchScore: 82,
-      reasons: ["骨骼健康", "高吸收率", "適合長期使用"]
-    }
-  ];
 
-  const healthAnalysis = {
+  const generateRecommendedProducts = () => {
+    if (!analysisResult) return [];
+
+    const products: any[] = [];
+    const { scores, needsImprovement } = analysisResult;
+
+    // 基於分析結果推薦產品
+    if (scores.mental < 60 || needsImprovement.includes('心理')) {
+      products.push({
+        id: 1,
+        name: "優質綜合維生素B群",
+        description: "根據您的精神狀態評估，特別推薦此B群配方來改善疲勞和提升精神狀態",
+        price: 699,
+        originalPrice: 899,
+        rating: 4.8,
+        reviews: 234,
+        image: "/placeholder.svg",
+        category: "維生素",
+        matchScore: Math.min(95, 100 - scores.mental + 20),
+        reasons: ["改善疲勞", "提升精神狀態", "支持神經系統健康"]
+      });
+    }
+
+    if (scores.physical < 60 || scores.diet < 60) {
+      products.push({
+        id: 2,
+        name: "高濃度魚油Omega-3",
+        description: "針對您的身體狀況和營養需求，推薦此深海魚油來支持整體健康",
+        price: 1299,
+        originalPrice: 1599,
+        rating: 4.9,
+        reviews: 189,
+        image: "/placeholder.svg",
+        category: "魚油",
+        matchScore: Math.min(90, 100 - Math.min(scores.physical, scores.diet) + 15),
+        reasons: ["心血管保健", "抗炎作用", "支持腦部健康"]
+      });
+    }
+
+    if (scores.exercise < 40 || scores.physical < 50) {
+      products.push({
+        id: 3,
+        name: "運動能量補充劑",
+        description: "考量您的運動習慣和體能狀況，建議此能量補充劑來提升運動表現",
+        price: 899,
+        originalPrice: 1199,
+        rating: 4.6,
+        reviews: 156,
+        image: "/placeholder.svg",
+        category: "運動營養",
+        matchScore: Math.min(85, 100 - scores.exercise + 10),
+        reasons: ["提升運動表現", "增強體力", "促進恢復"]
+      });
+    }
+
+    if (scores.lifestyle < 60 || needsImprovement.includes('作息')) {
+      products.push({
+        id: 4,
+        name: "天然褪黑激素",
+        description: "根據您的作息狀況，推薦此天然褪黑激素來改善睡眠品質",
+        price: 599,
+        originalPrice: 799,
+        rating: 4.7,
+        reviews: 203,
+        image: "/placeholder.svg",
+        category: "睡眠保健",
+        matchScore: Math.min(88, 100 - scores.lifestyle + 18),
+        reasons: ["改善睡眠品質", "調節生理時鐘", "天然安全"]
+      });
+    }
+
+    // 總是推薦綜合維生素作為基礎營養
+    if (!products.some(p => p.category === "維生素")) {
+      products.push({
+        id: 5,
+        name: "每日綜合維生素",
+        description: "基礎營養補充，適合所有人的日常保健需求",
+        price: 799,
+        originalPrice: 999,
+        rating: 4.5,
+        reviews: 312,
+        image: "/placeholder.svg",
+        category: "維生素",
+        matchScore: 75,
+        reasons: ["全面營養補充", "提升免疫力", "日常保健基礎"]
+      });
+    }
+
+    return products.slice(0, 3); // 最多推薦3個產品
+  };
+
+  const recommendedProducts = generateRecommendedProducts();
+
+  const getScoreStatus = (score: number) => {
+    if (score >= 80) return "優秀";
+    if (score >= 60) return "良好";
+    if (score >= 40) return "普通";
+    return "需改善";
+  };
+
+  const healthAnalysis = analysisResult ? {
+    overallScore: analysisResult.overallScore,
+    categories: [
+      { name: "飲食", score: analysisResult.scores.diet, status: getScoreStatus(analysisResult.scores.diet) },
+      { name: "作息", score: analysisResult.scores.lifestyle, status: getScoreStatus(analysisResult.scores.lifestyle) },
+      { name: "心理", score: analysisResult.scores.mental, status: getScoreStatus(analysisResult.scores.mental) },
+      { name: "體質", score: analysisResult.scores.physical, status: getScoreStatus(analysisResult.scores.physical) },
+      { name: "運動", score: analysisResult.scores.exercise, status: getScoreStatus(analysisResult.scores.exercise) }
+    ]
+  } : {
     overallScore: 60,
     categories: [
       { name: "飲食", score: 70, status: "良好" },

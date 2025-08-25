@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.api import auth
+from app.models import User, Assessment  # 確保所有模型都被導入
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -32,6 +33,13 @@ try:
     app.include_router(users_router, prefix="/api/user", tags=["users"])
 except ImportError:
     print("Warning: users router not found, skipping...")
+
+# Import assessments router
+try:
+    from app.api.v1.assessments import router as assessments_router
+    app.include_router(assessments_router, prefix="/api/assessments", tags=["assessments"])
+except ImportError:
+    print("Warning: assessments router not found, skipping...")
 
 @app.get("/")
 def root():

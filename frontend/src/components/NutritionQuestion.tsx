@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+import { HealthAnalysisService, QuestionAnswer } from "@/services/healthAnalysis";
 
 interface NutritionQuestionProps {
   questionNumber: number;
@@ -29,6 +30,15 @@ const NutritionQuestion = ({
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
+  // 載入之前儲存的答案
+  useEffect(() => {
+    const savedAnswers = HealthAnalysisService.loadAnswers();
+    const currentAnswer = savedAnswers.find(answer => answer.questionNumber === questionNumber);
+    if (currentAnswer) {
+      setSelectedOptions(currentAnswer.selectedOptions);
+    }
+  }, [questionNumber]);
+
   const handleOptionSelect = (option: string) => {
     if (isMultiSelect) {
       setSelectedOptions(prev => 
@@ -41,7 +51,29 @@ const NutritionQuestion = ({
     }
   };
 
+  const saveAnswer = () => {
+    // 儲存當前答案
+    const savedAnswers = HealthAnalysisService.loadAnswers();
+    const newAnswer: QuestionAnswer = {
+      questionNumber,
+      selectedOptions,
+      question
+    };
+    
+    // 更新或添加當前問題的答案
+    const updatedAnswers = savedAnswers.filter(answer => answer.questionNumber !== questionNumber);
+    updatedAnswers.push(newAnswer);
+    updatedAnswers.sort((a, b) => a.questionNumber - b.questionNumber);
+    
+    HealthAnalysisService.saveAnswers(updatedAnswers);
+  };
+
   const handleNext = () => {
+    // 保存答案
+    if (selectedOptions.length > 0) {
+      saveAnswer();
+    }
+    
     if (nextRoute) {
       navigate(nextRoute);
     }

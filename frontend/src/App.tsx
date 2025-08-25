@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
+import { useAuthCheck } from "@/hooks/useAuthCheck";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -78,13 +79,25 @@ import RecommendationReport from "./pages/nutrition/RecommendationReport";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+const AppContent = () => {
+  // 全局認證檢查
+  const { isCheckingAuth } = useAuthCheck();
+
+  // 在檢查認證狀態時顯示載入畫面
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <h2 className="text-xl font-semibold text-gray-700 mb-2">Healixir</h2>
+          <p className="text-gray-500">檢查登入狀態中...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <BrowserRouter>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
@@ -160,10 +173,20 @@ const App = () => (
             <Route path="/nutrition/analysis" element={<AnalysisResult />} />
             <Route path="/nutrition/result" element={<NutritionResult />} />
             <Route path="/nutrition/products" element={<ProductRecommendation />} />
-            <Route path="/nutrition/recommendations" element={<RecommendationReport />} />
+            <Route path="/nutrition/recommendations" element={<ProductRecommendation />} />
             <Route path="*" element={<div>404 頁面不存在</div>} />
           </Routes>
-        </BrowserRouter>
+    </BrowserRouter>
+  );
+};
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <CartProvider>
+        <Toaster />
+        <Sonner />
+        <AppContent />
       </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>

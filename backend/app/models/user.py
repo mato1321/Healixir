@@ -1,9 +1,8 @@
 from sqlalchemy import Column, Integer, String, Date, Boolean, DateTime, Enum as SQLEnum
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 from datetime import datetime
 import enum
-
-Base = declarative_base()
+from .base import Base
 
 class GenderEnum(str, enum.Enum):
     MALE = "male"
@@ -30,6 +29,9 @@ class User(Base):
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # 關聯評估記錄 (使用字符串引用避免循環導入)
+    assessments = relationship("Assessment", back_populates="user", lazy="dynamic")
     
     def __repr__(self):
         return f"<User(id={self.id}, email='{self.email}', name='{self.name}')>"
