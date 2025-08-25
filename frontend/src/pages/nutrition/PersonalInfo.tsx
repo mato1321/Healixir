@@ -29,6 +29,9 @@ const PersonalInfo = () => {
 
   // 自動清除舊的評估數據，開始新評估
   useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+    
     if (HealthAnalysisService.hasOngoingAssessment()) {
       HealthAnalysisService.clearAllData();
     }

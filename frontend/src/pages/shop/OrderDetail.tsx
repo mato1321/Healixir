@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,6 +15,11 @@ import {
 
 const OrderDetail = () => {
   const { id } = useParams();
+
+  useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+  }, []);
 
   // Mock data - 實際應用中會從API獲取
   const order = {

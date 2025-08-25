@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,11 @@ import { Card, CardContent } from '@/components/ui/card';
 const HealthGoalsPage = () => {
   const navigate = useNavigate();
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+
+  useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+  }, []);
 
   const healthGoals = [
     '消化道機能', '心情', '晶亮不怕3C', '入睡狀況',

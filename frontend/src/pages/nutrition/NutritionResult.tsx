@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, ArrowLeft } from "lucide-react";
+import { useEffect } from "react";
 
 const NutritionResult = () => {
+  useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">

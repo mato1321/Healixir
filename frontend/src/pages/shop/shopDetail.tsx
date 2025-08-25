@@ -38,6 +38,9 @@ const Index = () => {
   };
 
   useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+    
     // 檢查用戶登入狀態
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');

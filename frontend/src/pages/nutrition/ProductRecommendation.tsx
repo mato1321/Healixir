@@ -11,6 +11,9 @@ const ProductRecommendation = () => {
   const [analysisResult, setAnalysisResult] = useState<HealthAnalysisResult | null>(null);
 
   useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+    
     // 檢查用戶登入狀態
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
@@ -360,7 +363,7 @@ const ProductRecommendation = () => {
                 這些推薦是根據您的個人健康狀況量身定制的，開始使用這些產品，邁向更健康的生活！
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/products">
+                <Link to="/shopDetail">
                   <Button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3">
                     查看更多產品
                   </Button>

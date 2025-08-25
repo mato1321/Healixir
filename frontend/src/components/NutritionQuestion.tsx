@@ -34,6 +34,9 @@ const NutritionQuestion = ({
 
   // 載入之前儲存的答案
   useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+    
     const savedAnswers = HealthAnalysisService.loadAnswers();
     const currentAnswer = savedAnswers.find(answer => answer.questionNumber === questionNumber);
     if (currentAnswer) {

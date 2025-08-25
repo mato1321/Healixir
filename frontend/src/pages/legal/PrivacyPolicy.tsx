@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ShieldCheck, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleGoBack = () => {
     navigate(-1); // 返回上一頁

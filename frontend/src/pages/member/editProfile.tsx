@@ -15,6 +15,9 @@ const EditProfilePage = () => {
   const [message, setMessage] = React.useState('');
 
   React.useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+    
     // 載入用戶資料
     loadUserData();
   }, []);

@@ -145,6 +145,9 @@ const MinshiEProductPage = () => {
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
+    // 頁面載入時滾動到頂部
+    window.scrollTo(0, 0);
+    
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     
