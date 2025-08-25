@@ -37,17 +37,17 @@ const ChatButton = () => {
       <div className="fixed bottom-6 right-6 z-50">
         <div
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 cursor-pointer flex items-center justify-center group"
+          className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 cursor-pointer flex items-center justify-center group"
         >
           <MessageCircle className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
         </div>
       </div>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 border-0 shadow-2xl">
+        <DialogContent className="sm:max-w-md bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 border-0 shadow-2xl">
           <DialogHeader>
             <div className="flex items-center justify-between">
-              <DialogTitle className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-lg font-bold">
+              <DialogTitle className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent text-lg font-bold">
                 Healixir - 為你的健康量身推薦的保健食品
               </DialogTitle>
             </div>
@@ -65,7 +65,7 @@ const ChatButton = () => {
                   className="w-12 h-12 mr-4"
                 />
                 <div className="flex flex-col items-start">
-                  <span className="font-semibold text-base bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">專業藥師諮詢</span>
+                  <span className="font-semibold text-base bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">專業藥師諮詢</span>
                   <span className="text-sm text-gray-600 mt-1">營業時間內藥師即時回覆 • 其他時段專業系統協助</span>
                 </div>
               </Button>
@@ -240,7 +240,7 @@ const MinshiEProductPage = () => {
                 className="w-10 h-10 mr-3"
               />
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   Healixir
                 </h1>
                 <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -668,7 +668,7 @@ const MinshiEProductPage = () => {
 
                     <div className="border-b border-gray-200 pb-8">
                       <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-medium">張</div>
+                        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium">張</div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-3">
                             <span className="font-medium">張太太</span>

@@ -13,7 +13,7 @@ const HealthMetricCard = ({ name, score, color, icon: Icon }: HealthMetricCardPr
   return (
     <div className="flex items-center justify-between py-4">
       <div className="flex items-center">
-        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-3">
+        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-3">
           <Icon className="w-5 h-5 text-white" />
         </div>
         <span className="text-gray-700 font-medium">{name}</span>
@@ -70,7 +70,7 @@ const HealthReport = () => {
       number: 1,
       title: '飲食方面 建議：',
       content: '您目前有不錯的飲食習慣，建議繼持續三餐均衡飲食，多重視充天然蔬果攝取營養，並避免過多的快餐與高油加工食品。',
-      color: 'bg-gradient-to-r from-blue-600 to-purple-600'
+      color: 'bg-gradient-to-r from-blue-600 to-cyan-600'
     },
     {
       number: 2,
@@ -103,7 +103,7 @@ const HealthReport = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 py-8">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* 返回按鈕 */}
         <button 
@@ -117,7 +117,7 @@ const HealthReport = () => {
         {/* 報告框架 */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
           {/* 報告頭部 */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8">
+          <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-8">
             <div className="flex items-center justify-center mb-4">
               <img 
                 src="/favicon.ico" 
@@ -146,7 +146,7 @@ const HealthReport = () => {
                 </div>
                 <div className="bg-white rounded-xl p-4 shadow-sm">
                   <p className="text-gray-500 text-sm mb-1">身高</p>
-                  <p className="text-2xl font-bold text-purple-600">170</p>
+                  <p className="text-2xl font-bold text-blue-600">170</p>
                   <p className="text-gray-500 text-sm">公分</p>
                 </div>
                 <div className="bg-white rounded-xl p-4 shadow-sm">
@@ -166,15 +166,15 @@ const HealthReport = () => {
                   <div className="flex items-start justify-between mb-6">
                     <div>
                       <h3 className="text-xl font-bold text-gray-800 flex items-center mb-4">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mr-3">
                           <Activity className="w-6 h-6 text-white" />
                         </div>
                         綜合分析結果
                       </h3>
-                      <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">49分</div>
+                      <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">49分</div>
                     </div>
                     <div className="text-right">
-                      <div className="flex items-center text-purple-600 mb-2">
+                      <div className="flex items-center text-blue-600 mb-2">
                         <Heart className="w-5 h-5 mr-1" />
                         <span className="font-semibold">健康分析說明</span>
                       </div>

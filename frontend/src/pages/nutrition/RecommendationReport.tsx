@@ -33,7 +33,7 @@ const RecommendationReport = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 p-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-6">
           <div className="flex items-center justify-center mb-4">
@@ -43,7 +43,7 @@ const RecommendationReport = () => {
                 alt="Logo" 
                 className="w-12 h-12 mr-3"
               />
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                 Healixir
               </h1>
             </Link>
@@ -54,7 +54,7 @@ const RecommendationReport = () => {
           <CardHeader className="text-center pb-6">
             <div className="flex items-center justify-center mb-4">
               <Sparkles className="w-8 h-8 text-blue-600 mr-2" />
-              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
 個人化健康建議
               </CardTitle>
             </div>
@@ -73,7 +73,7 @@ const RecommendationReport = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center mb-2">
-                        <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                           {rec.category}
                         </span>
                         <span className="ml-2 text-gray-700 font-medium">{rec.title}</span>
@@ -106,7 +106,7 @@ const RecommendationReport = () => {
                 </Button>
               </Link>
               <Link to="/nutrition/products">
-                <Button className="w-full sm:w-64 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                <Button className="w-full sm:w-64 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white py-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
                   <ShoppingBag className="w-5 h-5 mr-2" />
                   查看推薦產品
                 </Button>

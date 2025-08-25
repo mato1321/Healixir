@@ -32,7 +32,7 @@ const HealthGoalsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,7 +45,7 @@ const HealthGoalsPage = () => {
                   className="w-10 h-10 mr-3"
                 />
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
                   <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -59,10 +59,10 @@ const HealthGoalsPage = () => {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* 標題區域 */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Target className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             選擇您想保健的目標方向
           </h1>
           <p className="text-gray-600 text-lg">請選擇您最關心的健康領域，我們將為您提供更精準的建議</p>
@@ -104,7 +104,7 @@ const HealthGoalsPage = () => {
             <div className="flex justify-center">
               <Button 
                 onClick={handleNext}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-16 py-4 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-16 py-4 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <span className="mr-3">繼續</span>
                 <ArrowRight className="w-6 h-6" />

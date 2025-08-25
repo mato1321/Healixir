@@ -64,7 +64,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,7 +76,7 @@ const Dashboard = () => {
                 className="w-10 h-10 mr-3"
               />
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent">
                   Healixir
                 </h1>
                 <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -133,10 +133,10 @@ const Dashboard = () => {
       <main>
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-600/20"></div>
           <div className="max-w-6xl mx-auto text-center px-4 relative">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent">
                 為你的健康量身推薦
               </span>
               <br />
@@ -149,7 +149,7 @@ const Dashboard = () => {
             
             <div className="flex flex-col items-center mb-8">
               <Link to="/nutrition/personal-info" className="mb-4">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-32 py-12 text-3xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-32 py-12 text-3xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
                                    立即免費評估
                 </Button>
               </Link>
@@ -158,28 +158,28 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-              <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-blue-600">10,000+</div>
-                <div className="text-sm text-gray-600">成功推薦</div>
+              <div className="bg-blue-50/80 backdrop-blur-sm rounded-lg p-4 text-center border border-blue-200/30">
+                <div className="text-2xl font-bold text-blue-700">10,000+</div>
+                <div className="text-sm text-blue-600">成功推薦</div>
               </div>
-              <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-purple-600">95%</div>
-                <div className="text-sm text-gray-600">滿意度</div>
+              <div className="bg-blue-50/80 backdrop-blur-sm rounded-lg p-4 text-center border border-blue-200/30">
+                <div className="text-2xl font-bold text-cyan-700">95%</div>
+                <div className="text-sm text-blue-600">滿意度</div>
               </div>
-              <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-green-600">48</div>
-                <div className="text-sm text-gray-600">評估維度</div>
+              <div className="bg-blue-50/80 backdrop-blur-sm rounded-lg p-4 text-center border border-blue-200/30">
+                <div className="text-2xl font-bold text-blue-800">48</div>
+                <div className="text-sm text-blue-600">評估維度</div>
               </div>
-              <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-orange-600">3min</div>
-                <div className="text-sm text-gray-600">快速評估</div>
+              <div className="bg-blue-50/80 backdrop-blur-sm rounded-lg p-4 text-center border border-blue-200/30">
+                <div className="text-2xl font-bold text-cyan-700">3min</div>
+                <div className="text-sm text-blue-600">快速評估</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* 四步驟流程 */}
-        <section className="py-20 bg-white/50">
+        <section className="py-20 bg-gradient-to-r from-blue-50/80 to-cyan-50/80">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -191,7 +191,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm group">
                 <CardHeader className="pb-4">
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <CheckCircle className="w-10 h-10 text-white" />
                   </div>
                   <CardTitle className="text-xl">填寫健康問卷</CardTitle>
@@ -205,7 +205,7 @@ const Dashboard = () => {
 
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm group">
                 <CardHeader className="pb-4">
-                  <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Brain className="w-10 h-10 text-white" />
                   </div>
                   <CardTitle className="text-xl">專業分析生活狀況</CardTitle>
@@ -219,7 +219,7 @@ const Dashboard = () => {
 
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm group">
                 <CardHeader className="pb-4">
-                  <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Pill className="w-10 h-10 text-white" />
                   </div>
                   <CardTitle className="text-xl">推薦專屬保健食品</CardTitle>
@@ -233,7 +233,7 @@ const Dashboard = () => {
 
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm group">
                 <CardHeader className="pb-4">
-                  <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-700 to-cyan-700 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <ShoppingCart className="w-10 h-10 text-white" />
                   </div>
                   <CardTitle className="text-xl">線上選購或藥局諮詢</CardTitle>
@@ -249,7 +249,7 @@ const Dashboard = () => {
         </section>
 
         {/* 核心優勢 */}
-        <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
+        <section className="py-20 bg-gradient-to-r from-blue-100 to-cyan-100">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -261,7 +261,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <Sparkles className="w-8 h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl">精準分析系統</CardTitle>
@@ -275,7 +275,7 @@ const Dashboard = () => {
 
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <Users className="w-8 h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl">與實體藥局合作</CardTitle>
@@ -289,7 +289,7 @@ const Dashboard = () => {
 
               <Card className="text-center border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm">
                 <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <Shield className="w-8 h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl">快速且隱私保護</CardTitle>
@@ -305,7 +305,7 @@ const Dashboard = () => {
         </section>
 
         {/* 用戶見證 */}
-        <section className="py-20 bg-white/50">
+        <section className="py-20 bg-gradient-to-l from-blue-50/80 to-cyan-50/80">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -318,7 +318,7 @@ const Dashboard = () => {
               <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mr-3">
                       <span className="text-2xl">👩</span>
                     </div>
                     <div>
@@ -339,7 +339,7 @@ const Dashboard = () => {
               <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mr-3">
                       <span className="text-2xl">👨</span>
                     </div>
                     <div>
@@ -360,7 +360,7 @@ const Dashboard = () => {
               <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3">
+                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full flex items-center justify-center mr-3">
                       <span className="text-2xl">🧓</span>
                     </div>
                     <div>
@@ -382,7 +382,7 @@ const Dashboard = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 text-white relative overflow-hidden">
+        <section className="py-20 bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-700 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="max-w-4xl mx-auto text-center px-4 relative">
             <div className="mb-8">
@@ -396,7 +396,7 @@ const Dashboard = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/nutrition/personal-info">
-                <Button className="bg-white text-blue-600 hover:bg-gray-100 px-24 py-6 text-2xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
+                <Button className="bg-white text-blue-700 hover:bg-blue-50 px-24 py-6 text-2xl font-bold rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
                   
                   立即免費評估
                 </Button>

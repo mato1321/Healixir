@@ -9,7 +9,7 @@ const NutritionResult = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         <div className="text-center mb-4">
-          <h1 className="text-2xl font-bold text-blue-800 mb-2">Healixir</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent mb-2">Healixir</h1>
           <p className="text-blue-600">營養目標</p>
         </div>
         

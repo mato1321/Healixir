@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ContactUs = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,7 +18,7 @@ const ContactUs = () => {
                   className="w-10 h-10 mr-3"
                 />
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
                   <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -32,10 +32,10 @@ const ContactUs = () => {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* 標題區域 */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
             <MessageCircle className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             聯絡我們
           </h1>
           <p className="text-gray-600">我們提供專業的客戶服務，隨時為您解答健康相關問題</p>
@@ -81,7 +81,7 @@ const ContactUs = () => {
               <CardContent>
                 <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
                   <div className="flex items-center text-gray-700">
-                    <Mail className="w-5 h-5 mr-3 text-purple-600" />
+                    <Mail className="w-5 h-5 mr-3 text-blue-600" />
                     <div>
                       <p className="font-semibold">support@healixir.com</p>
                       <p className="text-sm text-gray-600">一般詢問與產品諮詢</p>
@@ -178,7 +178,7 @@ const ContactUs = () => {
                       <span className="text-gray-700">24小時專業客服</span>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
                       <span className="text-gray-700">個人化健康建議</span>
                     </div>
                     <div className="flex items-center">

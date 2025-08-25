@@ -189,7 +189,7 @@ const ProductRecommendation = () => {
                   className="w-10 h-10 mr-3"
                 />
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
                   <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -341,7 +341,7 @@ const ProductRecommendation = () => {
                     </div>
                   </div>
 
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     加入購物車
                   </Button>
@@ -353,7 +353,7 @@ const ProductRecommendation = () => {
 
         {/* 底部行動呼籲 */}
         <div className="text-center">
-          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+          <Card className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-0">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-4">開始您的健康之旅</h3>
               <p className="text-blue-100 mb-6">

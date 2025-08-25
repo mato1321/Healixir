@@ -99,7 +99,7 @@ const AnalysisResult = () => {
   // 如果沒有分析結果，使用預設值
   if (!analysisResult) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 flex items-center justify-center">
         <div className="text-center">
           <Activity className="w-16 h-16 mx-auto mb-4 text-blue-600" />
           <h2 className="text-xl font-bold text-gray-800 mb-2">正在分析您的答案...</h2>
@@ -120,7 +120,7 @@ const AnalysisResult = () => {
   const overallScore = analysisResult.overallScore;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,7 +133,7 @@ const AnalysisResult = () => {
                   className="w-10 h-10 mr-3"
                 />
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
                   <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -184,10 +184,10 @@ const AnalysisResult = () => {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* 標題區域 */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Activity className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             健康分析結果
           </h1>
           <p className="text-gray-600">基於您的問卷回答，我們為您生成了個人化的健康評估報告</p>
@@ -202,7 +202,7 @@ const AnalysisResult = () => {
                   <TrendingUp className="w-6 h-6 mr-2 text-blue-600" />
                   綜合分析結果
                 </span>
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   {overallScore}分
                 </span>
               </CardTitle>
@@ -236,15 +236,15 @@ const AnalysisResult = () => {
           <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
             <CardHeader>
               <CardTitle className="text-xl font-bold text-gray-800 flex items-center">
-                <Heart className="w-6 h-6 mr-2 text-purple-600" />
+                <Heart className="w-6 h-6 mr-2 text-blue-600" />
                 健康分析說明
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-gray-700 space-y-4">
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
+                <div className="bg-blue-50/80 rounded-lg p-4">
                   <p className="mb-2">您的綜合健康分數超過</p>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
                     {analysisResult.percentile}% 的同齡人
                   </p>
                 </div>
@@ -308,7 +308,7 @@ const AnalysisResult = () => {
           <Button
             onClick={handleNext}
             disabled={isSaving}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white px-20 py-6 rounded-full text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:opacity-50 text-white px-20 py-6 rounded-full text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
           >
             <span className="mr-4">
               {isSaving ? "保存中..." : "查看個人化建議"}

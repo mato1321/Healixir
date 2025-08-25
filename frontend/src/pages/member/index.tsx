@@ -107,7 +107,7 @@ const Member = () => {
   // 如果正在載入，顯示載入狀態
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">載入中...</p>
@@ -119,7 +119,7 @@ const Member = () => {
   // 如果未登入，顯示登入提示
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
         <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
@@ -143,12 +143,12 @@ const Member = () => {
               </p>
               <div className="space-x-4">
                 <Link to="/login">
-                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
+                  <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg">
                     立即登入
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="outline" className="border-purple-200 hover:bg-purple-50">
+                  <Button variant="outline" className="border-blue-200 hover:bg-blue-50">
                     註冊新帳戶
                   </Button>
                 </Link>
@@ -161,7 +161,7 @@ const Member = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -174,7 +174,7 @@ const Member = () => {
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-gray-700">
-                歡迎，<span className="font-medium text-purple-600">{user?.name || '會員'}</span>
+                歡迎，<span className="font-medium text-blue-600">{user?.name || '會員'}</span>
               </span>
             </div>
           </div>
@@ -243,7 +243,7 @@ const Member = () => {
                 
                 <div className="flex space-x-4">
                   <Link to="/member/edit">
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
+                    <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg">
                       <Settings className="w-4 h-4 mr-2" />
                       編輯資料
                     </Button>
@@ -270,7 +270,7 @@ const Member = () => {
                     <Link key={order.id} to={`/nutrition/order/${order.id}`}>
                       <div className="flex items-center justify-between p-4 border rounded-lg bg-white/60 hover:bg-white/80 transition-colors cursor-pointer">
                         <div className="flex items-center">
-                          <Package className="w-5 h-5 text-purple-600 mr-4" />
+                          <Package className="w-5 h-5 text-blue-600 mr-4" />
                           <div>
                             <div className="flex items-center mb-2">
                               <span className="font-medium text-gray-800">訂單號碼: {order.id}</span>
@@ -290,7 +290,7 @@ const Member = () => {
                               <p className="text-sm text-gray-600">商品：</p>
                               <p className="text-sm text-gray-700 ml-4">{order.items.join(", ")}</p>
                             </div>
-                            <p className="font-medium text-purple-600">{order.total}</p>
+                            <p className="font-medium text-blue-600">{order.total}</p>
                           </div>
                         </div>
                       </div>
@@ -299,7 +299,7 @@ const Member = () => {
                 </div>
                 <div className="mt-6 text-center">
                   <Link to="/cart">
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg">
+                    <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       前往購物車
                     </Button>
@@ -381,7 +381,7 @@ const Member = () => {
                       HealthAnalysisService.clearAllData();
                       navigate('/nutrition/personal-info');
                     }}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg"
+                    className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg"
                   >
                     <FileText className="w-4 h-4 mr-2" />
                     進行新的評估

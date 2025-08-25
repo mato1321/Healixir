@@ -112,7 +112,7 @@ const Cart = () => {
   const total = subtotal + shipping - discount;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100">
       {/* 頂部導航 */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +125,7 @@ const Cart = () => {
                   className="w-10 h-10 mr-3"
                 />
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
                   <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -396,7 +396,7 @@ const Cart = () => {
                       <span>快速配送</span>
                     </div>
                     <div className="flex items-center">
-                      <CreditCard className="w-4 h-4 mr-2 text-purple-500" />
+                      <CreditCard className="w-4 h-4 mr-2 text-blue-600" />
                       <span>安全付款</span>
                     </div>
                   </div>

@@ -108,7 +108,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-2xl border-0">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center mb-6">
@@ -119,7 +119,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-4">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent mb-2">
               Healixir
             </h1>
             <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -177,7 +177,7 @@ const Login = () => {
 
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white py-3 shadow-lg hover:shadow-xl transition-all duration-300"
               disabled={isLoading}
             >
               {isLoading ? "登入中..." : "登入"}
@@ -185,18 +185,18 @@ const Login = () => {
 
             <div className="text-center text-sm text-gray-600">
               還沒有帳號？{" "}
-              <Link to="/register" className="text-blue-600 hover:text-purple-600 hover:underline font-medium">
+              <Link to="/register" className="text-blue-600 hover:text-cyan-600 hover:underline font-medium">
                 立即註冊
               </Link>
             </div>
 
             <div className="text-center text-xs text-gray-500 mt-4 pt-4 border-t">
               登入即表示您同意我們的{" "}
-              <Link to="/terms" className="text-blue-600 hover:text-purple-600 hover:underline">
+              <Link to="/terms" className="text-blue-600 hover:text-cyan-600 hover:underline">
                 服務條款
               </Link>
               {" "}與{" "}
-              <Link to="/privacy" className="text-blue-600 hover:text-purple-600 hover:underline">
+              <Link to="/privacy" className="text-blue-600 hover:text-cyan-600 hover:underline">
                 隱私政策
               </Link>
             </div>

@@ -129,7 +129,7 @@ const AssessmentDetail = () => {
                   className="w-10 h-10 mr-3"
                 />
                 <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent">
                     Healixir
                   </h1>
                   <p className="text-xs text-gray-500">專業保健顧問</p>
@@ -188,10 +188,10 @@ const AssessmentDetail = () => {
           </Button>
           
           <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Activity className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent mb-2">
               健康評估詳情
             </h1>
             <p className="text-gray-600">評估時間：{formatDate(assessment.created_at)}</p>
@@ -207,7 +207,7 @@ const AssessmentDetail = () => {
                   <TrendingUp className="w-6 h-6 mr-2 text-blue-600" />
                   綜合分析結果
                 </span>
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent">
                   {assessment.overall_score}分
                 </span>
               </CardTitle>
@@ -241,7 +241,7 @@ const AssessmentDetail = () => {
           <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
             <CardHeader>
               <CardTitle className="text-xl font-bold text-gray-800 flex items-center">
-                <Heart className="w-6 h-6 mr-2 text-purple-600" />
+                <Heart className="w-6 h-6 mr-2 text-blue-600" />
                 健康分析說明
               </CardTitle>
             </CardHeader>
@@ -249,7 +249,7 @@ const AssessmentDetail = () => {
               <div className="text-gray-700 space-y-4">
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
                   <p className="mb-2">您的綜合健康分數超過</p>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 bg-clip-text text-transparent mb-2">
                     {assessment.percentile}% 的同齡人
                   </p>
                 </div>

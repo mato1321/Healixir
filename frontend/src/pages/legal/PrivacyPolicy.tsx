@@ -11,12 +11,12 @@ const PrivacyPolicy = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 p-4">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <button 
             onClick={handleGoBack}
-            className="inline-flex items-center text-blue-600 hover:text-purple-600 transition-colors cursor-pointer"
+            className="inline-flex items-center text-blue-600 hover:text-blue-600 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             返回上一頁
@@ -33,7 +33,7 @@ const PrivacyPolicy = () => {
               />
             </div>
             <div className="mb-4">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
                 Healixir
               </h1>
               <p className="text-xs text-gray-500">專業保健顧問</p>
