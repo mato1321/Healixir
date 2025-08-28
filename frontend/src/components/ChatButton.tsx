@@ -8,8 +8,8 @@ const ChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLineClick = () => {
-    // 這裡可以添加 LINE 的連結邏輯
-    console.log("開啟 LINE");
+    // 開啟 LINE 官方帳號連結
+    window.open("https://line.me/R/ti/p/@785lioch", "_blank");
   };
 
   return (
@@ -71,8 +71,15 @@ const ChatButton = () => {
 
             {/* QR Code 區域 */}
             <div className="mt-6 text-center">
-              <div className="w-32 h-32 bg-white/80 backdrop-blur-sm mx-auto rounded-xl shadow-lg flex items-center justify-center border border-white/50">
-                <div className="text-gray-400 text-xs">LINE QR Code</div>
+              <div 
+                className="w-32 h-32 bg-white/80 backdrop-blur-sm mx-auto rounded-xl shadow-lg flex items-center justify-center border border-white/50 cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                onClick={handleLineClick}
+              >
+                <img 
+                  src="/line_code.ico" 
+                  alt="LINE QR Code" 
+                  className="w-28 h-28 object-contain rounded-lg"
+                />
               </div>
               <p className="text-sm mt-3 text-gray-700 font-medium">掃描 QR Code 或點擊上方按鈕</p>
               <p className="text-xs mt-1 text-gray-600">立即獲得專業健康諮詢</p>
