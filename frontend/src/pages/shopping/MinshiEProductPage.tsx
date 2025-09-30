@@ -206,10 +206,8 @@ const MinshiEProductPage = () => {
   };
 
   const productImages = [
-    '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
-    '/api/placeholder/400/400', 
-    '/api/placeholder/400/400',
-    '/api/placeholder/400/400'
+    '/MinshiEProductPage.jpeg',
+    '/MinshiEProductPage.jpeg'
   ];
 
   const tabs = ['商品介紹', '成分與營養標示', '顧客評論'];

@@ -23,7 +23,7 @@ import AssessmentDetail from "./pages/member/AssessmentDetail";
 import OrderDetail from "./pages/shop/OrderDetail";
 import PersonalInfo from "./pages/nutrition/PersonalInfo";
 import HealthGoalsPage from "./pages/nutrition/HealthGoalsPage";
-import QuestionnaireStart from "./pages/nutrition/QuestionnaireStart";
+import QuestionnaireStart from "./pages/nutrition/NO__QuestionnaireStart.tsx";
 import Question1 from "./pages/nutrition/Question1";
 import Question2 from "./pages/nutrition/Question2";
 import Question3 from "./pages/nutrition/Question3";

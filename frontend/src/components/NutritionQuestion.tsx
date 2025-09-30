@@ -129,7 +129,7 @@ const NutritionQuestion = ({
                 </Link>
               )}
               <div className="text-sm text-gray-500">
-                第 {questionNumber} 題 / 共 48 題
+                
               </div>
             </div>
 

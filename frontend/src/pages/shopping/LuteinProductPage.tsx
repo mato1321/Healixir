@@ -190,7 +190,7 @@ const LuteinProductPage = () => {
         id: productInfo.id,
         name: productInfo.name,
         price: productInfo.price,
-        image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
+        image:  '/LuteinProductPage1.jpeg',
         quantity: 1,
         description: productInfo.description
       });
@@ -214,10 +214,8 @@ const LuteinProductPage = () => {
   };
 
   const productImages = [
-    '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png',
-    '/api/placeholder/400/400', 
-    '/api/placeholder/400/400',
-    '/api/placeholder/400/400'
+    '/LuteinProductPage1.jpeg',
+    '/LuteinProductPage2.jpeg'
   ];
 
   const tabs = ['商品介紹', '成分與營養標示', '顧客評論'];
@@ -759,10 +757,10 @@ const LuteinProductPage = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">相關商品推薦</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "善存 護眼膠囊", price: 899, image: "/api/placeholder/300/300" },
-              { name: "白蘭氏 深海魚油", price: 1199, image: "/api/placeholder/300/300" },
-              { name: "維他命A+E護眼錠", price: 699, image: "/api/placeholder/300/300" },
-              { name: "藍莓葉黃素軟膠囊", price: 1099, image: "/api/placeholder/300/300" }
+              { name: "善存 護眼膠囊", price: 899, image: "/Centrum_Lutein.jpeg" },
+              { name: "白蘭氏 深海魚油", price: 1199, image: "/fish_oil.jpeg" },
+              { name: "維他命A+E護眼錠", price: 699, image: "/E.jpeg" },
+              { name: "藍莓葉黃素軟膠囊", price: 1099, image: "/berry.jpeg" }
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
                 <div className="aspect-square bg-gray-100">

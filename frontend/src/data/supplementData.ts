@@ -9,7 +9,7 @@ export const supplementData = [
     price: 720,
     rating: 4.5,
     reviewCount: 156,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/LuteinProductPage1.jpeg'
   },
   {
     id: 'lutein-gen2',
@@ -19,7 +19,7 @@ export const supplementData = [
     price: 680,
     rating: 4.4,
     reviewCount: 123,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/MinshiEProductPage.jpeg'
   },
   {
     id: 'gold-eye-capsule',
@@ -29,7 +29,7 @@ export const supplementData = [
     price: 650,
     rating: 4.3,
     reviewCount: 98,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/gold-eye-capsule.jpeg'
   },
   {
     id: 'shumubo-capsule',
@@ -39,7 +39,7 @@ export const supplementData = [
     price: 590,
     rating: 4.2,
     reviewCount: 87,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/shumubo-capsule.jpeg'
   },
 
   // 魚油/Omega-3
@@ -51,7 +51,7 @@ export const supplementData = [
     price: 890,
     rating: 4.6,
     reviewCount: 201,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/fish-oil-deep.jpeg'
   },
   {
     id: 'fish-oil-ultra',
@@ -61,8 +61,8 @@ export const supplementData = [
     price: 1150,
     rating: 4.7,
     reviewCount: 167,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
-  },
+    image: '/fish-oil-ultra.jpeg'
+  },	
   {
     id: 'light-source-capsule',
     name: '利光源軟膠囊',
@@ -71,7 +71,7 @@ export const supplementData = [
     price: 680,
     rating: 4.3,
     reviewCount: 134,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/light-source-capsule.jpeg'
   },
   {
     id: 'jianye-fish-oil',
@@ -81,7 +81,7 @@ export const supplementData = [
     price: 450,
     rating: 4.1,
     reviewCount: 112,
-    image: '/lovable-uploads/6cbc969b-7bf0-43a6-b0c0-f81ca664a74d.png'
+    image: '/jianye-fish-oil.jpeg'
   },
   {
     id: 'beiyikang-capsule',

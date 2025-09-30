@@ -8,7 +8,7 @@ const Question1 = () => {
       options={["少於3小時", "4-6小時", "7+小時"]}
       currentRoute="/nutrition/question/1"
       nextRoute="/nutrition/question/2"
-      previousRoute="/nutrition/start"
+      previousRoute="/nutrition/HealthGoalsPage"
     />
   );
 };

@@ -29,7 +29,7 @@ const HealthGoalsPage = () => {
   };
 
   const handleNext = () => {
-    navigate('/nutrition/start');
+    navigate('/nutrition/question/1');
   };
 
   const handlePrevious = () => {
