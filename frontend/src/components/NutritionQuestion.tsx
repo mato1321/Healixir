@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -11,11 +11,9 @@ interface NutritionQuestionProps {
   question: string;
   options: string[];
   isMultiSelect?: boolean;
-  skipCondition?: string;
-  showSkipButton?: boolean; // 新增：是否顯示跳過按鈕
   currentRoute: string;
-  nextRoute: string | null;
-  previousRoute: string | null;
+  nextRoute?: string;
+  previousRoute?: string;
 }
 
 const NutritionQuestion = ({
@@ -23,8 +21,6 @@ const NutritionQuestion = ({
   question,
   options,
   isMultiSelect = false,
-  skipCondition,
-  showSkipButton = false,
   currentRoute,
   nextRoute,
   previousRoute
@@ -74,30 +70,11 @@ const NutritionQuestion = ({
   };
 
   const handleNext = () => {
-    // 檢查是否選擇了跳過選項
-    const hasSkipOption = selectedOptions.some(option => 
-      option.includes('跳過此題') || option.includes('不適用')
-    );
-    
-    // 如果選擇了跳過選項，不保存答案，直接跳過
-    if (hasSkipOption) {
-      if (nextRoute) {
-        navigate(nextRoute);
-      }
-      return;
-    }
-    
-    // 正常情況：保存答案
+    // 保存答案
     if (selectedOptions.length > 0) {
       saveAnswer();
     }
     
-    if (nextRoute) {
-      navigate(nextRoute);
-    }
-  };
-
-  const handleSkip = () => {
     if (nextRoute) {
       navigate(nextRoute);
     }
@@ -121,7 +98,7 @@ const NutritionQuestion = ({
         
         <Card className="bg-white/80 backdrop-blur-sm shadow-2xl border-0">
           <CardContent className="p-8">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex justify-between items-center mb-8">
               {previousRoute && (
                 <Link to={previousRoute} className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
                   <ArrowLeft className="w-4 h-4 mr-2" />
@@ -137,13 +114,6 @@ const NutritionQuestion = ({
               <p className="text-gray-800 text-xl font-medium text-center leading-relaxed mb-4">
                 {question}
               </p>
-              {skipCondition && (
-                <div className="bg-blue-50 rounded-lg p-3 mb-4">
-                  <p className="text-sm text-blue-700 text-center">
-                    {skipCondition}
-                  </p>
-                </div>
-              )}
             </div>
 
             <div className="space-y-3 mb-8">
@@ -182,18 +152,9 @@ const NutritionQuestion = ({
             </div>
 
             <div className="flex justify-center gap-4">
-              {(showSkipButton || (isMultiSelect && skipCondition)) && (
-                <Button
-                  onClick={handleSkip}
-                  variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full font-medium"
-                >
-                  跳過此題
-                </Button>
-              )}
               <Button
                 onClick={handleNext}
-                disabled={!canProceed && !isMultiSelect && !showSkipButton}
+                disabled={!canProceed}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:bg-gray-300 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 {nextRoute === "/nutrition/analysis" ? "完成問卷" : "下一題"}

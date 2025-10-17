@@ -1,14 +1,11 @@
-
 import NutritionQuestion from "@/components/NutritionQuestion";
 
 const Question19 = () => {
   return (
     <NutritionQuestion
       questionNumber={19}
-      question="您有以下哪些關節問題"
-      options={["軟骨流失", "關節炎", "關節靈活度不足"]}
-      isMultiSelect={true}
-      skipCondition="以下為複選，若皆無請直接點選下一題"
+      question="平均每日水果攝取(1份 = 一碗)?"
+      options={["0-2份", "2-4份", "4份以上"]}
       currentRoute="/nutrition/question/19"
       nextRoute="/nutrition/question/20"
       previousRoute="/nutrition/question/18"

@@ -1,14 +1,12 @@
-
 import NutritionQuestion from "@/components/NutritionQuestion";
 
 const Question35 = () => {
   return (
     <NutritionQuestion
       questionNumber={35}
-      question="(生理性別女)您正處於以下哪一個階段"
-      options={["有生理週期", "初經還未到來", "已停經"]}
-      skipCondition="此題僅適用於女性用戶，男性用戶請點選「跳過此題」"
-      showSkipButton={true}
+      question="您有以下哪幾種問題?"
+      options={["痛風", "貧血", "氣喘", "子宮或卵巢疾病", "乳房疾病", "紅斑性狼瘡", "乳糖不耐症", "都沒有"]}
+      isMultiSelect={true}
       currentRoute="/nutrition/question/35"
       nextRoute="/nutrition/question/36"
       previousRoute="/nutrition/question/34"

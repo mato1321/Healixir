@@ -1,12 +1,11 @@
-
 import NutritionQuestion from "@/components/NutritionQuestion";
 
 const Question8 = () => {
   return (
     <NutritionQuestion
       questionNumber={8}
-      question="您睡眠過程是否有多夢的情形(頻繁作夢、多個夢境)"
-      options={["常常", "偶爾", "很少"]}
+      question="(免疫力)您平均一年內感冒的次數"
+      options={["0-1次", "2-4次", "5次以上"]}
       currentRoute="/nutrition/question/8"
       nextRoute="/nutrition/question/9"
       previousRoute="/nutrition/question/7"

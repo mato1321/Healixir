@@ -1,12 +1,11 @@
-
 import NutritionQuestion from "@/components/NutritionQuestion";
 
 const Question3 = () => {
   return (
     <NutritionQuestion
       questionNumber={3}
-      question="您是否有掉髮或髮質損壞的問題"
-      options={["是", "否"]}
+      question="(骨關節)您是否有骨質密度過低的問題"
+      options={["嚴重", "輕微", "不清楚"]}
       currentRoute="/nutrition/question/3"
       nextRoute="/nutrition/question/4"
       previousRoute="/nutrition/question/2"

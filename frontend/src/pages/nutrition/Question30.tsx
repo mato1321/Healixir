@@ -1,12 +1,11 @@
-
 import NutritionQuestion from "@/components/NutritionQuestion";
 
 const Question30 = () => {
   return (
     <NutritionQuestion
       questionNumber={30}
-      question="平均每星期運動頻率(每次至少30分鐘)"
-      options={["我幾乎不運動", "1-2次", "3次以上"]}
+      question="您的睡眠品質?"
+      options={["能一覺到天亮", "睡睡醒醒", "提早甦醒"]}
       currentRoute="/nutrition/question/30"
       nextRoute="/nutrition/question/31"
       previousRoute="/nutrition/question/29"
