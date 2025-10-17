@@ -170,10 +170,11 @@ const PersonalInfo = () => {
               {/* 出生年月日 */}
               <div className="space-y-6">
                 <div className="text-center">
-                  <Label className="text-xl font-semibold text-gray-700">西元出生年月日</Label>
+                  <Label className="text-xl font-semibold text-gray-700">出生年月日</Label>
                 </div>
                 <div className="flex justify-center items-center">
                   <div className="flex items-center space-x-4">
+                    <span className="text-gray-600 font-medium text-lg">西元</span>
                     <div className="flex items-center space-x-2">
                       <Input 
                         type="text" 
@@ -273,7 +274,7 @@ const PersonalInfo = () => {
                 <Button
                   type="submit"
                   disabled={!isFormValid}
-                  className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:bg-gray-300 disabled:opacity-50 text-white px-16 py-4 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:bg-gray-300 disabled:opacity-50 text-white px-16 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
                 >
                   <span className="mr-3">開始評估</span>
                   <ArrowRight className="w-6 h-6" />
