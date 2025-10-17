@@ -62,16 +62,6 @@ import Question35 from "./pages/nutrition/Question35";
 import Question36 from "./pages/nutrition/Question36";
 import Question37 from "./pages/nutrition/Question37";
 import Question38 from "./pages/nutrition/Question38";
-import Question39 from "./pages/nutrition/Question39";
-import Question40 from "./pages/nutrition/Question40";
-import Question41 from "./pages/nutrition/Question41";
-import Question42 from "./pages/nutrition/Question42";
-import Question43 from "./pages/nutrition/Question43";
-import Question44 from "./pages/nutrition/Question44";
-import Question45 from "./pages/nutrition/Question45";
-import Question46 from "./pages/nutrition/Question46";
-import Question47 from "./pages/nutrition/Question47";
-import Question48 from "./pages/nutrition/Question48";
 import AnalysisResult from "./pages/nutrition/AnalysisResult";
 import NutritionResult from "./pages/nutrition/NutritionResult";
 import ProductRecommendation from "./pages/nutrition/ProductRecommendation";
@@ -160,16 +150,6 @@ const AppContent = () => {
             <Route path="/nutrition/question/36" element={<Question36 />} />
             <Route path="/nutrition/question/37" element={<Question37 />} />
             <Route path="/nutrition/question/38" element={<Question38 />} />
-            <Route path="/nutrition/question/39" element={<Question39 />} />
-            <Route path="/nutrition/question/40" element={<Question40 />} />
-            <Route path="/nutrition/question/41" element={<Question41 />} />
-            <Route path="/nutrition/question/42" element={<Question42 />} />
-            <Route path="/nutrition/question/43" element={<Question43 />} />
-            <Route path="/nutrition/question/44" element={<Question44 />} />
-            <Route path="/nutrition/question/45" element={<Question45 />} />
-            <Route path="/nutrition/question/46" element={<Question46 />} />
-            <Route path="/nutrition/question/47" element={<Question47 />} />
-            <Route path="/nutrition/question/48" element={<Question48 />} />
             <Route path="/nutrition/analysis" element={<AnalysisResult />} />
             <Route path="/nutrition/result" element={<NutritionResult />} />
             <Route path="/nutrition/products" element={<ProductRecommendation />} />
