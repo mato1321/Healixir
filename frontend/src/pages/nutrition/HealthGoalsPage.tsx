@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { HealthAnalysisService } from '@/services/healthAnalysis';
 
 const HealthGoalsPage = () => {
   const navigate = useNavigate();
@@ -11,13 +12,21 @@ const HealthGoalsPage = () => {
   useEffect(() => {
     // 頁面載入時滾動到頂部
     window.scrollTo(0, 0);
+
+    // 若有先前選取則載入（不改變樣式，僅恢復選取狀態）
+    const prev = HealthAnalysisService.loadSelectedGoals();
+    if (prev && prev.length) setSelectedGoals(prev);
   }, []);
 
+  // 只改這裡的目標清單，頁面樣式其餘完全不變
   const healthGoals = [
-    '消化道機能', '心情', '晶亮不怕3C', '入睡狀況',
-    '精神體力', '循環系統問題', '養顏美容',
-    '保護力', '骨骼及行動力', '私密保養',
-    '不怕洗頭梳頭', '運動保健', '上班課不當機'
+    '眼睛',
+    '骨關節',
+    '腸胃',
+    '精神體力',
+    '免疫力',
+    '皮膚',
+    '睡眠'
   ];
 
   const toggleGoal = (goal: string) => {
@@ -29,6 +38,8 @@ const HealthGoalsPage = () => {
   };
 
   const handleNext = () => {
+    // 儲存選取的目標（不影響頁面樣式），問卷頁面可依此決定要顯示哪些題目
+    HealthAnalysisService.saveSelectedGoals(selectedGoals);
     navigate('/nutrition/question/1');
   };
 

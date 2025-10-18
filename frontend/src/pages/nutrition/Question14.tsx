@@ -6,6 +6,7 @@ const Question14 = () => {
       questionNumber={14}
       question="(睡眠)您一週需要幫入睡的頻率?"
       options={["幾乎不用", "一週1-3次", "幾乎天天難以入睡"]}
+      showIfGoal="睡眠"
       currentRoute="/nutrition/question/14"
       nextRoute="/nutrition/question/15"
       previousRoute="/nutrition/question/13"

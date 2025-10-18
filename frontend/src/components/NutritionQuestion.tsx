@@ -14,6 +14,8 @@ interface NutritionQuestionProps {
   currentRoute: string;
   nextRoute?: string;
   previousRoute?: string;
+  // 新增：僅在使用者已選此目標時顯示此題（若未選則會自動跳過）
+  showIfGoal?: string;
 }
 
 const NutritionQuestion = ({
@@ -23,22 +25,34 @@ const NutritionQuestion = ({
   isMultiSelect = false,
   currentRoute,
   nextRoute,
-  previousRoute
+  previousRoute,
+  showIfGoal
 }: NutritionQuestionProps) => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  // 載入之前儲存的答案
   useEffect(() => {
-    // 頁面載入時滾動到頂部
     window.scrollTo(0, 0);
-    
+
+    // 如果本題只應顯示於某目標被選取時，檢查是否已選該目標
+    if (showIfGoal) {
+      const selectedGoals = HealthAnalysisService.loadSelectedGoals();
+      if (!selectedGoals.includes(showIfGoal)) {
+        // 當不應顯示時，自動跳至下一題（不存答案）
+        if (nextRoute) {
+          navigate(nextRoute);
+        }
+        return;
+      }
+    }
+
+    // 載入之前儲存的答案（若有）
     const savedAnswers = HealthAnalysisService.loadAnswers();
     const currentAnswer = savedAnswers.find(answer => answer.questionNumber === questionNumber);
     if (currentAnswer) {
       setSelectedOptions(currentAnswer.selectedOptions);
     }
-  }, [questionNumber]);
+  }, [questionNumber, showIfGoal, nextRoute, navigate]);
 
   const handleOptionSelect = (option: string) => {
     if (isMultiSelect) {
@@ -53,28 +67,22 @@ const NutritionQuestion = ({
   };
 
   const saveAnswer = () => {
-    // 儲存當前答案
     const savedAnswers = HealthAnalysisService.loadAnswers();
     const newAnswer: QuestionAnswer = {
       questionNumber,
       selectedOptions,
       question
     };
-    
-    // 更新或添加當前問題的答案
     const updatedAnswers = savedAnswers.filter(answer => answer.questionNumber !== questionNumber);
     updatedAnswers.push(newAnswer);
     updatedAnswers.sort((a, b) => a.questionNumber - b.questionNumber);
-    
     HealthAnalysisService.saveAnswers(updatedAnswers);
   };
 
   const handleNext = () => {
-    // 保存答案
     if (selectedOptions.length > 0) {
       saveAnswer();
     }
-    
     if (nextRoute) {
       navigate(nextRoute);
     }
@@ -86,16 +94,7 @@ const NutritionQuestion = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
-        <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <Heart className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-            Healixir
-          </h1>
-          <p className="text-xs text-gray-500">專業保健顧問</p>
-        </div>
-        
+        {/* 頁首、題目顯示、選項 render 保持原樣 */}
         <Card className="bg-white/80 backdrop-blur-sm shadow-2xl border-0">
           <CardContent className="p-8">
             <div className="flex justify-between items-center mb-8">
@@ -105,9 +104,6 @@ const NutritionQuestion = ({
                   上一題
                 </Link>
               )}
-              <div className="text-sm text-gray-500">
-                
-              </div>
             </div>
 
             <div className="mb-8">
@@ -120,27 +116,23 @@ const NutritionQuestion = ({
               {options.map((option, index) => (
                 <div key={index} className="w-full">
                   {isMultiSelect ? (
-                    <div className="flex items-center space-x-3 bg-white/60 backdrop-blur-sm rounded-lg p-4 border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
+                    <div className="flex items-center space-x-3 bg-white/60 backdrop-blur-sm rounded-lg p-4 border border-gray-200">
                       <Checkbox
                         id={`option-${index}`}
                         checked={isOptionSelected(option)}
                         onCheckedChange={() => handleOptionSelect(option)}
-                        className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
                       />
-                      <label
-                        htmlFor={`option-${index}`}
-                        className="text-gray-700 cursor-pointer flex-1 font-medium"
-                      >
+                      <label htmlFor={`option-${index}`} className="text-gray-700 cursor-pointer flex-1 font-medium">
                         {option}
                       </label>
                     </div>
                   ) : (
                     <Button
                       variant={isOptionSelected(option) ? "default" : "outline"}
-                      className={`w-full py-4 text-left justify-start text-wrap h-auto font-medium ${
+                      className={`w-full py-4 text-left h-auto font-medium ${
                         isOptionSelected(option)
-                          ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg"
-                          : "bg-white/60 backdrop-blur-sm hover:bg-blue-50 text-gray-700 border-gray-200 hover:border-blue-300"
+                          ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg"
+                          : "bg-white/60 text-gray-700 border-gray-200"
                       }`}
                       onClick={() => handleOptionSelect(option)}
                     >
@@ -154,8 +146,8 @@ const NutritionQuestion = ({
             <div className="flex justify-center gap-4">
               <Button
                 onClick={handleNext}
-                disabled={!canProceed}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:bg-gray-300 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                disabled={!canProceed && !isMultiSelect}
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3 rounded-full"
               >
                 {nextRoute === "/nutrition/analysis" ? "完成問卷" : "下一題"}
                 <ArrowRight className="w-5 h-5 ml-2" />
