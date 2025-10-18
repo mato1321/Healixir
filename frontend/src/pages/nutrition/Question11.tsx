@@ -4,7 +4,7 @@ const Question11 = () => {
   return (
     <NutritionQuestion
       questionNumber={11}
-      question="(皮膚)您是否有皮膚缺乏水份和彈性的困擾"
+      question="您是否有皮膚缺乏水份和彈性的困擾"
       options={["是", "否"]}
       showIfGoal="皮膚"
       currentRoute="/nutrition/question/11"

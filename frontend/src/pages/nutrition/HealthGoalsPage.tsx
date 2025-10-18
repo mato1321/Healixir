@@ -8,6 +8,7 @@ import { HealthAnalysisService } from '@/services/healthAnalysis';
 const HealthGoalsPage = () => {
   const navigate = useNavigate();
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     // 頁面載入時滾動到頂部
@@ -18,7 +19,6 @@ const HealthGoalsPage = () => {
     if (prev && prev.length) setSelectedGoals(prev);
   }, []);
 
-  // 只改這裡的目標清單，頁面樣式其餘完全不變
   const healthGoals = [
     '眼睛',
     '骨關節',
@@ -30,17 +30,30 @@ const HealthGoalsPage = () => {
   ];
 
   const toggleGoal = (goal: string) => {
-    setSelectedGoals(prev => 
-      prev.includes(goal) 
+    setError("");
+    setSelectedGoals(prev =>
+      prev.includes(goal)
         ? prev.filter(g => g !== goal)
         : [...prev, goal]
     );
   };
 
   const handleNext = () => {
-    // 儲存選取的目標（不影響頁面樣式），問卷頁面可依此決定要顯示哪些題目
+    if (selectedGoals.length === 0) {
+      setError("請至少選擇一項目標以繼續");
+      return;
+    }
+    // 儲存選取的目標
     HealthAnalysisService.saveSelectedGoals(selectedGoals);
-    navigate('/nutrition/question/1');
+
+    // 直接計算第一個應該顯示的題目（避免從 question/1 開始被逐題跳過）
+    const first = HealthAnalysisService.getFirstVisibleQuestion(selectedGoals);
+    if (first) {
+      navigate(`/nutrition/question/${first}`);
+    } else {
+      // 若沒有任何題目要顯示，直接到分析頁
+      navigate('/nutrition/analysis');
+    }
   };
 
   const handlePrevious = () => {
@@ -55,9 +68,9 @@ const HealthGoalsPage = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
-                <img 
-                  src="/favicon.ico" 
-                  alt="Logo" 
+                <img
+                  src="/favicon.ico"
+                  alt="Logo"
                   className="w-10 h-10 mr-3"
                 />
                 <div>
@@ -88,9 +101,9 @@ const HealthGoalsPage = () => {
           <CardContent className="p-8">
             {/* 上一題按鈕 */}
             <div className="flex items-center mb-8">
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 className="text-blue-600 hover:text-blue-800 hover:bg-blue-50"
                 onClick={handlePrevious}
               >
@@ -100,7 +113,7 @@ const HealthGoalsPage = () => {
             </div>
 
             {/* 目標選擇網格 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-3">
               {healthGoals.map((goal) => (
                 <button
                   key={goal}
@@ -116,11 +129,16 @@ const HealthGoalsPage = () => {
               ))}
             </div>
 
+            {error && (
+              <p className="text-sm text-red-600 text-center mb-4">{error}</p>
+            )}
+
             {/* 下一題按鈕 */}
             <div className="flex justify-center">
-              <Button 
+              <Button
                 onClick={handleNext}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-16 py-4 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                disabled={selectedGoals.length === 0}
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-16 py-4 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:bg-gray-300 disabled:opacity-60"
               >
                 <span className="mr-3">繼續</span>
                 <ArrowRight className="w-6 h-6" />

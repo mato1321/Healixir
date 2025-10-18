@@ -4,7 +4,7 @@ const Question32 = () => {
   return (
     <NutritionQuestion
       questionNumber={32}
-      question="您是否經常熬夜?"
+      question="您是否經常熬夜? 是 / 否"
       options={["是", "否"]}
       currentRoute="/nutrition/question/32"
       nextRoute="/nutrition/question/33"

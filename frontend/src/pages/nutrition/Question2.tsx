@@ -4,7 +4,7 @@ const Question2 = () => {
   return (
     <NutritionQuestion
       questionNumber={2}
-      question="(眼睛)您是否曾經被診斷出以下幾種眼部疾病?"
+      question="您是否曾經被診斷出以下幾種眼部疾病?"
       options={["乾眼症", "青光眼", "黃斑部病變", "白內障"]}
       isMultiSelect={true}
       showIfGoal="眼睛"

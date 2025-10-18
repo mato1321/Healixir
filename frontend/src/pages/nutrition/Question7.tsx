@@ -4,7 +4,7 @@ const Question7 = () => {
   return (
     <NutritionQuestion
       questionNumber={7}
-      question="(腸胃)您是否有以下幾種腸胃問題"
+      question="您是否有以下幾種腸胃問題"
       options={["腹瀉", "脹氣", "便祕", "消化不良", "都沒有"]}
       isMultiSelect={true}
       showIfGoal="腸胃"

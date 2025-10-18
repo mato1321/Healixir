@@ -4,7 +4,7 @@ const Question8 = () => {
   return (
     <NutritionQuestion
       questionNumber={8}
-      question="(免疫力)您平均一年內感冒的次數"
+      question="您平均一年內感冒的次數"
       options={["0-1次", "2-4次", "5次以上"]}
       showIfGoal="免疫力"
       currentRoute="/nutrition/question/8"

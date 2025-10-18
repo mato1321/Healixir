@@ -30,35 +30,110 @@ export interface HealthAnalysisResult {
  * - 儲存 / 讀取問卷答案與使用者資料
  * - 儲存 / 讀取使用者在 Health Goals 頁面選擇的目標
  * - 分析問卷答案並計算簡單分數與建議
- *
- * 注意：
- * - 分數與建議為簡化實作，您可以根據業務規則調整各題的評分邏輯與建議文字。
  */
 export class HealthAnalysisService {
   /**
-   * 問題類別對應（可根據題目順序調整）
-   * 根據使用者提供的題目（1~38），將題號分派到不同分析面向
+   * 問題類別對應（1~38）
+   * - 眼睛: Q1-2
+   * - 骨關節: Q3-6
+   * - 腸胃: Q7
+   * - 免疫力: Q8
+   * - 精神體力: Q9-10
+   * - 皮膚: Q11-13
+   * - 睡眠: Q14, Q15, Q29-31, Q32
+   * - 飲食: Q16-25
+   * - 抽菸: Q26
+   * - 排便: Q27
+   * - 營養缺乏: Q28
+   * - 慢性病: Q34
+   * - 其他問題群: Q35
+   * - 服藥: Q36
+   * - 戶外日照: Q37
+   * - 運動: Q38
    */
   private static readonly QUESTION_CATEGORIES: { [key: string]: number[] } = {
-    eyes: [1, 2], // 眼睛相關
-    bones: [3, 4, 5, 6], // 骨關節相關
-    gut: [7], // 腸胃
-    immune: [8], // 免疫力（感冒次數）
-    mental: [9, 10, 15], // 精神體力、情緒
-    skin: [11, 12, 13], // 皮膚
-    sleep: [14, 29, 30, 31, 32], // 睡眠相關（包含熬夜）
-    diet: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25], // 飲食相關
+    eyes: [1, 2],
+    bones: [3, 4, 5, 6],
+    gut: [7],
+    immune: [8],
+    mental: [9, 10],
+    skin: [11, 12, 13],
+    sleep: [14, 15, 29, 30, 31, 32],
+    diet: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
     smoking: [26],
     bowel: [27],
     deficiency: [28],
-    chronic: [34, 35],
+    chronic: [34],
+    otherConditions: [35],
     meds: [36],
     outdoor: [37],
     exercise: [38]
   };
 
+  /**
+   * QUESTION_SHOW_IF: 若題目只在特定目標被選時顯示，請在此 mapping 上註明
+   * (題目 1..15 有綁定主題；16~38 為通用)
+   */
+  private static readonly QUESTION_SHOW_IF: { [questionNumber: number]: string } = {
+    1: "眼睛",
+    2: "眼睛",
+    3: "骨關節",
+    4: "骨關節",
+    5: "骨關節",
+    6: "骨關節",
+    7: "腸胃",
+    8: "免疫力",
+    9: "精神體力",
+    10: "精神體力",
+    11: "皮膚",
+    12: "皮膚",
+    13: "皮膚",
+    14: "睡眠",
+    15: "睡眠"
+    // 16-38 為通用（未列於此 mapping）
+  };
+
   // ------------------------------
-  // 分析主流程
+  // 新增：計算顯示題目的 helper（避免頁面逐個 mount 再跳轉造成閃動）
+  // ------------------------------
+  /**
+   * 取得第一個應顯示的題號（依照 1..38 的順序）
+   * 若沒有任何題目需要顯示，回傳 null
+   */
+  static getFirstVisibleQuestion(selectedGoals: string[]): number | null {
+    for (let q = 1; q <= 38; q++) {
+      const requiredGoal = this.QUESTION_SHOW_IF[q];
+      if (!requiredGoal) {
+        // 通用題，顯示
+        return q;
+      }
+      if (selectedGoals.includes(requiredGoal)) {
+        return q;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * 取得 currentQuestionNumber 之後下一個應顯示題目的題號，若找不到回傳 null
+   * selectedGoals 可選，若未提供會讀取 localStorage 的 selected goals
+   */
+  static getNextVisibleQuestion(currentQuestionNumber: number, selectedGoals?: string[]): number | null {
+    const goals = selectedGoals || this.loadSelectedGoals();
+    for (let q = currentQuestionNumber + 1; q <= 38; q++) {
+      const requiredGoal = this.QUESTION_SHOW_IF[q];
+      if (!requiredGoal) {
+        return q;
+      }
+      if (goals.includes(requiredGoal)) {
+        return q;
+      }
+    }
+    return null;
+  }
+
+  // ------------------------------
+  // 分析主流程（保留原有實作）
   // ------------------------------
   static analyzeAnswers(
     answers: QuestionAnswer[],
@@ -96,9 +171,7 @@ export class HealthAnalysisService {
     };
   }
 
-  // ------------------------------
-  // 計分流程
-  // ------------------------------
+  // 以下為原本的計分實作（未變動）
   private static calculateScores(answers: QuestionAnswer[]): HealthScores {
     const get = (category: string) =>
       this.calculateCategoryScore(answers, this.QUESTION_CATEGORIES[category] || [], category);
@@ -148,234 +221,149 @@ export class HealthAnalysisService {
     return count > 0 ? Math.round(total / count) : 50;
   }
 
-  /**
-   * 根據題號與選項回傳 0..100 的分數（越高越好）
-   * 這裡的邏輯為簡化示例，請根據實際需要調整映射
-   */
   private static getQuestionScore(questionNumber: number, selectedOptions: string[], category?: string): number {
-    // 若沒有回答，給預設中等分數
     if (!selectedOptions || selectedOptions.length === 0) return 50;
 
-    // 使用 switch 針對使用者提供的 1~38 題簡單評分
     switch (questionNumber) {
-      // 1: (眼睛) 乾澀 是/否
       case 1:
         return selectedOptions.includes('是') ? 30 : 90;
-
-      // 2: (眼睛) 被診斷出哪些眼部疾病（複選）
       case 2: {
         const problems = selectedOptions.length;
         if (problems === 0) return 90;
         return Math.max(90 - problems * 25, 20);
       }
-
-      // 3: 骨質密度過低 嚴重/輕微/不清楚
       case 3:
         if (selectedOptions.includes('嚴重')) return 20;
         if (selectedOptions.includes('輕微')) return 60;
         return 50;
-
-      // 4: 關節疼痛或腫脹 經常/偶爾/幾乎沒有
       case 4:
         if (selectedOptions.includes('經常')) return 25;
         if (selectedOptions.includes('偶爾')) return 60;
         return 90;
-
-      // 5: 關節靈活度不足 嚴重/輕微/不曾
       case 5:
         if (selectedOptions.includes('嚴重')) return 30;
         if (selectedOptions.includes('輕微')) return 65;
         return 90;
-
-      // 6: 運動後肌肉痠痛 是/否
       case 6:
         return selectedOptions.includes('是') ? 50 : 80;
-
-      // 7: 腸胃問題 複選（腹瀉/脹氣/便祕/消化不良/都沒有）
       case 7: {
         if (selectedOptions.includes('都沒有')) return 90;
-        const problems = selectedOptions.includes('都沒有') ? 0 : selectedOptions.length;
+        const problems = selectedOptions.length;
         return Math.max(85 - problems * 20, 25);
       }
-
-      // 8: 平均一年感冒次數 0-1 / 2-4 / 5次以上
       case 8:
         if (selectedOptions.includes('0-1次')) return 90;
         if (selectedOptions.includes('2-4次')) return 65;
         return 30;
-
-      // 9: 精神體力需要加強 是/否
       case 9:
         return selectedOptions.includes('是') ? 35 : 85;
-
-      // 10: 因 B 群 味道噁心 是/否
       case 10:
         return selectedOptions.includes('是') ? 40 : 85;
-
-      // 11: 皮膚缺乏水份與彈性 是/否
       case 11:
         return selectedOptions.includes('是') ? 40 : 85;
-
-      // 12: 皮膚容易長痘 是/否
       case 12:
         return selectedOptions.includes('是') ? 45 : 85;
-
-      // 13: 美白需求 是/否（偏主觀，若有需求分數低代表有改善空間）
       case 13:
         return selectedOptions.includes('是') ? 65 : 85;
-
-      // 14: 需要幫助入睡頻率 幾乎不用 / 一週1-3次 / 幾乎天天難以入睡
       case 14:
         if (selectedOptions.includes('幾乎不用')) return 90;
         if (selectedOptions.includes('一週1-3次')) return 60;
         return 25;
-
-      // 15: 最近情緒 焦慮 / 壓力大 / 低落 / 正常
       case 15:
         if (selectedOptions.includes('正常')) return 90;
         if (selectedOptions.includes('壓力大')) return 60;
         return selectedOptions.includes('低落') || selectedOptions.includes('焦慮') ? 35 : 60;
-
-      // 16: 飲食習慣 素食/葷食（簡單給分：均衡為佳，葷食或素食需看細節）
       case 16:
-        // 假設葷食或素食都非直接不好，給中上分
         return 75;
-
-      // 17: 日常飲食來源 餐廳 / 方便食品 / 自己煮
       case 17:
         if (selectedOptions.includes('自己煮')) return 90;
         if (selectedOptions.includes('餐廳')) return 70;
-        return 40; // 方便食品
-
-      // 18: 蔬菜攝取 0-2 / 3-5 / 5份以上
+        return 40;
       case 18:
         if (selectedOptions.includes('5份以上')) return 90;
         if (selectedOptions.includes('3-5份')) return 70;
         return 35;
-
-      // 19: 水果攝取 0-2 / 2-4 / 4份以上
       case 19:
         if (selectedOptions.includes('4份以上')) return 90;
         if (selectedOptions.includes('2-4份')) return 70;
         return 35;
-
-      // 20: 豆蛋魚肉類 少於1 / 1-2 / 3份以上
       case 20:
         if (selectedOptions.includes('3份以上')) return 90;
         if (selectedOptions.includes('1-2份')) return 70;
         return 35;
-
-      // 21: 奶製品攝取 少於1杯 / 1-2杯 / 2杯以上
       case 21:
         if (selectedOptions.includes('2杯以上')) return 85;
         if (selectedOptions.includes('1-2杯')) return 70;
         return 40;
-
-      // 22: 五穀雜糧 0-2 / 2-4 / 4碗以上
       case 22:
         if (selectedOptions.includes('2-4碗')) return 75;
         if (selectedOptions.includes('4碗以上')) return 90;
         return 45;
-
-      // 23: 水分攝取 少於1瓶 / 1-2瓶 / 3瓶以上
       case 23:
         if (selectedOptions.includes('3瓶以上')) return 90;
         if (selectedOptions.includes('1-2瓶')) return 70;
         return 40;
-
-      // 24: 飲酒頻率 每週0-1 / 2-8 / 9+
       case 24:
         if (selectedOptions.includes('每週0-1份')) return 90;
         if (selectedOptions.includes('每週2-8份')) return 65;
         return 30;
-
-      // 25: 飲酒隔天不適 經常 / 偶爾 / 從來不會 / 很少飲酒不清楚
       case 25:
         if (selectedOptions.includes('從來不會')) return 90;
         if (selectedOptions.includes('偶爾')) return 65;
         if (selectedOptions.includes('經常')) return 30;
         return 50;
-
-      // 26: 抽菸頻率（頻率越高分數越低）
       case 26:
         if (selectedOptions.includes('幾乎不抽菸')) return 90;
         if (selectedOptions.includes('一週1-2包')) return 60;
         if (selectedOptions.includes('每天半包')) return 40;
         return 20;
-
-      // 27: 排便頻率（一天一次為標準）
       case 27:
         if (selectedOptions.includes('一天一次')) return 90;
         if (selectedOptions.includes('一天三次以上')) return 75;
         if (selectedOptions.includes('兩天一次')) return 50;
         return 30;
-
-      // 28: 半年內被診斷缺乏養分 複選（鐵/鈣/維生素B/C/D/都沒有）
       case 28:
         if (selectedOptions.includes('都沒有')) return 90;
-        const defs = selectedOptions.includes('都沒有') ? 0 : selectedOptions.length;
+        const defs = selectedOptions.length;
         return Math.max(85 - defs * 20, 20);
-
-      // 29: 平均多久睡著 30分鐘以內 / 30分鐘以上
       case 29:
         return selectedOptions.includes('30分鐘以內') ? 90 : 40;
-
-      // 30: 睡眠品質 能一覺到天亮 / 睡睡醒醒 / 提早甦醒
       case 30:
         if (selectedOptions.includes('能一覺到天亮')) return 90;
         if (selectedOptions.includes('睡睡醒醒')) return 50;
         return 40;
-
-      // 31: 多夢 經常 / 偶爾 / 很少
       case 31:
         if (selectedOptions.includes('很少')) return 90;
         if (selectedOptions.includes('偶爾')) return 65;
         return 35;
-
-      // 32: 是否經常熬夜 是/否
       case 32:
         return selectedOptions.includes('是') ? 30 : 85;
-
-      // 33: 久坐/同姿勢/提重物 是/否
       case 33:
         return selectedOptions.includes('是') ? 40 : 85;
-
-      // 34: 高血壓/高血脂/高血糖/心臟/腎臟/肝臟/都沒有 複選
       case 34:
         if (selectedOptions.includes('都沒有')) return 90;
         return Math.max(80 - selectedOptions.length * 15, 20);
-
-      // 35: 痛風/貧血/氣喘/子宮卵巢/乳房/紅斑性狼瘡/乳糖不耐症/都沒有 複選
       case 35:
         if (selectedOptions.includes('都沒有')) return 90;
         return Math.max(80 - selectedOptions.length * 12, 20);
-
-      // 36: 規律服用藥物 抗凝血/降血脂/激素/抗生素/消炎止痛/都沒有
       case 36:
         if (selectedOptions.includes('都沒有')) return 90;
-        // 使用藥物會影響建議風險評估
         return Math.max(70 - (selectedOptions.length - 1) * 10, 30);
-
-      // 37: 每日待在戶外時長 少於15 / 15-60 / 1小時以上
       case 37:
         if (selectedOptions.includes('1小時以上')) return 90;
         if (selectedOptions.includes('15-60分鐘')) return 70;
         return 40;
-
-      // 38: 每週運動頻率 幾乎不運動 / 1-2次 / 3次以上
       case 38:
         if (selectedOptions.includes('3次以上')) return 90;
         if (selectedOptions.includes('1-2次')) return 65;
         return 30;
-
       default:
-        // 若未特別處理，回傳中間分數
         return 50;
     }
   }
 
   // ------------------------------
-  // 改善建議與風險判斷
+  // 改善建議與風險判斷（同原實作）
   // ------------------------------
   private static identifyImprovementAreas(scores: HealthScores): string[] {
     const areas: string[] = [];

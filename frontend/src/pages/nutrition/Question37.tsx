@@ -4,7 +4,7 @@ const Question37 = () => {
   return (
     <NutritionQuestion
       questionNumber={37}
-      question="您平均每日待在戶外的時長?"
+      question="您平均每日待在戶外的時長? 少於15分鐘 / 15-60分鐘 / 1小時以上"
       options={["少於15分鐘", "15-60分鐘", "1小時以上"]}
       currentRoute="/nutrition/question/37"
       nextRoute="/nutrition/question/38"

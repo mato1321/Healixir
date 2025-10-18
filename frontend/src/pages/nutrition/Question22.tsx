@@ -4,7 +4,7 @@ const Question22 = () => {
   return (
     <NutritionQuestion
       questionNumber={22}
-      question="每日五穀雜糧攝取?"
+      question="每日五穀雜糧攝取? 0-2碗 / 2-4碗 / 4碗以上"
       options={["0-2碗", "2-4碗", "4碗以上"]}
       currentRoute="/nutrition/question/22"
       nextRoute="/nutrition/question/23"

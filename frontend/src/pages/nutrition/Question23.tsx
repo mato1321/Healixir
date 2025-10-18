@@ -4,7 +4,7 @@ const Question23 = () => {
   return (
     <NutritionQuestion
       questionNumber={23}
-      question="平均每日水分攝取(一瓶 = 600cc寶特瓶)?"
+      question="平均每日水分攝取(一瓶 = 600cc寶特瓶)? 少於1瓶 / 1-2瓶 / 3瓶以上"
       options={["少於1瓶", "1-2瓶", "3瓶以上"]}
       currentRoute="/nutrition/question/23"
       nextRoute="/nutrition/question/24"
