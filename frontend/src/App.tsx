@@ -12,10 +12,23 @@ import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
 import Cart from "./pages/shop/Cart";
 import ShopDetail from "./pages/shop/shopDetail";
-import LuteinProductPage from "./pages/shopping/LuteinProductPage";  // 蓉易明葉黃素專屬頁面
-import MinshiEProductPage from "./pages/shopping/MinshiEProductPage";  // 明適E葉黃素II代專屬頁面
-import JinJingMingProductPage from "./pages/shopping/JinJingMingProductPage";  // 金博氏金晶明膠囊專屬頁面
-import XinShuMuProductPage from "./pages/shopping/XinShuMuProductPage";  // 新舒目寶軟膠囊專屬頁面
+
+// 14個商品詳細頁面 imports
+import MingShiELuteinProductPage from "./pages/shopping/MingShiELuteinProductPage";
+import SyncoreRongYiMingProductPage from "./pages/shopping/SyncoreRongYiMingProductPage";
+import JyanyehCoralCalciumProductPage from "./pages/shopping/JyanyehCoralCalciumProductPage";
+import GoldCalciumPlusProductPage from "./pages/shopping/GoldCalciumPlusProductPage";
+import DrkimSugarManagerProductPage from "./pages/shopping/DrkimSugarManagerProductPage";
+import BaojianHealthRelaxProductPage from "./pages/shopping/BaojianHealthRelaxProductPage";
+import JyanyehFishOilProductPage from "./pages/shopping/JyanyehFishOilProductPage";
+import YouBioticsProductPage from "./pages/shopping/YouBioticsProductPage";
+import GuardProbioticsProductPage from "./pages/shopping/GuardProbioticsProductPage";
+import LightEnzymeProductPage from "./pages/shopping/LightEnzymeProductPage";
+import JyanyehSuperBComplexProductPage from "./pages/shopping/JyanyehSuperBComplexProductPage";
+import MindGuardianProductPage from "./pages/shopping/MindGuardianProductPage";
+import ShieldDefenderProductPage from "./pages/shopping/ShieldDefenderProductPage";
+import GoldenGlowProductPage from "./pages/shopping/GoldenGlowProductPage";
+
 import ContactUs from "./pages/legal/ContactUs";
 import Member from "./pages/member/index";
 import EditProfile from "./pages/member/EditProfile";  // 新增編輯個人資料頁面
@@ -97,11 +110,21 @@ const AppContent = () => {
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/shopDetail" element={<ShopDetail />} />
             
-            {/* 專屬商品詳情路由 - 必須放在通用路由之前 */}
-            <Route path="/product/lutein-complex" element={<LuteinProductPage />} />
-            <Route path="/product/lutein-gen2" element={<MinshiEProductPage />} />
-            <Route path="/product/gold-eye-capsule" element={<JinJingMingProductPage />} />
-            <Route path="/product/xinshumu-softgel" element={<XinShuMuProductPage />} />
+            {/* 14個商品詳情路由 */}
+            <Route path="/product/ming-shi-e-lutein" element={<MingShiELuteinProductPage />} />
+            <Route path="/product/syncore-rong-yi-ming" element={<SyncoreRongYiMingProductPage />} />
+            <Route path="/product/jyanyeh-coral-calcium" element={<JyanyehCoralCalciumProductPage />} />
+            <Route path="/product/gold-calcium-plus" element={<GoldCalciumPlusProductPage />} />
+            <Route path="/product/drkim-sugar-manager" element={<DrkimSugarManagerProductPage />} />
+            <Route path="/product/baojian-health-relax" element={<BaojianHealthRelaxProductPage />} />
+            <Route path="/product/jyanyeh-fish-oil" element={<JyanyehFishOilProductPage />} />
+            <Route path="/product/you-biotics" element={<YouBioticsProductPage />} />
+            <Route path="/product/guard-probiotics" element={<GuardProbioticsProductPage />} />
+            <Route path="/product/light-enzyme" element={<LightEnzymeProductPage />} />
+            <Route path="/product/jyanyeh-super-b-complex" element={<JyanyehSuperBComplexProductPage />} />
+            <Route path="/product/mind-guardian" element={<MindGuardianProductPage />} />
+            <Route path="/product/shield-defender" element={<ShieldDefenderProductPage />} />
+            <Route path="/product/golden-glow" element={<GoldenGlowProductPage />} />
                         
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact" element={<ContactUs />} />

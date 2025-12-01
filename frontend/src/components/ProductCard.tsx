@@ -1,114 +1,146 @@
+import React from 'react';
+import { Star, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-import { Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-
-interface Product {
+interface ProductCardProps {
   id: string;
   name: string;
   category: string;
-  description?: string;
   price: number;
-  originalPrice?: number;
   rating: number;
   reviewCount: number;
   image: string;
-}
-
-interface ProductCardProps {
-  product: Product;
-  count: number;
+  quantity: number;
   onUpdateCount: (change: number) => void;
 }
 
-export const ProductCard = ({ product, count, onUpdateCount }: ProductCardProps) => {
-  const StarRating = ({ rating, reviewCount }: { rating: number; reviewCount: number }) => (
-    <div className="flex items-center space-x-1 mb-2">
-      <div className="flex">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`text-sm ${star <= rating ? "text-yellow-400" : "text-gray-300"}`}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-      <span className="text-xs text-gray-500">
-        {rating} ({reviewCount})
-      </span>
-    </div>
-  );
+const ProductCard: React.FC<ProductCardProps> = ({
+  id,
+  name,
+  category,
+  price,
+  rating,
+  reviewCount,
+  image,
+  quantity,
+  onUpdateCount,
+}) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    console.log('導航到商品詳細頁:', id);
+    navigate(`/product/${id}`);
+  };
+
+  const handleAddToCart = () => {
+    console.log('加入購物車:', id);
+    onUpdateCount(1);
+  };
+
+  const handleIncrement = () => {
+    console.log('增加數量:', id);
+    onUpdateCount(1);
+  };
+
+  const handleDecrement = () => {
+    console.log('減少數量:', id);
+    onUpdateCount(-1);
+  };
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 bg-white border border-gray-200">
-      <CardContent className="p-4">
-        <div className="space-y-3">
-          {/* Product Image */}
-          <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-          
-          {/* Product Info */}
-          <div>
-            <h3 className="font-medium text-gray-900 mb-1 line-clamp-2 min-h-[2.5rem] text-sm">
-              {product.name}
-            </h3>
-            
-            {product.description && (
-              <p className="text-xs text-gray-600 line-clamp-2 mb-2">
-                {product.description}
-              </p>
-            )}
-            
-            <StarRating rating={product.rating} reviewCount={product.reviewCount} />
-            
-            {/* Price */}
-            <div className="flex items-center space-x-2 mb-3">
-              <span className="text-lg font-bold text-gray-900">
-                NT$ {product.price.toLocaleString()}
-              </span>
-            </div>
-          </div>
-          
-          {/* Add to Cart Button or Quantity Controls */}
-          <div className="flex items-center justify-center">
-            {count === 0 ? (
-              <Button
-                onClick={() => onUpdateCount(1)}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-full h-8 text-sm font-medium"
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                加入
-              </Button>
-            ) : (
-              <div className="flex items-center space-x-3">
-                <Button
-                  variant="outline"
-                  onClick={() => onUpdateCount(-1)}
-                  className="h-10 w-10 rounded-full border-gray-300 text-lg font-medium"
-                >
-                  -
-                </Button>
-                <span className="text-lg font-bold min-w-[2rem] text-center">
-                  {count}
-                </span>
-                <Button
-                  variant="outline"
-                  onClick={() => onUpdateCount(1)}
-                  className="h-10 w-10 rounded-full border-gray-300 text-lg font-medium"
-                >
-                  +
-                </Button>
-              </div>
-            )}
-          </div>
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+      {/* 圖片區域 - 可點擊進入詳細頁 */}
+      <div 
+        onClick={handleCardClick}
+        className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-cyan-50 aspect-square cursor-pointer group"
+      >
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = 'https://via.placeholder.com/300? text=Product+Image';
+          }}
+        />
+        <div className="absolute top-2 right-2 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+          {category}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      {/* 商品資訊區域 */}
+      <div className="p-6">
+        {/* 商品名稱 - 可點擊進入詳細頁 */}
+        <h3 
+          onClick={handleCardClick}
+          className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer"
+        >
+          {name}
+        </h3>
+
+        {/* 評分 */}
+        <div className="flex items-center space-x-2 mb-3">
+          <div className="flex items-center">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < Math.floor(rating)
+                    ? 'fill-yellow-400 text-yellow-400'
+                    : 'text-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-sm text-gray-600">
+            {rating} ({reviewCount})
+          </span>
+        </div>
+
+        {/* 價格 */}
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-2xl font-bold text-blue-600">
+            NT$ {price.toLocaleString()}
+          </span>
+        </div>
+
+        {/* 購物車操作區域 */}
+        <div className="flex items-center space-x-2">
+          {quantity > 0 ? (
+            // ★ 已加入購物車 → 只顯示增減按鈕
+            <div className="flex items-center justify-center space-x-4 w-full">
+              <button
+                onClick={handleDecrement}
+                className="h-9 w-9 rounded-lg border border-gray-300 hover:border-blue-500 hover:bg-blue-50 flex items-center justify-center transition-colors"
+              >
+                <Minus className="w-4 h-4 text-gray-700" />
+              </button>
+
+              <span className="text-lg font-semibold min-w-[30px] text-center">
+                {quantity}
+              </span>
+
+              <button
+                onClick={handleIncrement}
+                className="h-9 w-9 rounded-lg border border-gray-300 hover:border-blue-500 hover:bg-blue-50 flex items-center justify-center transition-colors"
+              >
+                <Plus className="w-4 h-4 text-gray-700" />
+              </button>
+            </div>
+          ) : (
+            // ★ 尚未加入購物車 → 顯示完整加入購物車按鈕
+            <button
+              onClick={handleAddToCart}
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white h-10 rounded-lg font-semibold transition-all flex items-center justify-center"
+            >
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              加入購物車
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
+
+export default ProductCard;
