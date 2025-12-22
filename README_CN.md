@@ -22,45 +22,54 @@
 
 ---
 
-## 📖 介紹
+## 介紹
 
 <img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
 
 **Healixir** 是一套整合健康數據分析平台與自主研發推薦演算法的智慧型健康保健品推薦系統。透過分析您個人的健康狀況、生活習慣與個人需求，運用我們自行設計的多維度評分演算法，為您提供量身客製化的保健品建議。
 
-### 🎯 適用族群
+### 適用族群
 
 <table>
   <tr>
-    <td align="center">💪<br/><b>增強免疫力</b></td>
-    <td align="center">🧠<br/><b>改善記憶與專注</b></td>
-    <td align="center">😴<br/><b>改善日常睡眠</b></td>
-    <td align="center">🏃<br/><b>提升運動表現</b></td>
+    <td align="center"><br/><b>增強免疫力</b></td>
+    <td align="center"><br/><b>改善記憶與專注</b></td>
+    <td align="center"><br/><b>改善日常睡眠</b></td>
+    <td align="center"><br/><b>提升運動表現</b></td>
   </tr>
 </table>
 
 ---
+## Project Showcase
 
-## 🚀 主要功能
+### Introduction Video
+[YouTube Video](https://youtu.be/oG7XTWUXU-k)
+
+### Resources
+- [Full Project Report (PDF)](https://github.com/mato1321/Healixir/blob/main/Healixir.pdf)
+
+---
+
+## 主要功能
 
 <details open>
-<summary><b>📋 核心功能一覽</b></summary>
+<summary><b>核心功能一覽</b></summary>
 
 | 功能 | 說明 |
 |------|------|
-| 👤 **用戶管理** | 完整的用戶註冊、登入與個人資料管理 |
-| 📝 **個人資料編輯** | 編輯個人資訊與健康數據 |
-| 🔐 **安全身份驗證** | 基於 JWT 的身份驗證與密碼加密 |
-| 📊 **健康數據儲存** | PostgreSQL 資料庫完整記錄用戶健康資料 |
-| 🔒 **隱私保護** | 採用加密技術保護數據安全 |
-| 🧮 **獨家演算法推薦** | 基於自研演算法的個人化保健品推薦 |
-| 📈 **視覺化分析** | 直觀的圖表展示健康趨勢 |
+| **用戶管理** | 完整的用戶註冊、登入與個人資料管理 |
+| **個人資料編輯** | 編輯個人資訊與健康數據 |
+| **安全身份驗證** | 基於 JWT 的身份驗證與密碼加密 |
+| **健康數據儲存** | PostgreSQL 資料庫完整記錄用戶健康資料 |
+| **隱私保護** | 採用加密技術保護數據安全 |
+| **獨家演算法推薦** | 基於自研演算法的個人化保健品推薦 |
+| **視覺化分析** | 直觀的圖表展示健康趨勢 |
 
 </details>
 
 ---
 
-## 🏗️ 系統架構
+## 系統架構
 
 <div align="center">
   
@@ -105,7 +114,7 @@ graph TD
 
 </div>
 
-### 🛠️ 技術棧
+### 技術棧
 
 **前端技術：**
 - React 18.3.1 + TypeScript
@@ -156,9 +165,9 @@ graph TD
 
 ---
 
-## 🚀 快速開始
+##  快速開始
 
-### 📋 系統需求
+### 系統需求
 
 - **Node.js** ≥ 14.0.0
 - **Python** ≥ 3.8
@@ -166,10 +175,10 @@ graph TD
 - **npm** ≥ 6.0.0 或 **yarn** ≥ 1.22.0
 - **Git** 最新版本
 
-### 📦 安裝步驟
+### 安裝步驟
 
 <details>
-<summary><b>📥 Step 1: Clone 專案</b></summary>
+<summary><b>Step 1: Clone 專案</b></summary>
 
 ```bash
 # 複製專案到本地
@@ -182,7 +191,7 @@ cd Healixir
 </details>
 
 <details>
-<summary><b>🗄️ Step 2: 資料庫設定</b></summary>
+<summary><b>Step 2: 資料庫設定</b></summary>
 
 ```bash
 # 安裝並啟動 PostgreSQL
@@ -197,9 +206,9 @@ psql -c "GRANT ALL PRIVILEGES ON DATABASE drug_recommend_db TO drug_user;"
 </details>
 
 <details>
-<summary><b>⚙️ Step 3: 後端設定</b></summary>
+<summary><b>Step 3: 後端設定</b></summary>
 
-#### 🐍 Python FastAPI 後端
+#### Python FastAPI 後端
 
 ```bash
 # 進入後端目錄
@@ -233,12 +242,12 @@ alembic upgrade head
 python -m app.main
 ```
 
-> 🔧 後端服務預設運行於 `http://localhost:8000`
+> 後端服務預設運行於 `http://localhost:8000`
 
 </details>
 
 <details>
-<summary><b>🎨 Step 4: 前端設定</b></summary>
+<summary><b>Step 4: 前端設定</b></summary>
 
 ```bash
 # 進入前端目錄
@@ -255,15 +264,15 @@ npm run dev
 yarn dev
 ```
 
-> 🌐 前端服務預設運行於 `http://localhost:5173` (Vite 默認端口)
+> 前端服務預設運行於 `http://localhost:5173` (Vite 默認端口)
 
 </details>
 
 ---
 
-## 📖 使用指南
+## 使用指南
 
-### 🎯 快速上手
+### 快速上手
 
 <table>
   <tr>
@@ -310,9 +319,9 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ---
 
-## 🔧 環境設定
+## 環境設定
 
-### 📝 環境變數配置
+### 環境變數配置
 
 請在 `.env` 檔案中加入以下設定：
 
@@ -341,48 +350,48 @@ BACKEND_CORS_ORIGINS=["http://localhost:3000", "http://localhost:5173"]
 
 ```
 Healixir/
-├── 🎨 frontend/
-│   ├── 📁 src/
-│   │   ├── 📁 components/        # 可重用 UI 組件
-│   │   ├── 📁 pages/            # 應用程式頁面
-│   │   │   ├── 📄 Register.tsx   # 用戶註冊頁面
-│   │   │   └── 📁 member/
-│   │   │       └── 📄 editProfile.tsx  # 個人資料編輯
-│   │   ├── 📁 lib/              # 工具庫
-│   │   └── 📄 App.tsx           # 主應用程式組件
-│   ├── 📄 package.json
-│   └── 📄 vite.config.ts
-├── ⚙️ backend/
-│   ├── 📁 app/
-│   │   ├── 📁 api/              # API 路由處理器
-│   │   │   ├── 📄 auth.py       # 身份驗證路由
-│   │   │   ├── 📄 deps.py       # 依賴注入
-│   │   │   └── 📁 v1/
-│   │   │       └── 📄 users.py  # 用戶管理路由
-│   │   ├── 📁 core/             # 核心應用邏輯
-│   │   │   ├── 📄 config.py     # 配置設定
-│   │   │   ├── 📄 database.py   # 資料庫連接
-│   │   │   └── 📄 security.py   # 安全工具
-│   │   ├── 📁 crud/             # 資料庫操作
-│   │   │   └── 📄 user.py       # 用戶 CRUD 操作
-│   │   ├── 📁 models/           # 資料庫模型
-│   │   │   └── 📄 user.py       # 用戶模型定義
-│   │   ├── 📁 schemas/          # Pydantic 模式
-│   │   │   └── 📄 user.py       # 用戶資料驗證
-│   │   └── 📄 main.py           # FastAPI 應用程式
-│   ├── 📁 alembic/              # 資料庫遷移
-│   ├── 📄 .env                  # 環境變數
-│   └── 📄 requirements.txt      # Python 依賴套件
-└── 📄 README.md
+├── frontend/
+│   ├── src/
+│   │   ├── components/        # 可重用 UI 組件
+│   │   ├── pages/            # 應用程式頁面
+│   │   │   ├── Register.tsx   # 用戶註冊頁面
+│   │   │   └── member/
+│   │   │       └── editProfile.tsx  # 個人資料編輯
+│   │   ├── lib/              # 工具庫
+│   │   └── App.tsx           # 主應用程式組件
+│   ├── package.json
+│   └── vite.config.ts
+├── backend/
+│   ├── app/
+│   │   ├── api/              # API 路由處理器
+│   │   │   ├── auth.py       # 身份驗證路由
+│   │   │   ├── deps.py       # 依賴注入
+│   │   │   └── v1/
+│   │   │       └── users.py  # 用戶管理路由
+│   │   ├── core/             # 核心應用邏輯
+│   │   │   ├── config.py     # 配置設定
+│   │   │   ├── database.py   # 資料庫連接
+│   │   │   └── security.py   # 安全工具
+│   │   ├── crud/             # 資料庫操作
+│   │   │   └── user.py       # 用戶 CRUD 操作
+│   │   ├── models/           # 資料庫模型
+│   │   │   └── user.py       # 用戶模型定義
+│   │   ├── schemas/          # Pydantic 模式
+│   │   │   └── user.py       # 用戶資料驗證
+│   │   └── main.py           # FastAPI 應用程式
+│   ├── alembic/              # 資料庫遷移
+│   ├── .env                  # 環境變數
+│   └── requirements.txt      # Python 依賴套件
+└── README.md
 ```
 
 ---
 
-## 🤝 貢獻指南
+## 貢獻指南
 
 歡迎提供建議和回饋！
 
-### 📝 如何貢獻
+### 如何貢獻
 
 1. **Fork** 專案到您的 GitHub
 2. **Clone** 到本地：`git clone https://github.com/your-username/Healixir.git`
@@ -391,12 +400,12 @@ Healixir/
 5. **推送**：`git push origin feature/your-feature`
 6. **開啟** Pull Request
 
-### 📧 或者直接聯絡我們
+### 或者直接聯絡我們
 如有建議請寄信至：charleskao811@gmail.com
 
 ---
 
-## 📞 聯絡資訊
+## 聯絡資訊
 
 <div align="center">
 
@@ -408,7 +417,7 @@ Healixir/
 
 ---
 
-## 💝 致謝
+## 致謝
 
 <div align="center">
   
