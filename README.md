@@ -19,50 +19,58 @@
   <br/>
   
   [中文檔案](README_CN.md)
-  [YouTube Video](https://youtu.be/oG7XTWUXU-k)
 </div>
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 <img align="right" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pill.png" width="150" alt="Pill">
 
 **Healixir** is an integrated health data analytics platform with a proprietary recommendation algorithm for intelligent health supplement recommendations. By analyzing your personal health status, lifestyle habits, and individual needs, our self-developed multi-dimensional scoring algorithm provides customized supplement suggestions tailored specifically for you.
 
-### 🎯 Target Audience
+### Target Audience
 
 <table>
   <tr>
-    <td align="center">💪<br/><b>Boost Immunity</b></td>
-    <td align="center">🧠<br/><b>Improve Memory & Focus</b></td>
-    <td align="center">😴<br/><b>Better Sleep Quality</b></td>
-    <td align="center">🏃<br/><b>Enhance Athletic Performance</b></td>
+    <td align="center"><br/><b>Boost Immunity</b></td>
+    <td align="center"><br/><b>Improve Memory & Focus</b></td>
+    <td align="center"><br/><b>Better Sleep Quality</b></td>
+    <td align="center"><br/><b>Enhance Athletic Performance</b></td>
   </tr>
 </table>
 
 ---
+## Project Showcase
 
-## 🚀 Key Features
+### Introduction Video
+[YouTube Video](https://youtu.be/oG7XTWUXU-k)
+
+### Resources
+- [Full Project Report (PDF)](https://github.com/mato1321/Healixir/blob/main/Healixir.pdf)
+
+---
+
+## Key Features
 
 <details open>
-<summary><b>📋 Core Features Overview</b></summary>
+<summary><b> Core Features Overview</b></summary>
 
 | Feature | Description |
 |---------|-------------|
-| 👤 **User Management** | Complete user registration, login, and profile management |
-| 📝 **Profile Editing** | Edit personal information and health data |
-| 🔐 **Secure Authentication** | JWT-based authentication with encrypted passwords |
-| 📊 **Health Data Storage** | PostgreSQL database with complete user health records |
-| 🔒 **Privacy Protection** | Encrypted technology to protect your data |
-| 🧮 **Proprietary Algorithm Recommendations** | Personalized supplement recommendations based on our custom algorithm |
-| 📈 **Visual Analytics** | Intuitive charts displaying health trends |
+|  **User Management** | Complete user registration, login, and profile management |
+|  **Profile Editing** | Edit personal information and health data |
+|  **Secure Authentication** | JWT-based authentication with encrypted passwords |
+|  **Health Data Storage** | PostgreSQL database with complete user health records |
+|  **Privacy Protection** | Encrypted technology to protect your data |
+|  **Proprietary Algorithm Recommendations** | Personalized supplement recommendations based on our custom algorithm |
+|  **Visual Analytics** | Intuitive charts displaying health trends |
 
 </details>
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 <div align="center">
   
@@ -107,7 +115,7 @@ graph TD
 
 </div>
 
-### 🛠️ Technology Stack
+### Technology Stack
 
 **Frontend Technologies:**
 - React 18.3.1 + TypeScript
@@ -158,9 +166,9 @@ graph TD
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
-### 📋 System Requirements
+### System Requirements
 
 - **Node.js** ≥ 14.0.0
 - **Python** ≥ 3.8
@@ -168,10 +176,10 @@ graph TD
 - **npm** ≥ 6.0.0 or **yarn** ≥ 1.22.0
 - **Git** Latest version
 
-### 📦 Installation Steps
+### Installation Steps
 
 <details>
-<summary><b>📥 Step 1: Clone the Project</b></summary>
+<summary><b>Step 1: Clone the Project</b></summary>
 
 ```bash
 # Clone the project locally
@@ -184,7 +192,7 @@ cd Healixir
 </details>
 
 <details>
-<summary><b>🗄️ Step 2: Database Setup</b></summary>
+<summary><b>Step 2: Database Setup</b></summary>
 
 ```bash
 # Install and start PostgreSQL
@@ -199,9 +207,9 @@ psql -c "GRANT ALL PRIVILEGES ON DATABASE drug_recommend_db TO drug_user;"
 </details>
 
 <details>
-<summary><b>⚙️ Step 3: Backend Setup</b></summary>
+<summary><b>Step 3: Backend Setup</b></summary>
 
-#### 🐍 Python FastAPI Backend
+#### Python FastAPI Backend
 
 ```bash
 # Enter the backend directory
@@ -235,12 +243,12 @@ alembic upgrade head
 python -m app.main
 ```
 
-> 🔧 Backend service runs on `http://localhost:8000` by default
+> Backend service runs on `http://localhost:8000` by default
 
 </details>
 
 <details>
-<summary><b>🎨 Step 4: Frontend Setup</b></summary>
+<summary><b> Step 4: Frontend Setup</b></summary>
 
 ```bash
 # Enter the frontend directory
@@ -257,15 +265,15 @@ npm run dev
 yarn dev
 ```
 
-> 🌐 Frontend service runs on `http://localhost:5173` by default (Vite default port)
+>  Frontend service runs on `http://localhost:5173` by default (Vite default port)
 
 </details>
 
 ---
 
-## 📖 User Guide
+## User Guide
 
-### 🎯 Getting Started
+### Getting Started
 
 <table>
   <tr>
@@ -312,9 +320,9 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ---
 
-## 🔧 Environment Configuration
+## Environment Configuration
 
-### 📝 Environment Variables Configuration
+### Environment Variables Configuration
 
 Please add the following settings to your `.env` file:
 
@@ -343,48 +351,48 @@ BACKEND_CORS_ORIGINS=["http://localhost:3000", "http://localhost:5173"]
 
 ```
 Healixir/
-├── 🎨 frontend/
-│   ├── 📁 src/
-│   │   ├── 📁 components/        # Reusable UI components
-│   │   ├── 📁 pages/            # Application pages
-│   │   │   ├── 📄 Register.tsx   # User registration
-│   │   │   └── 📁 member/
-│   │   │       └── 📄 editProfile.tsx  # Profile editing
-│   │   ├── 📁 lib/              # Utility libraries
-│   │   └── 📄 App.tsx           # Main application component
-│   ├── 📄 package.json
-│   └── 📄 vite.config.ts
+├── frontend/
+│   ├── src/
+│   │   ├── components/        # Reusable UI components
+│   │   ├── pages/            # Application pages
+│   │   │   ├── Register.tsx   # User registration
+│   │   │   └── member/
+│   │   │       └── editProfile.tsx  # Profile editing
+│   │   ├── lib/              # Utility libraries
+│   │   └── App.tsx           # Main application component
+│   ├── package.json
+│   └── vite.config.ts
 ├── ⚙️ backend/
-│   ├── 📁 app/
-│   │   ├── 📁 api/              # API route handlers
-│   │   │   ├── 📄 auth.py       # Authentication routes
-│   │   │   ├── 📄 deps.py       # Dependency injection
-│   │   │   └── 📁 v1/
-│   │   │       └── 📄 users.py  # User management routes
-│   │   ├── 📁 core/             # Core application logic
-│   │   │   ├── 📄 config.py     # Configuration settings
-│   │   │   ├── 📄 database.py   # Database connection
-│   │   │   └── 📄 security.py   # Security utilities
-│   │   ├── 📁 crud/             # Database operations
-│   │   │   └── 📄 user.py       # User CRUD operations
-│   │   ├── 📁 models/           # Database models
-│   │   │   └── 📄 user.py       # User model definition
-│   │   ├── 📁 schemas/          # Pydantic schemas
-│   │   │   └── 📄 user.py       # User data validation
-│   │   └── 📄 main.py           # FastAPI application
-│   ├── 📁 alembic/              # Database migrations
-│   ├── 📄 .env                  # Environment variables
-│   └── 📄 requirements.txt      # Python dependencies
-└── 📄 README.md
+│   ├── app/
+│   │   ├── api/              # API route handlers
+│   │   │   ├── auth.py       # Authentication routes
+│   │   │   ├── deps.py       # Dependency injection
+│   │   │   └── v1/
+│   │   │       └── users.py  # User management routes
+│   │   ├── core/             # Core application logic
+│   │   │   ├── config.py     # Configuration settings
+│   │   │   ├── database.py   # Database connection
+│   │   │   └── security.py   # Security utilities
+│   │   ├── crud/             # Database operations
+│   │   │   └── user.py       # User CRUD operations
+│   │   ├── models/           # Database models
+│   │   │   └── user.py       # User model definition
+│   │   ├── schemas/          # Pydantic schemas
+│   │   │   └── user.py       # User data validation
+│   │   └── main.py           # FastAPI application
+│   ├── alembic/              # Database migrations
+│   ├── .env                  # Environment variables
+│   └── requirements.txt      # Python dependencies
+└── README.md
 ```
 
 ---
 
-## 🤝 Contributing Guidelines
+## Contributing Guidelines
 
 We welcome suggestions and feedback!
 
-### 📝 How to Contribute
+### How to Contribute
 
 1. **Fork** the project to your GitHub
 2. **Clone** locally: `git clone https://github.com/your-username/Healixir.git`
@@ -393,12 +401,12 @@ We welcome suggestions and feedback!
 5. **Push**: `git push origin feature/your-feature`
 6. **Open** a Pull Request
 
-### 📧 Or Contact Us Directly
+### Or Contact Us Directly
 For suggestions, please email: charleskao811@gmail.com
 
 ---
 
-## 📞 Contact Information
+## Contact Information
 
 <div align="center">
 
@@ -410,7 +418,7 @@ For suggestions, please email: charleskao811@gmail.com
 
 ---
 
-## 💝 Acknowledgments
+## Acknowledgments
 
 <div align="center">
   
