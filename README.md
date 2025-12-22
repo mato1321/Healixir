@@ -19,7 +19,7 @@
   <br/>
   
   [中文檔案](README_CN.md)
-  
+  [YouTube Video](https://youtu.be/oG7XTWUXU-k)
 </div>
 
 ---
