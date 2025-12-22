@@ -16,8 +16,10 @@
   [![FastAPI](https://img.shields.io/badge/FastAPI-≥0.68.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
   [![React](https://img.shields.io/badge/React-18.3.1-61DAFB.svg?logo=react)](https://reactjs.org/)
   
+  
+  [YouTube Video](https://youtu.be/oG7XTWUXU-k)
 </div>
-[YouTube Video](https://youtu.be/oG7XTWUXU-k)
+
 ---
 
 ## 📖 介紹
